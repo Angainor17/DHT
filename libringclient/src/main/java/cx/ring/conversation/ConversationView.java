@@ -25,9 +25,9 @@ import java.util.List;
 import cx.ring.model.Account;
 import cx.ring.model.CallContact;
 import cx.ring.model.Conversation;
+import cx.ring.model.DataTransfer;
 import cx.ring.model.Error;
 import cx.ring.model.Interaction;
-import cx.ring.model.DataTransfer;
 import cx.ring.model.Uri;
 import cx.ring.mvp.BaseView;
 
@@ -53,10 +53,6 @@ public interface ConversationView extends BaseView {
 
     void goToAddContact(CallContact callContact);
 
-    void goToCallActivity(String conferenceId);
-
-    void goToCallActivityWithResult(String accountId, String contactRingId, boolean audioOnly);
-
     void goToContactActivity(String accountId, String contactRingId);
 
     void switchToUnknownView(String name);
@@ -74,19 +70,18 @@ public interface ConversationView extends BaseView {
     void openFile(File path);
 
     void addElement(Interaction e);
+
     void updateElement(Interaction e);
+
     void removeElement(Interaction e);
+
     void setComposingStatus(Account.ComposingStatus composingStatus);
+
     void setLastDisplayed(Interaction interaction);
 
     void setConversationColor(int integer);
 
     void startSaveFile(DataTransfer currentFile, String fileAbsolutePath);
-
-    void startShareLocation(String accountId, String contactId);
-
-    void showMap(String accountId, String contactId, boolean open);
-    void hideMap();
 
     void hideErrorPanel();
 

@@ -18,23 +18,21 @@
  */
 package cx.ring.contactrequests;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
-import java.util.Objects;
 
 import cx.ring.R;
 import cx.ring.adapters.SmartListAdapter;
@@ -45,13 +43,12 @@ import cx.ring.databinding.FragPendingContactRequestsBinding;
 import cx.ring.mvp.BaseSupportFragment;
 import cx.ring.smartlist.SmartListViewModel;
 import cx.ring.utils.ConversationPath;
-import cx.ring.utils.DeviceUtils;
 import cx.ring.viewholders.SmartListViewHolder;
 
 public class ContactRequestsFragment extends BaseSupportFragment<ContactRequestsPresenter> implements ContactRequestsView,
         SmartListViewHolder.SmartListListeners {
 
-    private  static final String TAG = ContactRequestsFragment.class.getSimpleName();
+    private static final String TAG = ContactRequestsFragment.class.getSimpleName();
     public static final String ACCOUNT_ID = TAG + "accountID";
 
     private static final int SCROLL_DIRECTION_UP = -1;
@@ -147,14 +144,7 @@ public class ContactRequestsFragment extends BaseSupportFragment<ContactRequests
     @Override
     public void goToConversation(String accountId, String contactId) {
         Context context = requireContext();
-        if (DeviceUtils.isTablet(context)) {
-            Activity activity = getActivity();
-            if (activity instanceof HomeActivity) {
-                ((HomeActivity) activity).startConversationTablet(ConversationPath.toBundle(accountId, contactId));
-            }
-        } else {
-            startActivity(new Intent(Intent.ACTION_VIEW, ConversationPath.toUri(accountId, contactId), context, ConversationActivity.class));
-        }
+        startActivity(new Intent(Intent.ACTION_VIEW, ConversationPath.toUri(accountId, contactId), context, ConversationActivity.class));
     }
 
     @Override

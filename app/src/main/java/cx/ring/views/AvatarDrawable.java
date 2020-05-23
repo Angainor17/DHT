@@ -32,20 +32,19 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
+import android.text.TextUtils;
+import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
 import cx.ring.R;
 import cx.ring.model.Account;
 import cx.ring.model.CallContact;
 import cx.ring.services.VCardServiceImpl;
-import cx.ring.utils.DeviceUtils;
 import cx.ring.utils.HashUtils;
 import io.reactivex.Single;
-
-import android.graphics.drawable.VectorDrawable;
-import android.text.TextUtils;
-import android.util.TypedValue;
 
 public class AvatarDrawable extends Drawable {
     private static final int SIZE_AB = 36;
@@ -64,7 +63,11 @@ public class AvatarDrawable extends Drawable {
             R.color.brown_500, R.color.blue_grey_500
     };
 
-    private static class PresenceIndicatorInfo { int cx, cy, radius; };
+    private static class PresenceIndicatorInfo {
+        int cx, cy, radius;
+    }
+
+    ;
     private final PresenceIndicatorInfo presence = new PresenceIndicatorInfo();
 
     private boolean update = true;
@@ -85,6 +88,7 @@ public class AvatarDrawable extends Drawable {
     private static final Paint drawPaint = new Paint();
     private Paint presenceFillPaint = new Paint();
     private Paint presenceStrokePaint = new Paint();
+
     static {
         drawPaint.setAntiAlias(true);
         drawPaint.setFilterBitmap(true);
@@ -103,28 +107,34 @@ public class AvatarDrawable extends Drawable {
         private boolean isOnline = false;
         private boolean showPresence = true;
 
-        public Builder() {}
+        public Builder() {
+        }
 
         public Builder withId(String id) {
             this.id = id;
             return this;
         }
+
         public Builder withPhoto(Bitmap photo) {
             this.photo = photo;
             return this;
         }
+
         public Builder withName(String name) {
             this.name = name;
             return this;
         }
+
         public Builder withCircleCrop(boolean crop) {
             this.circleCrop = crop;
             return this;
         }
+
         public Builder withOnlineState(boolean isOnline) {
             this.isOnline = isOnline;
             return this;
         }
+
         public Builder withPresence(boolean showPresence) {
             this.showPresence = showPresence;
             return this;
@@ -134,8 +144,9 @@ public class AvatarDrawable extends Drawable {
             withName(TextUtils.isEmpty(profileName) ? username : profileName);
             return this;
         }
-        public Builder withContact(CallContact contact){
-            withPhoto((Bitmap)contact.getPhoto());
+
+        public Builder withContact(CallContact contact) {
+            withPhoto((Bitmap) contact.getPhoto());
             withId(contact.getPrimaryNumber());
             withOnlineState(contact.isOnline());
             withNameData(contact.getProfileName(), contact.getUsername());
@@ -154,12 +165,13 @@ public class AvatarDrawable extends Drawable {
     public static Single<AvatarDrawable> load(Context context, Account account, boolean crop) {
         return VCardServiceImpl.loadProfile(account)
                 .map(data -> new Builder()
-                        .withPhoto((Bitmap)data.second)
+                        .withPhoto((Bitmap) data.second)
                         .withNameData(data.first, account.getRegisteredName())
                         .withId(account.getUri())
                         .withCircleCrop(crop)
                         .build(context));
     }
+
     public static Single<AvatarDrawable> load(Context context, Account account) {
         return load(context, account, true);
     }
@@ -169,18 +181,21 @@ public class AvatarDrawable extends Drawable {
         String username = contact.getUsername();
         avatarText = convertNameToAvatarText(
                 TextUtils.isEmpty(profileName) ? username : profileName);
-        bitmap = (Bitmap)contact.getPhoto();
+        bitmap = (Bitmap) contact.getPhoto();
         isOnline = contact.isOnline();
         update = true;
     }
+
     public void setName(String name) {
         avatarText = convertNameToAvatarText(name);
         update = true;
     }
+
     public void setPhoto(Bitmap photo) {
         bitmap = photo;
         update = true;
     }
+
     public void setOnline(boolean isOnline) {
         this.isOnline = isOnline;
     }
@@ -209,12 +224,8 @@ public class AvatarDrawable extends Drawable {
         presenceFillPaint.setStyle(Paint.Style.FILL);
         presenceFillPaint.setAntiAlias(true);
 
-        int backgroundColor;
-        if (DeviceUtils.isTv(context)) {
-            backgroundColor = ContextCompat.getColor(context, R.color.grey_900);
-        } else {
-            backgroundColor = ContextCompat.getColor(context, R.color.background);
-        }
+        int backgroundColor = ContextCompat.getColor(context, R.color.background);
+
         presenceStrokePaint.setColor(backgroundColor);
         presenceStrokePaint.setStyle(Paint.Style.STROKE);
         presenceStrokePaint.setAntiAlias(true);
@@ -298,8 +309,8 @@ public class AvatarDrawable extends Drawable {
             setupPresenceIndicator(bounds);
         int d = Math.min(bounds.width(), bounds.height());
         if (placeholder != null) {
-            int cx = (bounds.width()-d)/2;
-            int cy = (bounds.height()-d)/2;
+            int cx = (bounds.width() - d) / 2;
+            int cy = (bounds.height() - d) / 2;
             placeholder.setBounds(cx, cy, cx + d, cy + d);
         }
         if (bitmap != null) {
@@ -311,13 +322,13 @@ public class AvatarDrawable extends Drawable {
             int h;
             if (a < b) {
                 w = iw;
-                h  = (iw * bitmap.getHeight())/bitmap.getWidth();
+                h = (iw * bitmap.getHeight()) / bitmap.getWidth();
             } else {
-                w  = (ih * bitmap.getWidth())/bitmap.getHeight();
+                w = (ih * bitmap.getWidth()) / bitmap.getHeight();
                 h = ih;
             }
-            int cx = (iw - w)/2;
-            int cy = (ih - h)/2;
+            int cx = (iw - w) / 2;
+            int cy = (ih - h) / 2;
             backgroundBounds.set(cx, cy, cx + w, h + cy);
         } else {
             setAvatarTextValues(bounds);
@@ -326,7 +337,7 @@ public class AvatarDrawable extends Drawable {
             if (d > 0) {
                 workspace = Bitmap.createBitmap(d, d, Bitmap.Config.ARGB_8888);
                 clipPaint.setShader(new BitmapShader(workspace, BitmapShader.TileMode.CLAMP,
-                                    BitmapShader.TileMode.CLAMP));
+                        BitmapShader.TileMode.CLAMP));
             } else {
                 clipPaint.setShader(null);
                 if (workspace != null) {
@@ -336,7 +347,7 @@ public class AvatarDrawable extends Drawable {
             }
         } else {
             workspace = Bitmap.createBitmap(bounds.width(), bounds.height(),
-                                            Bitmap.Config.ARGB_8888);
+                    Bitmap.Config.ARGB_8888);
         }
         update = true;
     }

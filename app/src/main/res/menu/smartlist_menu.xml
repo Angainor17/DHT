@@ -41,15 +41,9 @@
         app:iconTint="?attr/colorControlNormal">
 
         <menu>
-
             <item android:id="@+id/menu_settings"
                 app:showAsAction="ifRoom"
                 android:title="@string/menu_item_settings" />
-
-            <item android:id="@+id/menu_about"
-                app:showAsAction="ifRoom"
-                android:title="@string/menu_item_about" />
-
         </menu>
 
     </item>

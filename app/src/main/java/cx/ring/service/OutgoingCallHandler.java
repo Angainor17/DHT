@@ -26,13 +26,11 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import cx.ring.R;
-import cx.ring.client.CallActivity;
 import cx.ring.model.Uri;
 
 public class OutgoingCallHandler extends BroadcastReceiver {
     public static final String KEY_CACHE_HAVE_RINGACCOUNT = "cache_haveRingAccount";
     public static final String KEY_CACHE_HAVE_SIPACCOUNT = "cache_haveSipAccount";
-    private static final String TAG = OutgoingCallHandler.class.getSimpleName();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -52,13 +50,6 @@ public class OutgoingCallHandler extends BroadcastReceiver {
             Uri uri = new Uri(phoneNumber);
             boolean isRingId = uri.isRingId();
             if ((!isRingId && systemDialerSip) || (isRingId && systemDialerRing) || uri.isSingleIp()) {
-                Intent i = new Intent(CallActivity.ACTION_CALL)
-                        .setClass(context, CallActivity.class)
-                        .setData(android.net.Uri.parse(phoneNumber))
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                context.startActivity(i);
-
                 setResultData(null);
             }
         }

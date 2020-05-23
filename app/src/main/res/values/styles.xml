@@ -160,7 +160,7 @@
     </style>
 
     <style name="Theme.Jami.Leanback.Main" parent="Theme.Ring.LeanbackBrowse">
-        <item name="browseTitleViewLayout">@layout/titleview</item>
+<!--        <item name="browseTitleViewLayout">@layout/titleview</item>-->
     </style>
 
     <style name="Theme.Ring.Leanback" parent="Theme.Leanback">

@@ -30,7 +30,7 @@ public interface AccountEditionView {
 
     void showAdvancedOption(boolean show);
 
-    void showBlacklistOption(boolean show);
+//    void showBlacklistOption(boolean show);
 
     void goToBlackList(String accountId);
 

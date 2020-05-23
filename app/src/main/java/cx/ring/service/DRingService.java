@@ -57,7 +57,6 @@ import javax.inject.Singleton;
 
 import cx.ring.BuildConfig;
 import cx.ring.application.JamiApplication;
-import cx.ring.client.CallActivity;
 import cx.ring.client.ConversationActivity;
 import cx.ring.facades.ConversationFacade;
 import cx.ring.model.Codec;
@@ -72,9 +71,7 @@ import cx.ring.services.HardwareService;
 import cx.ring.services.HistoryService;
 import cx.ring.services.NotificationService;
 import cx.ring.services.PreferencesService;
-import cx.ring.tv.call.TVCallActivity;
 import cx.ring.utils.ConversationPath;
-import cx.ring.utils.DeviceUtils;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class DRingService extends Service {
@@ -641,14 +638,6 @@ public class DRingService extends Service {
                     handleTrustRequestAction(action, extras);
                 }
                 break;
-            case ACTION_CALL_ACCEPT:
-            case ACTION_CALL_REFUSE:
-            case ACTION_CALL_END:
-            case ACTION_CALL_VIEW:
-                if (extras != null) {
-                    handleCallAction(action, extras);
-                }
-                break;
             case ACTION_CONV_READ:
             case ACTION_CONV_ACCEPT:
             case ACTION_CONV_DISMISS:
@@ -695,46 +684,7 @@ public class DRingService extends Service {
         }
     }
 
-    private void handleCallAction(String action, Bundle extras) {
-        String callId = extras.getString(NotificationService.KEY_CALL_ID);
 
-        if (callId == null || callId.isEmpty()) {
-            return;
-        }
-
-        switch (action) {
-            case ACTION_CALL_ACCEPT:
-                mNotificationService.cancelCallNotification();
-                startActivity(new Intent(ACTION_CALL_ACCEPT)
-                        .putExtras(extras)
-                        .setClass(getApplicationContext(), CallActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                break;
-            case ACTION_CALL_REFUSE:
-                mCallService.refuse(callId);
-                mHardwareService.closeAudioState();
-                break;
-            case ACTION_CALL_END:
-                mCallService.hangUp(callId);
-                mHardwareService.closeAudioState();
-                break;
-            case ACTION_CALL_VIEW:
-                mNotificationService.cancelCallNotification();
-                if (DeviceUtils.isTv(this)) {
-                    startActivity(new Intent(Intent.ACTION_VIEW)
-                            .putExtras(extras)
-                            .setClass(getApplicationContext(), TVCallActivity.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-
-                } else {
-                    startActivity(new Intent(Intent.ACTION_VIEW)
-                            .putExtras(extras)
-                            .setClass(getApplicationContext(), CallActivity.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                }
-                break;
-        }
-    }
 
     private void handleConvAction(Intent intent, String action, Bundle extras) {
         ConversationPath path = ConversationPath.fromIntent(intent);

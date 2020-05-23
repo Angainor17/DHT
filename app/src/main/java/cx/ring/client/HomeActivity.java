@@ -23,36 +23,29 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.util.Pair;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import cx.ring.BuildConfig;
 import cx.ring.R;
-import cx.ring.about.AboutFragment;
 import cx.ring.account.AccountEditionFragment;
 import cx.ring.account.AccountWizardActivity;
 import cx.ring.application.JamiApplication;
@@ -65,14 +58,12 @@ import cx.ring.interfaces.BackHandlerInterface;
 import cx.ring.interfaces.Colorable;
 import cx.ring.model.Account;
 import cx.ring.model.AccountConfig;
-import cx.ring.service.DRingService;
 import cx.ring.services.AccountService;
 import cx.ring.services.NotificationService;
 import cx.ring.settings.SettingsFragment;
 import cx.ring.settings.VideoSettingsFragment;
 import cx.ring.utils.ContentUriHandler;
 import cx.ring.utils.ConversationPath;
-import cx.ring.utils.DeviceUtils;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -81,8 +72,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         Spinner.OnItemSelectedListener, Colorable {
     static final String TAG = HomeActivity.class.getSimpleName();
 
-    public static final int REQUEST_CODE_CALL = 3;
-    public static final int REQUEST_CODE_CONVERSATION = 4;
     public static final int REQUEST_CODE_PHOTO = 5;
     public static final int REQUEST_CODE_GALLERY = 6;
     public static final int REQUEST_CODE_QR_CONVERSATION = 7;
@@ -91,7 +80,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
     private static final int NAVIGATION_CONTACT_REQUESTS = 0;
     private static final int NAVIGATION_CONVERSATIONS = 1;
-    private static final int NAVIGATION_ACCOUNT = 2;
 
     public static final String HOME_TAG = "Home";
     public static final String CONTACT_REQUESTS_TAG = "Trust request";
@@ -169,11 +157,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         binding.navigationView.getMenu().getItem(NAVIGATION_CONVERSATIONS).setChecked(true);
 
         mOutlineProvider = binding.appBar.getOutlineProvider();
-
-        if (!DeviceUtils.isTablet(this)) {
-            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.bottom_navigation));
-        }
-
         binding.spinnerToolbar.setOnItemSelectedListener(this);
 
         // if app opened from notification display trust request fragment when mService will connected
@@ -241,10 +224,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         } else if (Intent.ACTION_SEARCH.equals(action)) {
             if (fContent instanceof SmartListFragment) {
                 ((SmartListFragment)fContent).handleIntent(intent);
-            }
-        } else if (DRingService.ACTION_CONV_ACCEPT.equals(action))  {
-            if (DeviceUtils.isTablet(this)) {
-                startConversationTablet(ConversationPath.fromIntent(intent).toBundle());
             }
         }
     }
@@ -336,30 +315,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         if (mOrientation != newOrientation) {
             mOrientation = newOrientation;
             hideTabletToolbar();
-            if (DeviceUtils.isTablet(this)) {
-                selectNavigationItem(R.id.navigation_home);
-                showTabletToolbar();
-                conversationSelected = true;
-            }
         }
-    }
-
-    public void startConversationTablet(Bundle bundle) {
-        fConversation = new ConversationFragment();
-        fConversation.setArguments(bundle);
-
-        if (!(fContent instanceof ContactRequestsFragment)) {
-            selectNavigationItem(R.id.navigation_home);
-        }
-
-        showTabletToolbar();
-
-        conversationSelected = true;
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.conversation_container, fConversation, ConversationFragment.class.getSimpleName())
-                .commit();
     }
 
     private void presentTrustRequestFragment(String accountID) {
@@ -422,20 +378,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(getFragmentContainerId(), fContent, SETTINGS_TAG)
                 .addToBackStack(SETTINGS_TAG).commit();
-    }
-
-    public void goToAbout() {
-        if (fContent instanceof AboutFragment) {
-            return;
-        }
-        popCustomBackStack();
-        hideToolbarSpinner();
-        fContent = new AboutFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(getFragmentContainerId(), fContent, ABOUT_TAG)
-                .addToBackStack(ABOUT_TAG).commit();
     }
 
     public void goToVideoSettings() {
@@ -580,18 +522,12 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    private void showTabletToolbar() {
-        if (binding != null && DeviceUtils.isTablet(this)) {
-            binding.tabletToolbar.setVisibility(View.VISIBLE);
-        }
-    }
-
     private void showToolbarSpinner() {
         binding.spinnerToolbar.setVisibility(View.VISIBLE);
     }
 
     private void hideToolbarSpinner() {
-        if (binding != null && !DeviceUtils.isTablet(this)) {
+        if (binding != null) {
             binding.spinnerToolbar.setVisibility(View.GONE);
         }
     }
@@ -601,10 +537,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private int getFragmentContainerId() {
-        if (DeviceUtils.isTablet(HomeActivity.this)) {
-            return R.id.conversation_container;
-        }
-
         return R.id.main_frame;
     }
 

@@ -51,11 +51,7 @@ import cx.ring.databinding.FragSettingsBinding;
 import cx.ring.model.Settings;
 import cx.ring.mvp.BaseSupportFragment;
 import cx.ring.mvp.GenericView;
-import cx.ring.utils.DeviceUtils;
 
-/**
- * TODO: improvements : handle multiples permissions for feature.
- */
 public class SettingsFragment extends BaseSupportFragment<SettingsPresenter> implements GenericView<Settings>, ViewTreeObserver.OnScrollChangedListener {
 
     private static final int SCROLL_DIRECTION_UP = -1;
@@ -88,23 +84,7 @@ public class SettingsFragment extends BaseSupportFragment<SettingsPresenter> imp
         }
         // loading preferences
         presenter.loadSettings();
-        if (DeviceUtils.isTablet(getContext())) {
-            Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
-            TextView title = toolbar.findViewById(R.id.contact_title);
-            ImageView logo = toolbar.findViewById(R.id.contact_image);
-
-            logo.setVisibility(View.GONE);
-            title.setText(R.string.menu_item_settings);
-            title.setTextSize(19);
-            title.setTypeface(null, Typeface.BOLD);
-
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) title.getLayoutParams();
-            params.removeRule(RelativeLayout.ALIGN_TOP);
-            params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-            title.setLayoutParams(params);
-        } else {
             ((HomeActivity) getActivity()).setToolbarState(R.string.menu_item_settings);
-        }
 
         binding.scrollview.getViewTreeObserver().addOnScrollChangedListener(this);
         binding.settingsDarkTheme.setOnCheckedChangeListener((buttonView, isChecked) -> presenter.setDarkMode(isChecked));

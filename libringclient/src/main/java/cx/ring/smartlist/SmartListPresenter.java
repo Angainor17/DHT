@@ -169,28 +169,6 @@ public class SmartListPresenter extends RootPresenter<SmartListView> {
         getView().displayConversationDialog(smartListViewModel);
     }
 
-    public void quickCallClicked() {
-        if (mCallContact != null) {
-            if (mCallContact.getPhones().size() > 1) {
-                CharSequence numbers[] = new CharSequence[mCallContact.getPhones().size()];
-                int i = 0;
-                for (Phone p : mCallContact.getPhones()) {
-                    numbers[i++] = p.getNumber().getRawUriString();
-                }
-
-                getView().displayChooseNumberDialog(numbers);
-            } else {
-                if (!mHardwareService.isVideoAvailable() && !mHardwareService.hasMicrophone()) {
-                    getView().displayErrorToast(Error.NO_INPUT);
-                    return;
-                }
-
-                getView().goToCallActivity(mAccount.getAccountID(),
-                        mCallContact.getPrimaryUri().getRawUriString());
-            }
-        }
-    }
-
     public String getAccountID() {
         return mAccount.getAccountID();
     }

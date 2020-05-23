@@ -32,8 +32,8 @@ import cx.ring.model.CallContact;
 import cx.ring.model.Conference;
 import cx.ring.model.Conversation;
 import cx.ring.model.DataTransfer;
-import cx.ring.model.Interaction;
 import cx.ring.model.Error;
+import cx.ring.model.Interaction;
 import cx.ring.model.SipCall;
 import cx.ring.model.TrustRequest;
 import cx.ring.model.Uri;
@@ -211,7 +211,7 @@ public class ConversationPresenter extends RootPresenter<ConversationView> {
         mConversationDisposable.add(c.getUpdatedElements()
                 .observeOn(mUiScheduler)
                 .subscribe(elementTuple -> {
-                    switch(elementTuple.second) {
+                    switch (elementTuple.second) {
                         case ADD:
                             view.addElement(elementTuple.first);
                             break;
@@ -242,7 +242,7 @@ public class ConversationPresenter extends RootPresenter<ConversationView> {
                 .observeOn(mUiScheduler)
                 .subscribe(u -> {
                     Log.e(TAG, "getLocationUpdates: update");
-                    getView().showMap(c.getAccountId(), c.getContact().getPrimaryUri().getUri(), false);
+//                    getView().showMap(c.getAccountId(), c.getContact().getPrimaryUri().getUri(), false);
                 }));
     }
 
@@ -323,35 +323,9 @@ public class ConversationPresenter extends RootPresenter<ConversationView> {
 
     public void clickOnGoingPane() {
         Conference conf = mConversation.getCurrentCall();
-        if (conf != null) {
-            getView().goToCallActivity(conf.getId());
-        } else {
+        if (conf == null) {
             getView().displayOnGoingCallPane(false);
         }
-    }
-
-    public void goToCall(boolean audioOnly) {
-        if (audioOnly && !mHardwareService.hasMicrophone()) {
-            getView().displayErrorToast(Error.NO_MICROPHONE);
-            return;
-        }
-
-        mCompositeDisposable.add(mConversationSubject
-                .firstElement()
-                .subscribe(conversation -> {
-                    ConversationView view = getView();
-                    if (view != null) {
-                        Conference conf = mConversation.getCurrentCall();
-                        if (conf != null
-                                && !conf.getParticipants().isEmpty()
-                                && conf.getParticipants().get(0).getCallStatus() != SipCall.CallStatus.INACTIVE
-                                && conf.getParticipants().get(0).getCallStatus() != SipCall.CallStatus.FAILURE) {
-                            view.goToCallActivity(conf.getId());
-                        } else {
-                            view.goToCallActivityWithResult(mAccountId, mContactUri.getRawUriString(), audioOnly);
-                        }
-                    }
-                }));
     }
 
     private void updateOngoingCallView(Conversation conversation) {
@@ -407,10 +381,6 @@ public class ConversationPresenter extends RootPresenter<ConversationView> {
         if (isGranted && mHardwareService.isVideoAvailable()) {
             mHardwareService.initVideo().subscribe();
         }
-    }
-
-    public void shareLocation() {
-        getView().startShareLocation(mAccountId, mContactUri.getUri());
     }
 
     public Tuple<String, String> getPath() {

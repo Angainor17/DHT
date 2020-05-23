@@ -29,8 +29,6 @@ public interface SmartListView extends BaseView {
 
     void displayContact(CallContact contact);
 
-    void displayChooseNumberDialog(CharSequence numbers[]);
-
     void displayNoConversationMessage();
 
     void displayConversationDialog(SmartListViewModel smartListViewModel);
@@ -56,8 +54,6 @@ public interface SmartListView extends BaseView {
     void update(int position);
 
     void goToConversation(String accountId, Uri contactId);
-
-    void goToCallActivity(String accountId, String contactId);
 
     void goToQRActivity();
 

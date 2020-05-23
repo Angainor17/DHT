@@ -84,7 +84,7 @@ public class AccountEditionPresenter extends RootPresenter<AccountEditionView> {
         AccountEditionView view = getView();
         if (view != null) {
             view.showAdvancedOption(isJami);
-            view.showBlacklistOption(isJami);
+//            view.showBlacklistOption(isJami);
         }
     }
 }

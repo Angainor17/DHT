@@ -53,7 +53,6 @@ import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.Random;
@@ -73,17 +72,15 @@ import cx.ring.model.Account;
 import cx.ring.model.CallContact;
 import cx.ring.model.Conference;
 import cx.ring.model.Conversation;
+import cx.ring.model.DataTransfer;
 import cx.ring.model.Interaction;
 import cx.ring.model.Interaction.InteractionStatus;
-import cx.ring.model.DataTransfer;
 import cx.ring.model.SipCall;
 import cx.ring.model.TextMessage;
 import cx.ring.model.Uri;
 import cx.ring.service.CallNotificationService;
 import cx.ring.service.DRingService;
-import cx.ring.tv.call.TVCallActivity;
 import cx.ring.utils.ConversationPath;
-import cx.ring.utils.DeviceUtils;
 import cx.ring.utils.ResourceMapper;
 import cx.ring.utils.Tuple;
 
@@ -225,18 +222,6 @@ public class NotificationServiceImpl implements NotificationService {
         notificationManager.createNotificationChannel(backgroundChannel);
     }
 
-    /**
-     * Starts the call activity directly for Android TV
-     *
-     * @param callId the call ID
-     */
-    private void startCallActivity(String callId) {
-        mContext.startActivity(new Intent(Intent.ACTION_VIEW)
-                .putExtra(KEY_CALL_ID, callId)
-                .setClass(mContext.getApplicationContext(), TVCallActivity.class)
-                .setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-    }
-
     @Override
     public Object showCallNotification(int callId) {
         Conference mConference = currentCalls.get(callId);
@@ -343,12 +328,12 @@ public class NotificationServiceImpl implements NotificationService {
                 .setContentIntent(PendingIntent.getActivity(mContext, random.nextInt(), intentConversation, 0))
                 .setAutoCancel(false)
                 .setColor(ResourcesCompat.getColor(mContext.getResources(), R.color.color_primary_dark, null));
-        notificationManager.notify(Objects.hash( "Location", path), messageNotificationBuilder.build());
+        notificationManager.notify(Objects.hash("Location", path), messageNotificationBuilder.build());
     }
 
     @Override
     public void cancelLocationNotification(Account first, CallContact contact) {
-        notificationManager.cancel(Objects.hash( "Location", ConversationPath.toUri(first.getAccountID(), contact.getPrimaryUri())));
+        notificationManager.cancel(Objects.hash("Location", ConversationPath.toUri(first.getAccountID(), contact.getPrimaryUri())));
     }
 
     /**
@@ -359,14 +344,14 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Override
     public void updateNotification(Object notification, int notificationId) {
-        if(notification != null)
+        if (notification != null)
             notificationManager.notify(notificationId, (Notification) notification);
     }
 
     /**
      * Starts a service (data transfer or call)
      *
-     * @param id            the notification id
+     * @param id the notification id
      */
     private void startForegroundService(int id, Class serviceClass) {
         ContextCompat.startForegroundService(mContext, new Intent(mContext, serviceClass)
@@ -381,12 +366,6 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Override
     public void handleCallNotification(Conference conference, boolean remove) {
-        if (DeviceUtils.isTv(mContext)) {
-            if (!remove)
-                startCallActivity(conference.getId());
-            return;
-        }
-
         int id = conference.getId().hashCode();
         currentCalls.remove(id);
         if (!remove) {
@@ -431,9 +410,6 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void handleDataTransferNotification(DataTransfer transfer, CallContact contact, boolean remove) {
         Log.d(TAG, "handleDataTransferNotification, a data transfer event is in progress");
-        if (DeviceUtils.isTv(mContext)) {
-            return;
-        }
         if (!remove) {
             showFileTransferNotification(transfer, contact);
         } else {
@@ -878,15 +854,17 @@ public class NotificationServiceImpl implements NotificationService {
         mNotificationBuilders.remove(NOTIF_CALL_ID);
     }
 
-    /**\
+    /**
+     * \
      * Cancels a notification
-     * @param notificationId the notification ID
+     *
+     * @param notificationId       the notification ID
      * @param isMigratingToService true if the notification is being updated to be a part of the foreground service
      */
     @Override
     public void cancelFileNotification(int notificationId, boolean isMigratingToService) {
         notificationManager.cancel(notificationId);
-        if(!isMigratingToService)
+        if (!isMigratingToService)
             mNotificationBuilders.remove(notificationId);
     }
 

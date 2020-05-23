@@ -57,7 +57,6 @@ import cx.ring.application.JamiApplication;
 import cx.ring.databinding.ActivityContactDetailsBinding;
 import cx.ring.databinding.ItemContactActionBinding;
 import cx.ring.facades.ConversationFacade;
-import cx.ring.fragments.CallFragment;
 import cx.ring.fragments.ConversationFragment;
 import cx.ring.model.CallContact;
 import cx.ring.model.Conference;
@@ -215,24 +214,6 @@ public class ContactDetailsActivity extends AppCompatActivity {
                             mConversation = conversation;
                             mContact = contact;
                         }));
-
-                colorAction = new ContactAction(R.drawable.item_color_background, 0, "Choose color", () -> {
-                    ColorChooserBottomSheet frag = new ColorChooserBottomSheet();
-                    frag.setCallback(color -> {
-                        collapsingToolbarLayout.setBackgroundColor(color);
-                        collapsingToolbarLayout.setContentScrimColor(color);
-                        collapsingToolbarLayout.setStatusBarScrimColor(color);
-                        colorAction.setIconTint(color);
-                        adapter.notifyItemChanged(colorActionPosition);
-                        mPreferences.edit().putInt(ConversationFragment.KEY_PREFERENCE_CONVERSATION_COLOR, color).apply();
-                    });
-                    frag.show(getSupportFragmentManager(), "colorChooser");
-                });
-                adapter.actions.add(colorAction);
-                adapter.actions.add(new ContactAction(R.drawable.baseline_call_24, getText(R.string.ab_action_audio_call), () ->
-                        goToCallActivity(mConversation.getAccountId(), mContact.getPrimaryNumber(), true)));
-                adapter.actions.add(new ContactAction(R.drawable.baseline_videocam_24, getText(R.string.ab_action_video_call), () ->
-                        goToCallActivity(mConversation.getAccountId(), mContact.getPrimaryNumber(), false)));
                 adapter.actions.add(new ContactAction(R.drawable.baseline_clear_all_24, getText(R.string.conversation_action_history_clear), () ->
                         new MaterialAlertDialogBuilder(ContactDetailsActivity.this)
                                 .setTitle(R.string.clear_history_dialog_title)
@@ -240,18 +221,6 @@ public class ContactDetailsActivity extends AppCompatActivity {
                                 .setPositiveButton(R.string.conversation_action_history_clear, (b, i) -> {
                                     mConversationFacade.clearHistory(mConversation.getAccountId(), mContact.getPrimaryUri()).subscribe();
                                     Snackbar.make(binding.getRoot(), R.string.clear_history_completed, Snackbar.LENGTH_LONG).show();
-                                })
-                                .setNegativeButton(android.R.string.cancel, null)
-                                .create()
-                                .show()));
-                adapter.actions.add(new ContactAction(R.drawable.baseline_block_24, getText(R.string.conversation_action_block_this), () ->
-                        new MaterialAlertDialogBuilder(ContactDetailsActivity.this)
-                                .setTitle(getString(R.string.block_contact_dialog_title, contactAction.title))
-                                .setMessage(getString(R.string.block_contact_dialog_message, contactAction.title))
-                                .setPositiveButton(R.string.conversation_action_block_this, (b, i) -> {
-                                    mAccountService.removeContact(mConversation.getAccountId(), mContact.getPrimaryUri().getRawRingId(), true);
-                                    Toast.makeText(getApplicationContext(), getString(R.string.block_contact_completed, contactAction.title), Toast.LENGTH_LONG).show();
-                                    finish();
                                 })
                                 .setNegativeButton(android.R.string.cancel, null)
                                 .create()
@@ -280,26 +249,6 @@ public class ContactDetailsActivity extends AppCompatActivity {
         colorAction = null;
         mPreferences = null;
         binding = null;
-    }
-
-    private void goToCallActivity(String accountId, String contactRingId, boolean audioOnly) {
-        Conference conf = mConversation.getCurrentCall();
-
-        if (conf != null
-                && !conf.getParticipants().isEmpty()
-                && conf.getParticipants().get(0).getCallStatus() != SipCall.CallStatus.INACTIVE
-                && conf.getParticipants().get(0).getCallStatus() != SipCall.CallStatus.FAILURE) {
-            startActivity(new Intent(Intent.ACTION_VIEW)
-                    .setClass(getApplicationContext(), CallActivity.class)
-                    .putExtra(NotificationService.KEY_CALL_ID, conf.getId()));
-        } else {
-            Intent intent = new Intent(Intent.ACTION_CALL)
-                    .setClass(getApplicationContext(), CallActivity.class)
-                    .putExtra(ConversationFragment.KEY_ACCOUNT_ID, accountId)
-                    .putExtra(ConversationFragment.KEY_CONTACT_RING_ID, contactRingId)
-                    .putExtra(CallFragment.KEY_AUDIO_ONLY, audioOnly);
-            startActivityForResult(intent, HomeActivity.REQUEST_CODE_CALL);
-        }
     }
 
     private void goToConversationActivity(String accountId, String contactRingId) {

@@ -87,8 +87,6 @@ public abstract class JamiApplication extends Application {
     AccountService mAccountService;
     @Inject
     CallService mCallService;
-    //@Inject
-    //ConferenceService mConferenceService;
     @Inject
     HardwareService mHardwareService;
     @Inject

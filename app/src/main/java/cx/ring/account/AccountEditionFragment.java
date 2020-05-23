@@ -27,20 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.app.AlertDialog;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,6 +40,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import cx.ring.R;
 import cx.ring.application.JamiApplication;
 import cx.ring.client.HomeActivity;
@@ -61,16 +60,14 @@ import cx.ring.contactrequests.BlackListFragment;
 import cx.ring.databinding.FragAccountSettingsBinding;
 import cx.ring.fragments.AdvancedAccountFragment;
 import cx.ring.fragments.GeneralAccountFragment;
-import cx.ring.fragments.MediaPreferenceFragment;
 import cx.ring.fragments.SecurityAccountFragment;
 import cx.ring.interfaces.BackHandlerInterface;
 import cx.ring.mvp.BaseSupportFragment;
-import cx.ring.utils.DeviceUtils;
 
 public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPresenter> implements
         BackHandlerInterface,
         AccountEditionView,
-        ViewTreeObserver.OnScrollChangedListener  {
+        ViewTreeObserver.OnScrollChangedListener {
     private static final String TAG = AccountEditionFragment.class.getSimpleName();
 
     public static final String ACCOUNT_ID_KEY = AccountEditionFragment.class.getCanonicalName() + "accountid";
@@ -84,7 +81,7 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
     private boolean mIsVisible;
 
     private MenuItem mItemAdvanced;
-    private MenuItem mItemBlacklist;
+//    private MenuItem mItemBlacklist;
 
     private String mAccountId;
     private boolean mAccountIsJami;
@@ -110,23 +107,6 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
         super.onViewCreated(view, savedInstanceState);
 
         mAccountId = getArguments().getString(ACCOUNT_ID);
-
-        if (DeviceUtils.isTablet(getContext()) && getActivity() != null) {
-            Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
-            TextView title = toolbar.findViewById(R.id.contact_title);
-            ImageView logo = toolbar.findViewById(R.id.contact_image);
-
-            logo.setVisibility(View.GONE);
-            title.setText(R.string.navigation_item_account);
-            title.setTextSize(19);
-            title.setTypeface(null, Typeface.BOLD);
-
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) title.getLayoutParams();
-            params.removeRule(RelativeLayout.ALIGN_TOP);
-            params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-            title.setLayoutParams(params);
-        }
-
         binding.fragmentContainer.getViewTreeObserver().addOnScrollChangedListener(this);
 
         presenter.init(mAccountId);
@@ -169,12 +149,12 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
         }
     }
 
-    @Override
-    public void showBlacklistOption(boolean show) {
-        if (mItemBlacklist != null) {
-            mItemBlacklist.setVisible(show);
-        }
-    }
+//    @Override
+//    public void showBlacklistOption(boolean show) {
+//        if (mItemBlacklist != null) {
+//            mItemBlacklist.setVisible(show);
+//        }
+//    }
 
     @Override
     public void goToBlackList(String accountId) {
@@ -197,7 +177,7 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
         menu.clear();
         inflater.inflate(R.menu.account_edition, menu);
         mItemAdvanced = menu.findItem(R.id.menuitem_advanced);
-        mItemBlacklist = menu.findItem(R.id.menuitem_blacklist);
+//        mItemBlacklist = menu.findItem(R.id.menuitem_blacklist);
     }
 
     @Override
@@ -236,9 +216,9 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
     private void toggleView(String accountId, boolean isJami) {
         mAccountId = accountId;
         mAccountIsJami = isJami;
-        binding.slidingTabs.setVisibility(isJami? View.GONE : View.VISIBLE);
-        binding.pager.setVisibility(isJami? View.GONE : View.VISIBLE);
-        binding.fragmentContainer.setVisibility(isJami? View.VISIBLE : View.GONE);
+        binding.slidingTabs.setVisibility(isJami ? View.GONE : View.VISIBLE);
+        binding.pager.setVisibility(isJami ? View.GONE : View.VISIBLE);
+        binding.fragmentContainer.setVisibility(isJami ? View.VISIBLE : View.GONE);
         presenter.prepareOptionsMenu(isJami);
         setBackListenerEnabled(isJami);
     }
@@ -264,10 +244,10 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
                 mIsVisible = true;
                 setupElevation();
                 break;
-            case R.id.menuitem_blacklist:
-                presenter.goToBlackList();
-                if (getActivity() instanceof HomeActivity)
-                    ((HomeActivity) getActivity()).setToolbarElevation(false);
+//            case R.id.menuitem_blacklist:
+//                presenter.goToBlackList();
+//                if (getActivity() instanceof HomeActivity)
+//                    ((HomeActivity) getActivity()).setToolbarElevation(false);
             default:
                 break;
         }
@@ -372,8 +352,6 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
             switch (position) {
                 case 0:
                     return fragmentWithBundle(new GeneralAccountFragment());
-                case 1:
-                    return fragmentWithBundle(new MediaPreferenceFragment());
                 case 2:
                     return fragmentWithBundle(new AdvancedAccountFragment());
                 default:
@@ -386,8 +364,6 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
             switch (position) {
                 case 0:
                     return GeneralAccountFragment.newInstance(accountId);
-                case 1:
-                    return MediaPreferenceFragment.newInstance(accountId);
                 case 2:
                     return fragmentWithBundle(new AdvancedAccountFragment());
                 case 3:
@@ -419,7 +395,7 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
             return;
         LinearLayout ll = (LinearLayout) binding.pager.getChildAt(binding.pager.getCurrentItem());
         if (ll == null) return;
-        RecyclerView rv = (RecyclerView)((FrameLayout) ll.getChildAt(0)).getChildAt(0);
+        RecyclerView rv = (RecyclerView) ((FrameLayout) ll.getChildAt(0)).getChildAt(0);
         if (rv == null) return;
         HomeActivity homeActivity = (HomeActivity) activity;
         if (rv.canScrollVertically(SCROLL_DIRECTION_UP)) {

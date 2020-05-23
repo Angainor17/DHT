@@ -22,12 +22,12 @@ package cx.ring.services;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceManager;
-
-import android.os.Build;
-import android.text.TextUtils;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,7 +39,6 @@ import javax.inject.Inject;
 import cx.ring.R;
 import cx.ring.application.JamiApplication;
 import cx.ring.model.Settings;
-import cx.ring.utils.DeviceUtils;
 import cx.ring.utils.NetworkUtils;
 
 public class SharedPreferencesServiceImpl extends PreferencesService {
@@ -58,8 +57,8 @@ public class SharedPreferencesServiceImpl extends PreferencesService {
     private static final String PREF_SYSTEM_CONTACTS = "system_contacts";
     private static final String PREF_PLACE_CALLS = "place_calls";
     private static final String PREF_ON_STARTUP = "on_startup";
-    public static final String PREF_DARK_MODE= "darkMode";
-    private  static final String PREF_ACCEPT_IN_MAX_SIZE = "acceptIncomingFilesMaxSize";
+    public static final String PREF_DARK_MODE = "darkMode";
+    private static final String PREF_ACCEPT_IN_MAX_SIZE = "acceptIncomingFilesMaxSize";
 
     private final Map<String, Set<String>> mNotifiedRequests = new HashMap<>();
 
@@ -141,9 +140,8 @@ public class SharedPreferencesServiceImpl extends PreferencesService {
     @Override
     public int getResolution() {
         return Integer.parseInt(getVideoPreferences().getString(PREF_RESOLUTION,
-                DeviceUtils.isTv(mContext)
-                        ? mContext.getString(R.string.video_resolution_default_tv)
-                        : mContext.getString(R.string.video_resolution_default)));
+                mContext.getString(R.string.video_resolution_default))
+        );
     }
 
     @Override
@@ -176,7 +174,7 @@ public class SharedPreferencesServiceImpl extends PreferencesService {
 
     @Override
     public int getMaxFileAutoAccept(String accountId) {
-        return mContext.getSharedPreferences(PREFS_ACCOUNT+accountId, Context.MODE_PRIVATE)
+        return mContext.getSharedPreferences(PREFS_ACCOUNT + accountId, Context.MODE_PRIVATE)
                 .getInt(PREF_ACCEPT_IN_MAX_SIZE, 30) * 1024 * 1024;
     }
 
@@ -184,8 +182,8 @@ public class SharedPreferencesServiceImpl extends PreferencesService {
         AppCompatDelegate.setDefaultNightMode(
                 enabled ? AppCompatDelegate.MODE_NIGHT_YES
                         : Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-                            ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                            : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+                        ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                        : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
     }
 
     private SharedPreferences getPreferences() {

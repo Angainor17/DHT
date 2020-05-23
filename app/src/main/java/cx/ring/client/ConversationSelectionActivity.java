@@ -38,7 +38,6 @@ import cx.ring.R;
 import cx.ring.adapters.SmartListAdapter;
 import cx.ring.application.JamiApplication;
 import cx.ring.facades.ConversationFacade;
-import cx.ring.fragments.CallFragment;
 import cx.ring.model.Account;
 import cx.ring.model.Conference;
 import cx.ring.model.SipCall;
@@ -98,33 +97,9 @@ public class ConversationSelectionActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        Conference conference = null;
-        Intent intent = getIntent();
-        if (intent != null) {
-            String confId = intent.getStringExtra(CallFragment.KEY_CONF_ID);
-            if (!TextUtils.isEmpty(confId)) {
-                conference = mCallService.getConference(confId);
-            }
-        }
-
-        final Conference conf = conference;
         mDisposable.add(mConversationFacade
                 .getCurrentAccountSubject()
                 .switchMap(Account::getConversationsViewModels)
-                .map(vm -> {
-                    if (conf == null)
-                        return vm;
-                    List<SmartListViewModel> filteredVms = new ArrayList<>(vm.size());
-                    models: for (SmartListViewModel v : vm) {
-                        for (SipCall call : conf.getParticipants()) {
-                            if (call.getContact() == v.getContact()) {
-                                continue models;
-                            }
-                        }
-                        filteredVms.add(v);
-                    }
-                    return filteredVms;
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(list -> {
                     if (adapter != null)

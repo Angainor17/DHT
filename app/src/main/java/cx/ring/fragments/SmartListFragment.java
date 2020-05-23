@@ -22,25 +22,9 @@ package cx.ring.fragments;
 
 import android.app.Activity;
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
@@ -53,8 +37,19 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -63,7 +58,6 @@ import javax.inject.Inject;
 import cx.ring.R;
 import cx.ring.adapters.SmartListAdapter;
 import cx.ring.application.JamiApplication;
-import cx.ring.client.CallActivity;
 import cx.ring.client.ConversationActivity;
 import cx.ring.client.HomeActivity;
 import cx.ring.client.QRCodeActivity;
@@ -79,18 +73,16 @@ import cx.ring.smartlist.SmartListViewModel;
 import cx.ring.utils.ActionHelper;
 import cx.ring.utils.ClipboardHelper;
 import cx.ring.utils.ConversationPath;
-import cx.ring.utils.DeviceUtils;
 import cx.ring.viewholders.SmartListViewHolder;
 
 public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> implements SearchView.OnQueryTextListener,
         SmartListViewHolder.SmartListListeners,
         Conversation.ConversationActionCallback,
         ClipboardHelper.ClipboardHelperCallback,
-        SmartListView
-{
+        SmartListView {
+
     private static final String TAG = SmartListFragment.class.getSimpleName();
     private static final String STATE_LOADING = TAG + ".STATE_LOADING";
-    public static final String KEY_ACCOUNT_ID = "accountId";
 
     private static final int SCROLL_DIRECTION_UP = -1;
 
@@ -123,7 +115,6 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
                 mDialpadMenuItem.setVisible(false);
                 binding.newconvFab.show();
                 setOverflowMenuVisible(menu, true);
-                changeSeparatorHeight(false);
                 return true;
             }
 
@@ -132,7 +123,6 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
                 mDialpadMenuItem.setVisible(true);
                 binding.newconvFab.hide();
                 setOverflowMenuVisible(menu, false);
-                changeSeparatorHeight(true);
                 return true;
             }
         });
@@ -153,7 +143,7 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
     @Override
     public void onStart() {
         super.onStart();
-        Activity  activity = getActivity();
+        Activity activity = getActivity();
         Intent intent = activity == null ? null : activity.getIntent();
         if (intent != null)
             handleIntent(intent);
@@ -202,9 +192,6 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
                 return true;
             case R.id.menu_settings:
                 ((HomeActivity) getActivity()).goToSettings();
-                return true;
-            case R.id.menu_about:
-                ((HomeActivity) getActivity()).goToAbout();
                 return true;
             default:
                 return false;
@@ -344,21 +331,6 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
     }
 
     @Override
-    public void displayChooseNumberDialog(final CharSequence[] numbers) {
-        final Context context = requireContext();
-        new MaterialAlertDialogBuilder(context)
-                .setTitle(R.string.choose_number)
-                .setItems(numbers, (dialog, which) -> {
-                    CharSequence selected = numbers[which];
-                    Intent intent = new Intent(CallActivity.ACTION_CALL)
-                            .setClass(context, CallActivity.class)
-                            .setData(Uri.parse(selected.toString()));
-                    startActivityForResult(intent, HomeActivity.REQUEST_CODE_CALL);
-                })
-                .show();
-    }
-
-    @Override
     public void displayNoConversationMessage() {
         String emptyText = getResources().getQuantityString(R.plurals.home_conferences_title, 0, 0);
         binding.emptyTextView.setText(emptyText);
@@ -472,22 +444,7 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
         if (mSearchMenuItem != null) {
             mSearchMenuItem.collapseActionView();
         }
-
-        if (!DeviceUtils.isTablet(getContext())) {
             startActivity(new Intent(Intent.ACTION_VIEW, ConversationPath.toUri(accountId, contactId.toString()), requireContext(), ConversationActivity.class));
-        } else {
-            ((HomeActivity) requireActivity()).startConversationTablet(ConversationPath.toBundle(accountId, contactId.toString()));
-        }
-    }
-
-    @Override
-    public void goToCallActivity(String accountId, String contactId) {
-        Intent intent = new Intent(CallActivity.ACTION_CALL)
-                .setClass(requireActivity(), CallActivity.class)
-                .putExtra(CallFragment.KEY_AUDIO_ONLY, false)
-                .putExtra(ConversationFragment.KEY_ACCOUNT_ID, accountId)
-                .putExtra(ConversationFragment.KEY_CONTACT_RING_ID, contactId);
-        startActivityForResult(intent, HomeActivity.REQUEST_CODE_CALL);
     }
 
     @Override
@@ -517,34 +474,4 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
     public void onItemLongClick(SmartListViewModel smartListViewModel) {
         presenter.conversationLongClicked(smartListViewModel);
     }
-
-    private void changeSeparatorHeight(boolean open) {
-        if (DeviceUtils.isTablet(getActivity())) {
-            int margin = 0;
-
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) binding.separator.getLayoutParams();
-            if (open) {
-                Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
-                if (toolbar != null)
-                    margin = toolbar.getHeight();
-            }
-
-            params.topMargin = margin;
-            binding.separator.setLayoutParams(params);
-        }
-    }
-
-    private void selectFirstItem() {
-        if (mSmartListAdapter != null && mSmartListAdapter.getItemCount() > 0) {
-            new Handler().postDelayed(() -> {
-                if (binding != null) {
-                    RecyclerView.ViewHolder holder = binding.confsList.findViewHolderForAdapterPosition(0);
-                    if (holder != null)
-                        holder.itemView.performClick();
-                }
-
-            }, 100);
-        }
-    }
-
 }

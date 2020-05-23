@@ -20,7 +20,6 @@
 package cx.ring.fragments;
 
 import android.Manifest;
-import android.animation.LayoutTransition;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -32,8 +31,8 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.MediaStore;
@@ -54,20 +53,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.IOException;
@@ -80,7 +74,6 @@ import cx.ring.R;
 import cx.ring.adapters.ConversationAdapter;
 import cx.ring.adapters.NumberAdapter;
 import cx.ring.application.JamiApplication;
-import cx.ring.client.CallActivity;
 import cx.ring.client.ContactDetailsActivity;
 import cx.ring.client.ConversationActivity;
 import cx.ring.client.HomeActivity;
@@ -92,18 +85,16 @@ import cx.ring.interfaces.Colorable;
 import cx.ring.model.Account;
 import cx.ring.model.CallContact;
 import cx.ring.model.Conversation;
-import cx.ring.model.Interaction;
 import cx.ring.model.DataTransfer;
-import cx.ring.model.Phone;
 import cx.ring.model.Error;
+import cx.ring.model.Interaction;
+import cx.ring.model.Phone;
 import cx.ring.model.Uri;
 import cx.ring.mvp.BaseSupportFragment;
 import cx.ring.services.LocationSharingService;
-import cx.ring.services.NotificationService;
 import cx.ring.utils.ActionHelper;
 import cx.ring.utils.AndroidFileUtils;
 import cx.ring.utils.ContentUriHandler;
-import cx.ring.utils.DeviceUtils;
 import cx.ring.utils.ConversationPath;
 import cx.ring.utils.MediaButtonsHelper;
 import cx.ring.views.AvatarDrawable;
@@ -137,8 +128,8 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
     private ServiceConnection locationServiceConnection = null;
 
     private FragConversationBinding binding;
-    private MenuItem mAudioCallBtn = null;
-    private MenuItem mVideoCallBtn = null;
+//    private MenuItem mAudioCallBtn = null;
+//    private MenuItem mVideoCallBtn = null;
 
     private View currentBottomView = null;
     private ConversationAdapter mAdapter = null;
@@ -156,11 +147,11 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
     private AvatarDrawable mConversationAvatar;
     private final Map<String, AvatarDrawable> mParticipantAvatars = new HashMap<>();
     private final Map<String, AvatarDrawable> mSmallParticipantAvatars = new HashMap<>();
-    private int mapWidth, mapHeight;
 
     public AvatarDrawable getConversationAvatar(String uri) {
         return mParticipantAvatars.get(uri);
     }
+
     public AvatarDrawable getSmallConversationAvatar(String uri) {
         synchronized (mSmallParticipantAvatars) {
             return mSmallParticipantAvatars.get(uri);
@@ -206,9 +197,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
     private void updateListPadding() {
         if (currentBottomView != null && currentBottomView.getHeight() != 0) {
             setBottomPadding(binding.histList, currentBottomView.getHeight() + marginPxTotal);
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) binding.mapCard.getLayoutParams();
-            params.bottomMargin = currentBottomView.getHeight() + marginPxTotal;
-            binding.mapCard.setLayoutParams(params);
         }
     }
 
@@ -218,15 +206,13 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
         ((JamiApplication) getActivity().getApplication()).getInjectionComponent().inject(this);
         Resources res = getResources();
         marginPx = res.getDimensionPixelSize(R.dimen.conversation_message_input_margin);
-        mapWidth = res.getDimensionPixelSize(R.dimen.location_sharing_minmap_width);
-        mapHeight = res.getDimensionPixelSize(R.dimen.location_sharing_minmap_height);
         marginPxTotal = marginPx;
 
         binding = FragConversationBinding.inflate(inflater, container, false);
         binding.setPresenter(this);
 
         animation.setDuration(150);
-        animation.addUpdateListener(valueAnimator -> setBottomPadding(binding.histList, (Integer)valueAnimator.getAnimatedValue()));
+        animation.addUpdateListener(valueAnimator -> setBottomPadding(binding.histList, (Integer) valueAnimator.getAnimatedValue()));
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.histList, (v, insets) -> {
             marginPxTotal = marginPx + insets.getSystemWindowInsetBottom();
@@ -235,11 +221,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
             return insets;
         });
         View layout = binding.conversationLayout;
-
-        // remove action bar height for tablet layout
-        if (DeviceUtils.isTablet(getContext())) {
-            layout.setPadding(layout.getPaddingLeft(), 0, layout.getPaddingRight(), layout.getPaddingBottom());
-        }
 
         int paddingTop = layout.getPaddingTop();
         ViewCompat.setOnApplyWindowInsetsListener(layout, (v, insets) -> {
@@ -259,12 +240,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
                 .doFinally(contentInfo::releasePermission)));
         binding.msgInputTxt.setOnEditorActionListener((v, actionId, event) -> actionSendMsgText(actionId));
         binding.msgInputTxt.setOnFocusChangeListener((view, hasFocus) -> {
-            if (hasFocus)  {
-                Fragment fragment = getChildFragmentManager().findFragmentById(R.id.mapLayout);
-                if (fragment != null) {
-                    ((LocationSharingFragment) fragment).hideControls();
-                }
-            }
         });
         binding.msgInputTxt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -382,60 +357,8 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
     }
 
     @SuppressLint("RestrictedApi")
-    public void expandMenu(View v) {
-        Context context = requireContext();
-        PopupMenu popup = new PopupMenu(context, v);
-        popup.inflate(R.menu.conversation_share_actions);
-        popup.setOnMenuItemClickListener(item -> {
-            switch(item.getItemId()) {
-                case R.id.conv_send_audio:
-                    sendAudioMessage();
-                    break;
-                case R.id.conv_send_video:
-                    sendVideoMessage();
-                    break;
-                case R.id.conv_send_file:
-                    presenter.selectFile();
-                    break;
-                case R.id.conv_share_location:
-                    shareLocation();
-                    break;
-            }
-            return false;
-        });
-        MenuPopupHelper menuHelper = new MenuPopupHelper(context, (MenuBuilder) popup.getMenu(), v);
-        menuHelper.setForceShowIcon(true);
-        menuHelper.show();
-    }
-
-    public void shareLocation() {
-        presenter.shareLocation();
-    }
-
-    public void closeLocationSharing(boolean isSharing) {
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) binding.mapCard.getLayoutParams();
-        if (params.width != mapWidth) {
-            params.width = mapWidth;
-            params.height = mapHeight;
-            binding.mapCard.setLayoutParams(params);
-        }
-        if (!isSharing)
-            hideMap();
-    }
-
-    public void openLocationSharing() {
-        binding.conversationLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) binding.mapCard.getLayoutParams();
-        if (params.width != ViewGroup.LayoutParams.MATCH_PARENT) {
-            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            binding.mapCard.setLayoutParams(params);
-        }
-    }
-
-    @Override
-    public void startShareLocation(String accountId, String conversationId) {
-        showMap(accountId, conversationId, true);
+    public void selectFile() {
+        presenter.selectFile();
     }
 
     /**
@@ -445,41 +368,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
         mSelectedPosition = position;
     }
 
-    @Override
-    public void showMap(String accountId, String contactId, boolean open)  {
-        if (binding.mapCard.getVisibility() == View.GONE) {
-            Log.w(TAG, "showMap " + accountId + " " + contactId);
-
-            FragmentManager fragmentManager = getChildFragmentManager();
-            LocationSharingFragment fragment = LocationSharingFragment.newInstance(accountId, contactId, open);
-            fragmentManager.beginTransaction()
-                    .add(R.id.mapLayout, fragment, "map")
-                    .commit();
-            binding.mapCard.setVisibility(View.VISIBLE);
-        }
-        if (open) {
-            Fragment fragment = getChildFragmentManager().findFragmentById(R.id.mapLayout);
-            if (fragment != null) {
-                ((LocationSharingFragment) fragment).showControls();
-            }
-        }
-    }
-
-    @Override
-    public void hideMap() {
-        if (binding.mapCard.getVisibility() != View.GONE) {
-            binding.mapCard.setVisibility(View.GONE);
-
-            FragmentManager fragmentManager = getChildFragmentManager();
-            Fragment fragment = fragmentManager.findFragmentById(R.id.mapLayout);
-
-            if (fragment != null) {
-                fragmentManager.beginTransaction()
-                        .remove(fragment)
-                        .commit();
-            }
-        }
-    }
 
     public void sendAudioMessage() {
         if (!presenter.getDeviceRuntimeService().hasAudioPermission()) {
@@ -575,7 +463,8 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
         setLoading(true);
         op.observeOn(AndroidSchedulers.mainThread())
                 .doFinally(() -> setLoading(false))
-                .subscribe(() -> {}, e -> {
+                .subscribe(() -> {
+                }, e -> {
                     Log.e(TAG, "startFileSend: not able to create cache file", e);
                     displayErrorToast(Error.INVALID_FILE);
                 });
@@ -622,19 +511,19 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
             startFileSend(file.flatMapCompletable(this::sendFile));
         }
         // File download trough SAF
-        else if(requestCode == ConversationFragment.REQUEST_CODE_SAVE_FILE
-                && resultCode == RESULT_OK){
-            if(resultData != null && resultData.getData() != null ) {
+        else if (requestCode == ConversationFragment.REQUEST_CODE_SAVE_FILE
+                && resultCode == RESULT_OK) {
+            if (resultData != null && resultData.getData() != null) {
                 //Get the Uri of the file that was created by the app that received our intent
                 android.net.Uri createdUri = resultData.getData();
 
                 //Try to copy the data of the current file into the newly created one
                 File input = new File(mCurrentFileAbsolutePath);
-                if(requireContext().getContentResolver() != null)
+                if (requireContext().getContentResolver() != null)
                     mCompositeDisposable.add(AndroidFileUtils.copyFileToUri(requireContext().getContentResolver(), input, createdUri).
                             observeOn(AndroidSchedulers.mainThread()).
-                            subscribe(()-> Toast.makeText(getContext(), R.string.file_saved_successfully, Toast.LENGTH_SHORT).show(),
-                                    error-> Toast.makeText(getContext(), R.string.generic_error, Toast.LENGTH_SHORT).show()));
+                            subscribe(() -> Toast.makeText(getContext(), R.string.file_saved_successfully, Toast.LENGTH_SHORT).show(),
+                                    error -> Toast.makeText(getContext(), R.string.generic_error, Toast.LENGTH_SHORT).show()));
 
             }
         }
@@ -784,8 +673,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
             return;
         }
         inflater.inflate(R.menu.conversation_actions, menu);
-        mAudioCallBtn = menu.findItem(R.id.conv_action_audiocall);
-        mVideoCallBtn = menu.findItem(R.id.conv_action_videocall);
     }
 
     @Override
@@ -794,12 +681,12 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
             case android.R.id.home:
                 startActivity(new Intent(getActivity(), HomeActivity.class));
                 return true;
-            case R.id.conv_action_audiocall:
-                presenter.goToCall(true);
-                return true;
-            case R.id.conv_action_videocall:
-                presenter.goToCall(false);
-                return true;
+//            case R.id.conv_action_audiocall:
+//                presenter.goToCall(true);
+//                return true;
+//            case R.id.conv_action_videocall:
+//                presenter.goToCall(false);
+//                return true;
             case R.id.conv_contact_details:
                 presenter.openContact();
                 return true;
@@ -832,9 +719,7 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
                     LocationSharingService.LocalBinder binder = (LocationSharingService.LocalBinder) service;
                     LocationSharingService locationService = binder.getService();
                     ConversationPath path = new ConversationPath(presenter.getPath());
-                    if (locationService.isSharing(path)) {
-                        showMap(path.getAccountId(), contactUri.getUri(), false);
-                    }
+
                     try {
                         requireContext().unbindService(locationServiceConnection);
                     } catch (Exception e) {
@@ -932,26 +817,9 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
     }
 
     @Override
-    public void goToCallActivity(String conferenceId) {
-        startActivity(new Intent(Intent.ACTION_VIEW)
-                .setClass(requireActivity().getApplicationContext(), CallActivity.class)
-                .putExtra(NotificationService.KEY_CALL_ID, conferenceId));
-    }
-
-    @Override
     public void goToContactActivity(String accountId, String contactRingId) {
         startActivity(new Intent(Intent.ACTION_VIEW, android.net.Uri.withAppendedPath(android.net.Uri.withAppendedPath(ContentUriHandler.CONTACT_CONTENT_URI, accountId), contactRingId))
                 .setClass(requireActivity().getApplicationContext(), ContactDetailsActivity.class));
-    }
-
-    @Override
-    public void goToCallActivityWithResult(String accountId, String contactRingId, boolean audioOnly) {
-        Intent intent = new Intent(CallActivity.ACTION_CALL)
-                .setClass(requireActivity().getApplicationContext(), CallActivity.class)
-                .putExtra(KEY_ACCOUNT_ID, accountId)
-                .putExtra(CallFragment.KEY_AUDIO_ONLY, audioOnly)
-                .putExtra(KEY_CONTACT_RING_ID, contactRingId);
-        startActivityForResult(intent, HomeActivity.REQUEST_CODE_CALL);
     }
 
     private void setupActionbar(CallContact contact) {
@@ -1035,10 +903,10 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
         boolean visible = binding.cvMessageInput.getVisibility() == View.VISIBLE;
-        if (mAudioCallBtn != null)
-            mAudioCallBtn.setVisible(visible);
-        if (mVideoCallBtn != null)
-            mVideoCallBtn.setVisible(visible);
+//        if (mAudioCallBtn != null)
+//            mAudioCallBtn.setVisible(visible);
+//        if (mVideoCallBtn != null)
+//            mVideoCallBtn.setVisible(visible);
     }
 
     @Override
@@ -1124,11 +992,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
                     return;
                 startFileSend(AndroidFileUtils.getCacheFile(requireContext(), uri).flatMapCompletable(this::sendFile));
             }
-        } else if (Intent.ACTION_VIEW.equals(action)) {
-            ConversationPath path = ConversationPath.fromIntent(intent);
-            if (path != null && intent.getBooleanExtra(EXTRA_SHOW_MAP, false)) {
-                shareLocation();
-            }
         }
     }
 
@@ -1136,10 +999,11 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
      * Creates an intent using Android Storage Access Framework
      * This intent is then received by applications that can handle it like
      * Downloads or Google drive
-     * @param file DataTransfer of the file that is going to be stored
+     *
+     * @param file                    DataTransfer of the file that is going to be stored
      * @param currentFileAbsolutePath absolute path of the file we want to save
      */
-    public void startSaveFile(DataTransfer file, String currentFileAbsolutePath){
+    public void startSaveFile(DataTransfer file, String currentFileAbsolutePath) {
         //Get the current file absolute path and store it
         mCurrentFileAbsolutePath = currentFileAbsolutePath;
 
@@ -1147,7 +1011,7 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
         Intent downloadFileIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         downloadFileIntent.setType(AndroidFileUtils.getMimeTypeFromExtension(file.getExtension()));
         downloadFileIntent.addCategory(Intent.CATEGORY_OPENABLE);
-        downloadFileIntent.putExtra(Intent.EXTRA_TITLE,file.getDisplayName());
+        downloadFileIntent.putExtra(Intent.EXTRA_TITLE, file.getDisplayName());
 
         startActivityForResult(downloadFileIntent, ConversationFragment.REQUEST_CODE_SAVE_FILE);
     }
