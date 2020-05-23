@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+Copyright (C) 2004-2017 Savoir-faire Linux Inc.
+
+Author: Alexandre Lision <alexandre.lision@savoirfairelinux.com>
+Author: Adrien Béraud <adrien.beraud@savoirfairelinux.com>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+-->
+<resources>
+
+    <!-- About -->
+    <string name="app_name" translatable="false">Jami</string>
+    <string name="app_author" translatable="false">Savoir-faire Linux Inc.</string>
+    <string name="app_release" translatable="false">Free as in Freedom - %1$s</string>
+    <string name="app_website" translatable="false">https://jami.net</string>
+    <string name="app_website_contribute" translatable="false"><u>https://jami.net/contribute</u></string>
+    <string name="gnu_license_website" translatable="false">https://www.gnu.org/licenses/gpl.html</string>
+    <string name="ring_contribute_website" translatable="false">https://jami.net/contribute</string>
+    <string name="savoirfairelinux_website" translatable="false">https://savoirfairelinux.com</string>
+
+    <string name="copyright" translatable="false">2004&#8211;2019 Savoir-faire Linux Inc.</string>
+    <string name="feedback_section">Feedback</string>
+    <string name="report"><u>Send us an email</u></string>
+    <string name="section_license">License</string>
+    <string name="sponsor_section">Jami is a free software developed and supported by</string>
+    <string name="copyright_section">Copyright</string>
+    <string name="contribute_section">Contribute</string>
+    <string name="version_section">Version</string>
+    <string name="no_email_app_installed">No email app found, install one to send us a report</string>
+    <string name="no_browser_app_installed">No web browser app found, install one to view this page</string>
+    <string name="email_chooser_title">Send mail using…</string>
+    <string name="website_chooser_title">View website using…</string>
+    <string name="license">This software is provided \"as is\", without warranty of any kind. For details, see <u>GNU General Public License version 3 or later</u></string>
+    <string name="description">Jami is free software for universal communication which respects the freedoms and privacy of its users.</string>
+    <string name="credits">Credits</string>
+
+
+    <string name="call_service_description">This service is necessary to keep your calls running in the foreground. It only runs during calls.</string>
+    <string name="data_transfer_service_description">This service is necessary to display persistent notifications during file transfers. It only runs during file transfers.</string>
+
+
+    <!-- About dialog -->
+    <string name="developed_by">Developed by</string>
+    <string name="designed_by">Designed by</string>
+    <string name="ringtones_by">Ringtones by</string>
+    <string name="credits_developer" translatable="false">Adrien Béraud\nAlexandr Sergheev\nAlexandre Lision\nAlexandre Viau\nAline Bonnet\nAmirHossein Naghshzan\nAndreas Traczyk\nAnthony Léonard\nCyrille Béraud\nEdric Milaret\nÉloi Bail\nEmmanuel Lepage-Vallée\nFrédéric Guimont\nGuillaume Roguez\nHadrien De Sousa\nJulien Grossholtz\nKateryna Kostiuk\nLoïc Siret\nMarianne Forget\nMichel Schmit\nNicolas Jäger\nNicolas Reynaud\nOlivier Gregoire\nOlivier Soldano\nPatrick Keroulas\nPierre Duchemin\nPhilippe Gorley\nRomain Bertozzi\nSaher Azer\nSébastien Blin\nSeva Ivanov\nSilbino Gonçalves Matado\nSimon Désaulniers\nStepan Salenikovich\nSimon Zeni\nThibault Wittemberg</string>
+    <string name="credits_ringtones" translatable="false">Loïc Bogino</string>
+
+    <!-- RingActivity -->
+    <string name="error_no_network">No network connectivity</string>
+    <string name="error_mobile_network_available_but_disabled">Please grant access to cellular network in the settings screen.</string>
+
+    <!-- AB menus -->
+    <string name="ab_action_chat">Text messaging</string>
+
+    <!-- Sections -->
+    <string name="menu_item_contact_request">Contact requests</string>
+    <string name="menu_item_accounts">Manage accounts</string>
+    <string name="menu_item_account">Manage account</string>
+    <string name="menu_item_settings">Settings</string>
+    <string name="menu_item_share">Share my contact</string>
+    <string name="menu_item_about">About Jami</string>
+
+    <!-- Dialing Fragment -->
+    <string name="dial_number">Dial a number</string>
+
+    <!-- History Fragment -->
+
+
+    <!-- DetailsHistory Fragment -->
+
+    <!-- Home Fragment -->
+    <plurals name="home_conferences_title">
+        <item quantity="one">%d Conversation</item>
+        <item quantity="other">%d Conversations</item>
+    </plurals>
+
+    <!-- ContactList Fragment -->
+    <string name="searchbar_hint">Search name or phone number&#8230;</string>
+    <string name="choose_number">Choose a number</string>
+
+    <!-- FileExplorerDFragement -->
+
+    <!-- TransferDFragment -->
+
+    <!-- Notifications -->
+    <string name="notif_missed_incoming_call">Missed incoming call</string>
+    <string name="notif_missed_outgoing_call">Missed outgoing call</string>
+    <string name="notif_incoming_call_title">Incoming call from %1$s</string>
+    <string name="notif_incoming_call">Incoming call</string>
+    <string name="notif_outgoing_call_title">Outgoing call to %1$s</string>
+    <string name="notif_outgoing_call">Outgoing call</string>
+    <string name="notif_current_call_title">Ongoing call with %1$s</string>
+    <string name="notif_current_call">Ongoing call</string>
+    <string name="notif_channel_call_in_progress">Call in Progress</string>
+    <string name="notif_channel_calls">Calls</string>
+    <string name="notif_channel_missed_calls">Missed calls</string>
+    <string name="notif_channel_incoming_calls">Incoming calls</string>
+    <string name="notif_channel_messages">Messages</string>
+    <string name="notif_channel_requests">Requests</string>
+    <string name="notif_channel_file_transfer">File transfer</string>
+    <string name="notif_channel_sync">Data sync</string>
+    <string name="notif_channel_background_service">Background service</string>
+    <string name="notif_channel_background_service_descr">Allows receiving calls and messages anytime.</string>
+    <string name="notif_group_calls">Calls</string>
+    <string name="notif_background_service">Jami is currently running in background</string>
+    <string name="notif_mark_as_read">Mark as read</string>
+    <string name="notif_dismiss">Dismiss</string>
+    <string name="notif_reply">Reply</string>
+    <string name="notif_incoming_file_transfer_title">Incoming file from %1$s</string>
+    <string name="notif_outgoing_file_transfer_title">Sending file to %1$s</string>
+    <string name="notif_incoming_picture">Picture from %1$s</string>
+    <string name="notif_sync_title">Syncing data…</string>
+    <string name="notif_location_title">Sharing location with %1$s</string>
+    <string name="location_share_contact">%1$s is sharing location with you</string>
+    <string name="notif_location_multi_title">Sharing location with %1$d contacts</string>
+    <string name="notif_location_remaining">%1$d minutes remaining</string>
+    <string name="notif_location_action_stop">"Stop sharing location"</string>
+    <string name="location_share_action_start">"Start sharing"</string>
+    <string name="location_share_action_stop">"Stop sharing"</string>
+
+    <!-- Call Fragment -->
+    <string name="you_txt_prefix">You:</string>
+    <string name="action_call_hangup">Hang up</string>
+    <string name="ongoing_call">Ongoing call</string>
+    <string name="hist_in_call">Incoming call of %1$s</string>
+    <string name="hist_out_call">Outgoing call of %1$s</string>
+    <string name="start_error_title">Can\'t start Jami !</string>
+    <string name="start_error_mic_required">Jami requires the microphone permission to work.</string>
+    <string name="action_call_accept">Take call</string>
+    <string name="action_call_decline">Decline</string>
+    <string name="action_call_mic_mute">Mute microphone</string>
+    <string name="ab_action_speakerphone">Enable speaker</string>
+    <string name="ab_action_contact_add">Add to contacts</string>
+    <string name="ab_action_contact_add_question">Add to contacts?</string>
+    <string name="hist_contact_added">Contact added</string>
+    <string name="hist_invitation_received">Invitation received</string>
+    <string name="ab_action_audio_call">Audio call</string>
+    <string name="ab_action_video_call">Video call</string>
+    <string name="ab_action_change_screen_orientation">Change screen orientation</string>
+    <string name="share_via">Share via</string>
+    <string name="write_a_message">Write a message</string>
+    <string name="scan_qr">Scan QR Code</string>
+    <string name="ab_action_flipcamera">Flip camera</string>
+    <string name="ab_action_hidepreview">Hide preview</string>
+
+    <!-- Text messages -->
+    <string name="send_message">Send message</string>
+    <string name="message_sending">Sending message…</string>
+    <string name="message_failed">Failed</string>
+    <string name="time_just_now">Just now</string>
+    <string name="send_file">Send file</string>
+    <string name="hist_file_sent">File sent</string>
+    <string name="hist_file_received">File received</string>
+    <string name="conversation_send_audio">Record audio clip</string>
+    <string name="conversation_send_video">Record video clip</string>
+    <string name="conversation_share_location">Share location</string>
+
+    <!-- MediaPreferenceFragment -->
+    <string name="permission_dialog_camera_title">Camera permission</string>
+    <string name="permission_dialog_camera_message">Video conversations require the camera permission to work. Please consider enabling it.</string>
+
+    <!-- Ringtone activity -->
+    <string name="ringtone_error_title">Error</string>
+    <string name="ringtone_error_format_not_supported">This format is not supported.</string>
+    <string name="ringtone_error_size_too_big">This file is too big. The maximum size is %1$dkB.</string>
+    <string name="ringtone_custom_prompt">Set a custom ringtone</string>
+    <string name="ringtone_custom_label">Custom</string>
+    <string name="ringtone_jami_tones">Jami Tones</string>
+    <string name="ringtone_default_name" translatable="false">1 AfroNigeria.opus</string>
+
+    <!-- Read contacts permission -->
+    <string name="permission_dialog_read_contacts_message">Jami needs the "Read contacts" permission to enable this feature. Please grant it.</string>
+
+    <!-- Write call log permission -->
+    <string name="permission_dialog_write_call_log_message">Jami needs the "Write call log" permission to enable this feature. Please grant it.</string>
+
+    <!-- QRCode Scan -->
+    <string name="scan_qr_account_message">Scan the QR Code of the account you want to add.</string>
+    <string name="title_activity_qrcode">Share my account</string>
+    <string name="error_scan_no_camera_permissions">The QR scanner requires camera permissions to work</string>
+    <string name="tab_code">My Code</string>
+    <string name="tab_scan">Scan Code</string>
+
+    <!-- Settings -->
+    <string name="clear_history_dialog_title">Clear history?</string>
+    <string name="clear_history_dialog_message">This action cannot be undone.</string>
+    <string name="clear_history_completed">History has been cleared.</string>
+
+    <!-- Conversation -->
+    <string name="conversation_details">Contact details</string>
+    <string name="conversation_action_delete_this">Delete this conversation</string>
+    <string name="conversation_action_delete_this_title">Delete this conversation ?</string>
+    <string name="conversation_action_delete_this_message">This action can not be undone.</string>
+    <string name="conversation_action_history_clear">Clear history</string>
+    <string name="conversation_action_history_clear_title">Clear the conversation history?</string>
+    <string name="conversation_action_history_clear_message">This will definitely clear the conversation history.</string>
+    <string name="conversation_action_remove_this">Delete contact</string>
+    <string name="conversation_action_remove_this_title">Delete this contact?</string>
+    <string name="conversation_action_remove_this_message">This will delete the contact and definitely clear the conversation history.</string>
+    <string name="conversation_action_copy_peer_number">Copy number</string>
+    <string name="conversation_action_copied_peer_number_clipboard">%1$s copied to clipboard</string>
+    <string name="conversation_action_select_peer_number">Select a number</string>
+    <string name="conversation_action_block_this">Block contact</string>
+    <string name="conversation_action_go_to_call">Return to ongoing call</string>
+    <string name="conversation_default_emoji" translatable="false">👍</string>
+    <string name="conversation_open_file_error">There is no installed application capable of opening this file type.</string>
+    <string name="clip_contact_uri">Contact address</string>
+    <string name="block_contact_dialog_title">Block %1$s?</string>
+    <string name="block_contact_dialog_message">%1$s won\'t be able to contact you until you unblock it.</string>
+    <string name="block_contact_completed">%1$s was blocked.</string>
+    <string name="conversation_contact_is_typing">Contact is typing…</string>
+
+    <!-- Contacts -->
+    <string name="add_call_contact_number_to_contacts">Add %1$s?</string>
+    <string name="prompt_new_password">New password</string>
+    <string name="prompt_new_password_optional">New password (optional)</string>
+    <string name="prompt_new_password_repeat">Repeat new password</string>
+    <string name="account_create_title">Create a Jami account</string>
+    <string name="prompt_new_username">Enter new username</string>
+    <string name="help_password_choose">Choose a strong password you will remember to protect your Jami account.</string>
+    <string name="help_password_enter">Enter your main Jami account password</string>
+    <string name="help_server_enter">Enter URL of management server</string>
+    <string name="help_pin_enter">Enter the PIN from another configured Jami account. Use the \"export Jami account\" feature to obtain a PIN.</string>
+    <string name="wizard_next">Next</string>
+    <string name="wizard_back">Back</string>
+    <string name="wizard_skip">Skip</string>
+
+    <!-- MenuHeaderView -->
+    <string name="profile">Profile</string>
+    <string name="profile_message_warning">Your profile is only shared with your contacts</string>
+    <string name="open_the_gallery">Open the gallery</string>
+    <string name="take_a_photo">Take a photo</string>
+    <string name="profile_name_hint">Enter your name (optional)</string>
+
+    <!-- Share fragment -->
+    <string name="share_message">Scan this code with Jami</string>
+    <string name="share_message_no_account">Please select an account to share.</string>
+    <string name="share_your_account_information">Share my contact information</string>
+    <string name="share_label">Share</string>
+    <string name="generic_error_migration">Error</string>
+    <string name="generic_error_migration_message">An error occurred during migration</string>
+    <string name="title_share_with">Share with…</string>
+
+    <!-- Pending contact requests -->
+    <string name="accept">Accept</string>
+    <string name="refuse">Refuse</string>
+    <string name="block">Block</string>
+    <string name="contact_request_title">New contact request</string>
+    <string name="contact_request_msg">You have %1$s contact requests</string>
+    <string name="contact_request_account">For %1$s</string>
+    <string name="no_requests">0 contact requests</string>
+    <string name="message_contact_not_trusted_yet">%s is not in your contacts yet.\nDo you accept or refuse this contact request?</string>
+    <string name="message_contact_not_trusted">%s is not in your contacts.\nAdd a new contact?</string>
+
+    <!-- Send contact requests -->
+    <string name="send_request_button">Send</string>
+    <string name="send_request_title">Send a contact request</string>
+    <string name="send_request_msg">You must send a contact request to communicate with this user. As long as your contact has not accepted the request, you can send messages but he won\'t be able to answer.</string>
+
+    <!-- Blacklist -->
+    <string name="no_blocked_contact">0 blocked contacts</string>
+
+    <!-- Smartlist -->
+    <string name="no_contact_request">No contact request sent</string>
+    <string name="contact_request_sent">Contact request sent</string>
+    <string name="start_conversation">Start conversation</string>
+
+    <string name="search_results">Search Results</string>
+    <string name="tv_contact_row_header">Contacts</string>
+    <string name="gallery_error_title">No Gallery app found</string>
+    <string name="gallery_error_message">No application found on device to open Gallery</string>
+
+    <string name="generic_error">An unknown error occurred</string>
+
+    <!--File Transfer-->
+    <string name="invalid_file">Invalid file</string>
+    <string name="not_able_to_write_file">Not able to write file</string>
+    <string name="file_transfer_status_created">initializing transfer</string>
+    <string name="file_transfer_status_unsupported">unsupported</string>
+    <string name="file_transfer_status_wait_peer_acceptance">waiting peer acceptance</string>
+    <string name="file_transfer_status_wait_host_acceptance">waiting host acceptance</string>
+    <string name="file_transfer_status_ongoing">ongoing</string>
+    <string name="file_transfer_status_finished">finished</string>
+    <string name="file_transfer_status_closed_by_host">closed by host</string>
+    <string name="file_transfer_status_closed_by_peer">close by peer</string>
+    <string name="file_transfer_status_invalid_pathname">invalid pathname</string>
+    <string name="file_transfer_status_unjoinable_peer">unjoinable peer</string>
+    <string name="file_transfer_status_cancelled">cancelled</string>
+    <string name="file_transfer_status_error">failed due to error</string>
+    <string name="file_transfer_status_timed_out">timed out</string>
+    <string name="file_saved_in">File saved in %s</string>
+    <string name="file_saved_successfully">File saved successfully</string>
+    <string name="no_space_left_on_device">No space left on device</string>
+    <string name="title_media_viewer">Media viewer</string>
+    <string name="menu_file_open">Open file</string>
+    <string name="menu_file_download">Download file</string>
+    <string name="menu_file_save">Save file</string>
+    <string name="menu_file_delete">Delete file</string>
+    <string name="menu_file_share">Share file</string>
+    <string name="menu_message_copy">Copy</string>
+    <string name="menu_message_delete">Delete message</string>
+    <string name="menu_message_cancel">Cancel message</string>
+    <string name="menu_delete">Delete</string>
+    <string name="pref_darkTheme_title">Dark theme</string>
+    <string name="pref_darkTheme_summary">Always enable dark theme instead of using system behavior</string>
+
+    <!-- Bottom Navigation -->
+    <string name="navigation_item_conversation">Conversations</string>
+    <string name="navigation_item_contact_request">Contact requests</string>
+    <string name="navigation_item_account">Account</string>
+    <string name="search_results_public_directory">Public directory</string>
+
+    <!-- TV -->
+    <string name="tv_send_audio_dialog_message">Send audio message?</string>
+    <string name="tv_send_image_dialog_message">Send the image?</string>
+    <string name="tv_send_video_dialog_message">Send the video?</string>
+    <string name="tv_media_preview">Preview</string>
+    <string name="tv_audio_play">Play</string>
+    <string name="tv_audio_pause">Pause</string>
+    <string name="tv_dialog_send">Send</string>
+    <string name="tv_audio_recording">Recording…</string>
+    <string name="tv_send_text">Send Text</string>
+    <string name="tv_send_audio">Send Audio</string>
+    <string name="tv_send_video">Send Media</string>
+    <string name="conversation_input_speech_hint">Say something…</string>
+
+</resources>

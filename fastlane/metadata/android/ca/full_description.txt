@@ -1,0 +1,30 @@
+Jami (a GNU package, formerly Ring) is a universal and distributed communication platform which respects the freedoms and privacy of users.
+It is 100% Free software. Available on all platforms.
+
+★ Communicate freely with Jami:
+  - enviament de missatges de text
+  - trucades d'àudio
+  - vídeo trucades
+  - compartició d'imatges i fitxers
+
+★ Contactes accessibles directament d'igual a igual (P2P)!
+
+★ Use your Jami account on multiple devices !
+
+★ Disponible per a GNU/Linux, macOS, Windows, iOS, Android i Android TV!
+
+★ Suposrt a comptes SIP disponible!
+
+★ Next additions: audio/video call recording (Android), group chat...
+
+Build with Jami on your IoT project: re-use the universal communications technology of Jami with its portable library on your system of choice. 
+
+Jami for Android TV is tested on NVIDIA SHIELD TV with Logitech cameras.
+
+There are plenty of ways to help us, check out: https://jami.net/contribute ,
+Contact us on Twitter: @jami_social , or Mastodon: @Jami
+
+For more information, visit https://jami.net 
+
+Jami is published under the GPL license, version 3 or higher.
+Copyright © Savoir-faire Linux

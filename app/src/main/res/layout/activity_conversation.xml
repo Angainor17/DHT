@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".client.ConversationActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:elevation="4dp"
+        android:height="?attr/actionBarSize"
+        style="@style/Widget.MaterialComponents.Toolbar.Surface"
+        app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        app:subtitleTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        app:contentInsetStart="72dp"
+        app:elevation="4dp"
+        app:titleMarginStart="24dp"
+        tools:title="Adrien"
+        tools:subtitle="adrienberaud"
+        tools:navigationIcon="@drawable/baseline_person_24" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/main_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_toolbar"
+        android:layout_alignParentStart="true"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

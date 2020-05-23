@@ -1,0 +1,131 @@
+apply plugin: 'com.android.application'
+
+def buildFirebase = project.hasProperty('buildFirebase') || getGradle().getStartParameter().getTaskRequests().toString().contains('Firebase')
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion '29.0.3'
+    ndkVersion "21.1.6352462"
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 241
+        versionName "20200516-01"
+    }
+    sourceSets {
+        main {
+            aidl.srcDirs = ['src/main/java']
+            jniLibs.srcDir 'src/main/libs'
+            jni.srcDirs = []
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled true
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "push"
+    productFlavors {
+        noPush {
+            dimension "push"
+        }
+        withFirebase {
+            dimension "push"
+        }
+    }
+    signingConfigs {
+        config {
+            keyAlias 'ring'
+            storeFile file('../keystore.bin')
+        }
+    }
+    lintOptions {
+        disable 'MissingTranslation'
+    }
+    splits {
+        abi {
+            enable true
+            reset()
+            def sp = archs.split(',')
+            include(sp)
+            universalApk true
+        }
+    }
+    viewBinding {
+        enabled true
+    }
+    dataBinding {
+        enabled true
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    def android_support_core_version = '1.1.0'
+    def android_support_version = '1.0.0'
+    def material_version = '1.1.0'
+    def dagger_version = '2.27'
+
+    implementation fileTree(include: '*.jar', dir: 'libs')
+    implementation project(':libringclient')
+
+    implementation "androidx.core:core:1.2.0"
+    implementation "androidx.appcompat:appcompat:$android_support_core_version"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.legacy:legacy-support-core-utils:${android_support_version}"
+    implementation "androidx.cardview:cardview:${android_support_version}"
+    implementation "androidx.preference:preference:$android_support_core_version"
+    implementation "androidx.recyclerview:recyclerview:${android_support_core_version}"
+    implementation "androidx.leanback:leanback:1.1.0-alpha03"
+    implementation "androidx.leanback:leanback-preference:1.1.0-alpha03"
+    implementation "androidx.media:media:${android_support_core_version}"
+    implementation "com.google.android.material:material:${material_version}"
+    implementation 'com.google.android:flexbox:1.1.1'
+    implementation 'org.osmdroid:osmdroid-android:6.1.6'
+
+    // ORM
+    implementation 'com.j256.ormlite:ormlite-android:5.1'
+
+    // Barcode scanning
+    implementation('com.journeyapps:zxing-android-embedded:4.0.2@aar') { transitive = false }
+    implementation 'com.google.zxing:core:3.3.3'
+
+    // RxBindings
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
+
+    implementation 'com.rodolfonavalon:ShapeRippleLibrary:1.0.0'
+
+    // Dagger dependency injection
+    implementation "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // RxAndroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    implementation 'com.jsibbold:zoomage:1.2.0'
+
+    withFirebaseImplementation('com.google.firebase:firebase-messaging:20.1.7') {
+        exclude group: 'com.google.firebase', module: 'firebase-core'
+        exclude group: 'com.google.firebase', module: 'firebase-analytics'
+        exclude group: 'com.google.firebase', module: 'firebase-measurement-connector'
+    }
+}
+
+if (buildFirebase) {
+    println 'apply plugin ' + buildFirebase
+    apply plugin: 'com.google.gms.google-services'
+}
