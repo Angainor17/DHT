@@ -59,11 +59,7 @@ public class GeneralAccountPresenter extends RootPresenter<GeneralAccountView> {
     private void init(Account account) {
         mAccount = account;
         if (account != null) {
-            if (account.isJami()) {
-                getView().addJamiPreferences(account.getAccountID());
-            } else {
-                getView().addSipPreferences();
-            }
+            getView().addJamiPreferences(account.getAccountID());
             getView().accountChanged(account);
             mCompositeDisposable.clear();
             mCompositeDisposable.add(mAccountService.getObservableAccount(account.getAccountID())
@@ -90,17 +86,10 @@ public class GeneralAccountPresenter extends RootPresenter<GeneralAccountView> {
     }
 
     void passwordPreferenceChanged(ConfigKey configKey, Object newValue) {
-        if (mAccount.isSip()) {
-            mAccount.getCredentials().get(0).setDetail(configKey, newValue.toString());
-        }
         updateAccount();
     }
 
     void userNameChanged(ConfigKey configKey, Object newValue) {
-        if (mAccount.isSip()) {
-            mAccount.setDetail(configKey, newValue.toString());
-            mAccount.getCredentials().get(0).setDetail(configKey, newValue.toString());
-        }
         updateAccount();
     }
 

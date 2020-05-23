@@ -161,16 +161,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/export_account_btn"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:text="@string/account_export_file" />
-
-                <com.google.android.material.button.MaterialButton
                     android:id="@+id/change_password_btn"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
@@ -179,6 +169,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:text="@string/account_password_change" />
+
             </LinearLayout>
 
             <TextView
@@ -323,101 +314,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         app:behavior_peekHeight="50dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-16dp"
-            android:elevation="4dp"
-            app:cardCornerRadius="16dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:orientation="vertical"
-                android:paddingBottom="15dp">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_add_device"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/account_link_export_button"
-                    android:textColor="@color/colorOnPrimary" />
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/account_link_info"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="top"
-                            android:paddingLeft="16dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="16dp"
-                            android:paddingBottom="8dp"
-                            android:text="@string/account_link_export_info"
-                            android:textColor="@color/colorOnPrimary"
-                            android:textIsSelectable="true"
-                            android:textSize="14sp" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/password_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:paddingLeft="16dp"
-                            android:paddingRight="16dp"
-                            android:textColorHint="@color/colorPrimary"
-                            app:passwordToggleEnabled="true"
-                            app:passwordToggleTint="@color/colorPrimary">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/ring_password"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:backgroundTint="@color/colorOnPrimary"
-                                android:hint="@string/account_enter_password"
-                                android:imeOptions="actionDone"
-                                android:inputType="textPassword"
-                                android:textColor="@color/colorPrimary" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_start_export"
-                            style="@style/Widget.MaterialComponents.Button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginBottom="8dp"
-                            android:text="@string/account_start_export_button"
-                            android:textColor="@color/colorOnSecondary"
-                            app:backgroundTint="@color/colorSecondary" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_end_export"
-                            style="@style/Widget.MaterialComponents.Button.TextButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/account_end_export_button"
-                            android:textColor="@color/colorOnPrimary"
-                            android:visibility="gone" />
-
-                    </LinearLayout>
-                </ScrollView>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

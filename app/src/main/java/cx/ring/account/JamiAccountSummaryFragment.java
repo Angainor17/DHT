@@ -94,14 +94,12 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
         DeviceAdapter.DeviceRevocationListener,
         ConfirmRevocationDialog.ConfirmRevocationListener,
         JamiAccountSummaryView, ChangePasswordDialog.PasswordChangedListener,
-        BackupAccountDialog.UnlockAccountListener,
         ViewTreeObserver.OnScrollChangedListener {
 
     public static final String TAG = JamiAccountSummaryFragment.class.getSimpleName();
     private static final String FRAGMENT_DIALOG_REVOCATION = TAG + ".dialog.deviceRevocation";
     private static final String FRAGMENT_DIALOG_RENAME = TAG + ".dialog.deviceRename";
     private static final String FRAGMENT_DIALOG_PASSWORD = TAG + ".dialog.changePassword";
-    private static final String FRAGMENT_DIALOG_BACKUP = TAG + ".dialog.backup";
     private static final int WRITE_REQUEST_CODE = 43;
     private static final int SCROLL_DIRECTION_UP = -1;
 
@@ -113,7 +111,6 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
     private String mBestName = "";
     private String mAccountId = "";
     private File mCacheArchive = null;
-    private BottomSheetBehavior mSheetBehavior;
 
     private ImageView mProfilePhoto;
     private Bitmap mSourcePhoto;
@@ -152,9 +149,7 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mSheetBehavior = BottomSheetBehavior.from(binding.layoutAddDevice);
 
-        hidePopWizard();
         if (getArguments() != null) {
             String accountId = getArguments().getString(AccountEditionFragment.ACCOUNT_ID_KEY);
             if (accountId != null) {
@@ -162,33 +157,13 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
             }
         }
 
-        mSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View view, int i) {
-                if (binding != null && mSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
-                    binding.passwordLayout.setVisibility(mAccountHasPassword ? View.VISIBLE : View.GONE);
-                    binding.btnEndExport.setVisibility(View.GONE);
-                    binding.btnStartExport.setVisibility(View.VISIBLE);
-                    binding.accountLinkInfo.setText(R.string.account_link_export_info);
-                }
-            }
-
-            @Override
-            public void onSlide(@NonNull View view, float v) {}
-        });
-
         updateUserView(mAccountService.getCurrentAccount());
         binding.scrollview.getViewTreeObserver().addOnScrollChangedListener(this);
-        binding.btnAddDevice.setOnClickListener(v -> flipForm());
-        binding.btnStartExport.setOnClickListener(v -> onClickStart());
-        binding.btnEndExport.setOnClickListener(v -> hidePopWizard());
-        binding.exportAccountBtn.setOnClickListener(v -> onClickExport());
         binding.profileContainer.setOnClickListener(v -> profileContainerClicked());
         binding.userProfileEdit.setOnClickListener(v -> profileContainerClicked());
         binding.accountSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> presenter.enableAccount(isChecked));
         binding.changePasswordBtn.setOnClickListener(v -> onPasswordChangeAsked());
         binding.registerNameBtn.setOnClickListener(v -> showUsernameRegistrationPopup());
-        binding.ringPassword.setOnEditorActionListener(this::onPasswordEditorAction);
         binding.registeredNameCopy.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) v.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard != null) {
@@ -344,43 +319,8 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
 
         binding.accountStatus.setText(status);
         binding.accountStatus.setChipBackgroundColorResource(color);
-
-        binding.passwordLayout.setVisibility(mAccountHasPassword ? View.VISIBLE : View.GONE);
         binding.layoutAddDevice.setVisibility(mAccountHasManager ? View.GONE : View.VISIBLE);
         binding.layoutAccountOptions.setVisibility(mAccountHasManager ? View.GONE : View.VISIBLE);
-    }
-
-    public boolean onBackPressed() {
-        if (isDisplayingWizard()) {
-            hideWizard();
-            return true;
-        }
-
-        return false;
-    }
-
-    /*
-    Add a new device UI management
-     */
-    private void flipForm() {
-        if (!isDisplayingWizard()) {
-            showWizard();
-        } else {
-            hideWizard();
-        }
-    }
-
-    private void showWizard() {
-        mSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-    }
-
-    private void hidePopWizard() {
-        mSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-    }
-
-    private void hideWizard() {
-        mSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        KeyboardVisibilityManager.hideKeyboard(getActivity(), 0);
     }
 
     @Override
@@ -396,8 +336,6 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
     @Override
     public void showPasswordError() {
         dismissWaitDialog();
-        binding.passwordLayout.setError(getString(R.string.account_export_end_decryption_message));
-        binding.ringPassword.setText("");
     }
 
     @Override
@@ -408,23 +346,6 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
                 .setMessage(R.string.account_export_end_error_message)
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
-    }
-
-    private boolean isDisplayingWizard() {
-        return mSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED;
-    }
-
-    private boolean onPasswordEditorAction(TextView pwd, int actionId, KeyEvent event) {
-        Log.i(TAG, "onEditorAction " + actionId + " " + (event == null ? null : event.toString()));
-        if (actionId == EditorInfo.IME_ACTION_DONE) {
-            if (pwd.getText().length() == 0) {
-                pwd.setError(getString(R.string.account_enter_password));
-            } else {
-                onClickStart();
-                return true;
-            }
-        }
-        return false;
     }
 
     private void profileContainerClicked() {
@@ -456,20 +377,6 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
                     }
                 })
                 .show();
-    }
-
-    private void onClickStart() {
-        binding.passwordLayout.setError(null);
-        String password = binding.ringPassword.getText().toString();
-        presenter.startAccountExport(password);
-    }
-
-    private void onClickExport() {
-        if (mAccountHasPassword) {
-            onBackupAccount();
-        } else {
-            onUnlockAccount(mAccountId, "");
-        }
     }
 
     private void showUsernameRegistrationPopup() {
@@ -518,11 +425,6 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
 
     @Override
     public void showPIN(final String pin) {
-        binding.ringPassword.setText("");
-        mSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        binding.passwordLayout.setVisibility(View.GONE);
-        binding.btnEndExport.setVisibility(View.VISIBLE);
-        binding.btnStartExport.setVisibility(View.GONE);
         dismissWaitDialog();
         String pined = getString(R.string.account_end_export_infos).replace("%%", pin);
         final SpannableString styledResultText = new SpannableString(pined);
@@ -530,8 +432,6 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
         styledResultText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), pos, (pos + pin.length()), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         styledResultText.setSpan(new StyleSpan(Typeface.BOLD), pos, (pos + pin.length()), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         styledResultText.setSpan(new RelativeSizeSpan(2.8f), pos, (pos + pin.length()), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        binding.accountLinkInfo.setText(styledResultText);
-        binding.accountLinkInfo.requestFocus();
 
         KeyboardVisibilityManager.hideKeyboard(getActivity(), 0);
     }
@@ -607,15 +507,6 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
         presenter.revokeDevice(deviceId, password);
     }
 
-    private void onBackupAccount() {
-        BackupAccountDialog dialog = new BackupAccountDialog();
-        Bundle args = new Bundle();
-        args.putString(AccountEditionFragment.ACCOUNT_ID_KEY, getArguments().getString(AccountEditionFragment.ACCOUNT_ID_KEY));
-        dialog.setArguments(args);
-        dialog.setListener(this);
-        dialog.show(requireFragmentManager(), FRAGMENT_DIALOG_BACKUP);
-    }
-
     @Override
     public void onDeviceRevocationAsked(String deviceId) {
         ConfirmRevocationDialog dialog = new ConfirmRevocationDialog();
@@ -657,19 +548,6 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
     @Override
     public void onPasswordChanged(String oldPassword, String newPassword) {
         presenter.changePassword(oldPassword, newPassword);
-    }
-
-    @Override
-    public void onUnlockAccount(String accountId, String password) {
-        Context context = requireContext();
-        File cacheDir = new File(AndroidFileUtils.getTempShareDir(context), "archives");
-        cacheDir.mkdirs();
-        if (!cacheDir.canWrite())
-            Log.w(TAG, "Can't write to: " + cacheDir);
-        File dest = new File(cacheDir, mBestName);
-        if (dest.exists())
-            dest.delete();
-        presenter.downloadAccountsArchive(dest, password);
     }
 
     @Override

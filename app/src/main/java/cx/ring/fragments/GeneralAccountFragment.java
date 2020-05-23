@@ -93,34 +93,6 @@ public class GeneralAccountFragment extends BasePreferenceFragment<GeneralAccoun
 
         setPreferenceDetails(account.getConfig());
 
-        SwitchPreference pref = findPreference("Account.status");
-        if (account.isSip() && pref != null) {
-            String status;
-            pref.setTitle(account.getAlias());
-            if (account.isEnabled()) {
-                if (account.isTrying()) {
-                    status = getString(R.string.account_status_connecting);
-                } else if (account.needsMigration()) {
-                    status = getString(R.string.account_update_needed);
-                } else if (account.isInError()) {
-                    status = getString(R.string.account_status_connection_error);
-                } else if (account.isRegistered()) {
-                    status = getString(R.string.account_status_online);
-                } else {
-                    status = getString(R.string.account_status_unknown);
-                }
-            } else {
-                status = getString(R.string.account_status_offline);
-            }
-            pref.setSummary(status);
-            pref.setChecked(account.isEnabled());
-
-            // An ip2ip account is always ready
-            pref.setEnabled(!account.isIP2IP());
-
-            pref.setOnPreferenceChangeListener(changeAccountStatusListener);
-        }
-
         setPreferenceListener(account.getConfig(), changeBasicPreferenceListener);
     }
 
@@ -218,7 +190,7 @@ public class GeneralAccountFragment extends BasePreferenceFragment<GeneralAccoun
         PreferenceManager pm = getPreferenceManager();
         pm.setSharedPreferencesMode(Context.MODE_PRIVATE);
         pm.setSharedPreferencesName(SharedPreferencesServiceImpl.PREFS_ACCOUNT+accountId);
-        addPreferencesFromResource(R.xml.account_prefs_jami);
+        addPreferencesFromResource(R.xml.account_prefs_app);
     }
 
     @Override

@@ -20,23 +20,7 @@ along with this program; if not, write to the Free Software
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <androidx.preference.PreferenceCategory android:title="Call settings">
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:icon="@drawable/baseline_call_received_24"
-            android:key="DHT.PublicInCalls"
-            android:persistent="false"
-            android:title="@string/account_dht_public_in_calls_label" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:icon="@drawable/baseline_call_24"
-            android:key="Account.autoAnswer"
-            android:persistent="false"
-            android:title="@string/account_autoanswer_label" />
-    </androidx.preference.PreferenceCategory>
-
+    
     <androidx.preference.PreferenceCategory android:title="Conversation settings">
         <androidx.preference.SeekBarPreference
             android:icon="@drawable/baseline_attach_file_24"

@@ -34,14 +34,12 @@ import cx.ring.application.JamiApplication;
 import cx.ring.client.ContactDetailsActivity;
 import cx.ring.client.ConversationSelectionActivity;
 import cx.ring.client.HomeActivity;
-import cx.ring.contactrequests.BlackListFragment;
 import cx.ring.contactrequests.ContactRequestsFragment;
 import cx.ring.facades.ConversationFacade;
 import cx.ring.fragments.AccountMigrationFragment;
 import cx.ring.fragments.AdvancedAccountFragment;
 import cx.ring.fragments.ConversationFragment;
 import cx.ring.fragments.GeneralAccountFragment;
-import cx.ring.fragments.SIPAccountCreationFragment;
 import cx.ring.fragments.SecurityAccountFragment;
 import cx.ring.fragments.ShareWithFragment;
 import cx.ring.fragments.SmartListFragment;
@@ -83,8 +81,6 @@ public interface JamiInjectionComponent {
 
     void inject(AccountMigrationFragment fragment);
 
-    void inject(SIPAccountCreationFragment fragment);
-
     void inject(JamiAccountSummaryFragment fragment);
 
     void inject(SmartListFragment fragment);
@@ -106,8 +102,6 @@ public interface JamiInjectionComponent {
     void inject(ConversationFragment fragment);
 
     void inject(ContactRequestsFragment fragment);
-
-    void inject(BlackListFragment fragment);
 
     void inject(DRingService service);
 

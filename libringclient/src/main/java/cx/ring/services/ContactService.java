@@ -57,9 +57,7 @@ public abstract class ContactService {
 
     public abstract Map<Long, CallContact> loadContactsFromSystem(boolean loadRingContacts, boolean loadSipContacts);
 
-    protected abstract CallContact findContactByIdFromSystem(Long contactId, String contactKey);
     protected abstract CallContact findContactBySipNumberFromSystem(String number);
-    protected abstract CallContact findContactByNumberFromSystem(String number);
 
     public abstract Completable loadContactData(CallContact callContact, String accountId);
 
@@ -113,29 +111,9 @@ public abstract class ContactService {
                 .firstOrError();
     }
 
-    /**
-     * Searches a contact in the local cache and then in the system repository
-     * In the last case, the contact is created and added to the local cache
-     *
-     * @return The found/created contact
-     */
-    public CallContact findContactByNumber(Account account, String number) {
-        if (StringUtils.isEmpty(number) || account == null) {
-            return null;
-        }
-        return findContact(account, new Uri(number));
-    }
-
     public CallContact findContact(Account account, Uri uri) {
-        if (uri == null || account == null) {
-            return null;
-        }
+        if (uri == null || account == null) return null;
 
-        CallContact contact = account.getContactFromCache(uri);
-        // TODO load system contact info into SIP contact
-        if (account.isSip()) {
-            loadContactData(contact, account.getAccountID()).subscribe(() -> {}, e -> Log.e(TAG, "Can't load contact data"));
-        }
-        return contact;
+        return account.getContactFromCache(uri);
     }
 }

@@ -25,7 +25,6 @@ package cx.ring.account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,20 +34,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -56,11 +50,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import cx.ring.R;
 import cx.ring.application.JamiApplication;
 import cx.ring.client.HomeActivity;
-import cx.ring.contactrequests.BlackListFragment;
 import cx.ring.databinding.FragAccountSettingsBinding;
 import cx.ring.fragments.AdvancedAccountFragment;
 import cx.ring.fragments.GeneralAccountFragment;
-import cx.ring.fragments.SecurityAccountFragment;
 import cx.ring.interfaces.BackHandlerInterface;
 import cx.ring.mvp.BaseSupportFragment;
 
@@ -81,7 +73,6 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
     private boolean mIsVisible;
 
     private MenuItem mItemAdvanced;
-//    private MenuItem mItemBlacklist;
 
     private String mAccountId;
     private boolean mAccountIsJami;
@@ -136,10 +127,10 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
     }
 
     @Override
-    public void initViewPager(String accountId, boolean isJami) {
+    public void initViewPager(String accountId) {
         binding.pager.setOffscreenPageLimit(4);
         binding.slidingTabs.setupWithViewPager(binding.pager);
-        binding.pager.setAdapter(new PreferencesPagerAdapter(getChildFragmentManager(), getActivity(), accountId, isJami));
+        binding.pager.setAdapter(new PreferencesPagerAdapter(getChildFragmentManager(), getActivity(), accountId));
     }
 
     @Override
@@ -149,35 +140,11 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
         }
     }
 
-//    @Override
-//    public void showBlacklistOption(boolean show) {
-//        if (mItemBlacklist != null) {
-//            mItemBlacklist.setVisible(show);
-//        }
-//    }
-
-    @Override
-    public void goToBlackList(String accountId) {
-        BlackListFragment blackListFragment = new BlackListFragment();
-        Bundle args = new Bundle();
-        args.putString(ACCOUNT_ID_KEY, accountId);
-        blackListFragment.setArguments(args);
-        requireFragmentManager().beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(BlackListFragment.TAG)
-                .replace(R.id.fragment_container, blackListFragment, BlackListFragment.TAG)
-                .commit();
-        binding.slidingTabs.setVisibility(View.GONE);
-        binding.pager.setVisibility(View.GONE);
-        binding.fragmentContainer.setVisibility(View.VISIBLE);
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.account_edition, menu);
         mItemAdvanced = menu.findItem(R.id.menuitem_advanced);
-//        mItemBlacklist = menu.findItem(R.id.menuitem_blacklist);
     }
 
     @Override
@@ -206,10 +173,7 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
             toggleView(mAccountId, mAccountIsJami);
             return true;
         }
-        JamiAccountSummaryFragment summaryFragment = (JamiAccountSummaryFragment) getChildFragmentManager().findFragmentByTag(JamiAccountSummaryFragment.TAG);
-        if (summaryFragment != null && summaryFragment.onBackPressed()) {
-            return true;
-        }
+
         return getChildFragmentManager().popBackStackImmediate();
     }
 
@@ -219,7 +183,7 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
         binding.slidingTabs.setVisibility(isJami ? View.GONE : View.VISIBLE);
         binding.pager.setVisibility(isJami ? View.GONE : View.VISIBLE);
         binding.fragmentContainer.setVisibility(isJami ? View.VISIBLE : View.GONE);
-        presenter.prepareOptionsMenu(isJami);
+        presenter.prepareOptionsMenu();
         setBackListenerEnabled(isJami);
     }
 
@@ -244,10 +208,6 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
                 mIsVisible = true;
                 setupElevation();
                 break;
-//            case R.id.menuitem_blacklist:
-//                presenter.goToBlackList();
-//                if (getActivity() instanceof HomeActivity)
-//                    ((HomeActivity) getActivity()).setToolbarElevation(false);
             default:
                 break;
         }
@@ -291,13 +251,11 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
     private static class PreferencesPagerAdapter extends FragmentStatePagerAdapter {
         private Context mContext;
         private String accountId;
-        private boolean isJamiAccount;
 
-        PreferencesPagerAdapter(FragmentManager fm, Context mContext, String accountId, boolean isJamiAccount) {
+        PreferencesPagerAdapter(FragmentManager fm, Context mContext, String accountId) {
             super(fm);
             this.mContext = mContext;
             this.accountId = accountId;
-            this.isJamiAccount = isJamiAccount;
         }
 
         @StringRes
@@ -306,25 +264,7 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
                 case 0:
                     return R.string.account_preferences_basic_tab;
                 case 1:
-                    return R.string.account_preferences_media_tab;
-                case 2:
                     return R.string.account_preferences_advanced_tab;
-                default:
-                    return -1;
-            }
-        }
-
-        @StringRes
-        private static int getSIPPanelTitle(int position) {
-            switch (position) {
-                case 0:
-                    return R.string.account_preferences_basic_tab;
-                case 1:
-                    return R.string.account_preferences_media_tab;
-                case 2:
-                    return R.string.account_preferences_advanced_tab;
-                case 3:
-                    return R.string.account_preferences_security_tab;
                 default:
                     return -1;
             }
@@ -332,18 +272,18 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
 
         @Override
         public int getCount() {
-            return isJamiAccount ? 3 : 4;
+            return 2;
         }
 
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            return isJamiAccount ? getJamiPanel(position) : getSIPPanel(position);
+            return getJamiPanel(position);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            int resId = isJamiAccount ? getRingPanelTitle(position) : getSIPPanelTitle(position);
+            int resId = getRingPanelTitle(position);
             return mContext.getString(resId);
         }
 
@@ -352,22 +292,8 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
             switch (position) {
                 case 0:
                     return fragmentWithBundle(new GeneralAccountFragment());
-                case 2:
+                case 1:
                     return fragmentWithBundle(new AdvancedAccountFragment());
-                default:
-                    throw new IllegalArgumentException();
-            }
-        }
-
-        @NonNull
-        private Fragment getSIPPanel(int position) {
-            switch (position) {
-                case 0:
-                    return GeneralAccountFragment.newInstance(accountId);
-                case 2:
-                    return fragmentWithBundle(new AdvancedAccountFragment());
-                case 3:
-                    return fragmentWithBundle(new SecurityAccountFragment());
                 default:
                     throw new IllegalArgumentException();
             }

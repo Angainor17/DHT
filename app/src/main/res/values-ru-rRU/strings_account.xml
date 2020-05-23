@@ -5,9 +5,8 @@
   <string name="ic_advanced_menu">Дополнительные настройки</string>
   <string name="ic_blacklist_menu">Заблокированные контакты</string>
   <!--Strings related to account creation-->
-  <string name="add_ring_account_title">Добавить учетную запись Jami</string>
-  <string name="add_sip_account_title">Добавить SIP аккаунт</string>
-  <string name="ring_account_default_name">Jami аккаунт %1$s</string>
+  <string name="add_ring_account_title">Добавить учетную запись </string>
+  <string name="ring_account_default_name">Аккаунт %1$s</string>
   <string name="prompt_alias">Псевдоним</string>
   <string name="prompt_hostname">Узел</string>
   <string name="prompt_username">Пользователь</string>
@@ -21,15 +20,9 @@
   <string name="dialog_wait_create_details">Пожалуйста, подождите, пока Ваш новый аккаунт будет добавлен...</string>
   <string name="dialog_wait_update">Обновление аккаунта</string>
   <string name="dialog_wait_update_details">Пожалуйста, подождите, пока ваш новый аккаунт будет обновлен…</string>
-  <string name="dialog_warn_ip2ip_account_title">Создать пустой SIP аккаунт?</string>
-  <string name="dialog_warn_ip2ip_account_message">Вы собираетесь создать аккаунт SIP без допустимого имени хоста.
-        Вы сможете совершать и принимать только прямые ip-вызовы.
-        Вы можете изменить свой аккаунт позже</string>
+
   <string name="account_type_ip2ip">IP аккаунт</string>
   <string name="help_ring">Учетная запись Jami позволяет вам безопасно общаться с людьми в одноранговой сети через полностью распределенную сеть.</string>
-  <string name="help_sip_title">Добавить SIP аккаунт</string>
-  <string name="help_sip">Настройка существующего SIP аккаунта</string>
-  <string name="create_sip_account">Добавить SIP аккаунт</string>
   <!--Strings related to account deletion-->
   <string name="account_delete_dialog_title">Удалить аккаунт?</string>
   <string name="account_delete_dialog_message">Это действие не может быть отменено</string>
@@ -95,7 +88,6 @@
   <string name="account_credentials_add">Добавить учетные данные</string>
   <!--SRTP Details-->
   <string name="account_preferences_security_tab">Безопасность</string>
-  <!--SIP-->
   <!--TLS Details-->
   <string name="account_tls_transport_switch_label">Использовать TLS</string>
   <string name="account_tls_port_label">Порт для TLS</string>
@@ -118,7 +110,6 @@
   <string name="error_passwords_not_equals">Пароли не совпадают</string>
   <string name="export_account_wait_title">Пожалуйста, подождите...</string>
   <string name="export_account_wait_message">Экспортировать информацию об аккаунте</string>
-  <string name="account_export_file">Резервная копия аккаунта</string>
   <string name="account_export_end_decryption_message">Не удалось разблокировать аккаунт с помощью этого пароля.</string>
   <string name="account_export_end_network_title">Ошибка сети</string>
   <string name="account_export_end_network_message">Не удалось экспортировать аккаунт в сети. Проверьте подключение.</string>
@@ -137,7 +128,6 @@
   <string name="account_update_needed">Необходимо обновиться</string>
   <string name="account_cannot_be_found_title">Не удаётся найти аккаунт</string>
   <string name="account_cannot_be_found_message">Учетная запись не может быть найдена в сети Jami. Убедитесь, что это было экспортирован на Jami с существующего устройства, и что предоставленные учетные данные верны.</string>
-  <string name="account_sip_cannot_be_registered_message">Вы можете продолжить процесс создания учетной записи или изменить свою информацию здесь. Редактирование все еще возможно позже в настройках аккаунта.</string>
   <string name="account_no_network_title">Не удаётся соединиться к сети</string>
   <string name="account_no_network_message">Не удалось добавить учетную запись, поскольку Jami не удалось подключиться к распределенной сети. Проверьте подключение устройства.</string>
   <string name="account_device_added_title">Аккаунт устройства добавлен</string>
@@ -145,15 +135,11 @@
   <string name="account_device_updated_title">Аккаунт устройства обновлён</string>
   <string name="account_device_updated_message">Вы успешно обновили свой Jami аккаунт.</string>
   <string name="account_cannot_be_updated_message">Аккаунт устройство не смог обновиться. Пожалуйста, проверьте свой пароль</string>
-  <string name="account_sip_success_title">Sip аккаунт зарегистрирован</string>
-  <string name="account_sip_success_message">Вы успешно зарегистрировали свой Sip аккаунт.</string>
-  <string name="account_sip_register_anyway">Зарегистрироваться несмотря ни на что</string>
   <string name="account_link_device">Подключиться через другое устройство</string>
   <string name="account_link_button">Подключиться из сети</string>
   <string name="account_link_archive_button">Подключиться через резервную копию</string>
   <string name="account_link_prompt_pin">Введите PIN</string>
   <string name="account_new_button">Создать учётную запись Jami</string>
-  <string name="account_link_export_button">Привязать другое устройство к этому аккаунту</string>
   <string name="account_link_export_info">Чтобы использовать эту учетную запись на других устройствах, вы должны сначала предоставить ее в Jami. При этом будет сгенерирован PIN-код, который необходимо ввести на новом устройстве. PIN-код действителен в течение 10 минут.</string>
   <string name="account_start_export_button">Сгенерировать PIN </string>
   <string name="account_end_export_button">закрыть</string>
@@ -189,7 +175,6 @@
   <string name="account_creation_profile">Создать свой профиль</string>
   <string name="account_creation_ring">Создать свой Jami аккаунт</string>
   <string name="account_link_title">Привязать это устройство</string>
-  <string name="account_sip_cannot_be_registered">Не удаётся зарегистрировать аккаунт</string>
   <!--Edit profile-->
   <string name="account_edit_profile">Редактировать свой профиль</string>
   <!--Devices-->

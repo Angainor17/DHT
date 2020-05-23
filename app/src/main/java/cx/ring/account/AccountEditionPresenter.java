@@ -59,16 +59,9 @@ public class AccountEditionPresenter extends RootPresenter<AccountEditionView> {
             return;
         }
         mAccount = account;
-        if (account.isJami()) {
-            view.displaySummary(account.getAccountID());
-        } else {
-            view.displaySIPView(account.getAccountID());
-        }
-        view.initViewPager(account.getAccountID(), account.isJami());
-    }
 
-    public void goToBlackList() {
-        getView().goToBlackList(mAccount.getAccountID());
+            view.displaySummary(account.getAccountID());
+        view.initViewPager(account.getAccountID());
     }
 
     public void removeAccount() {
@@ -76,15 +69,11 @@ public class AccountEditionPresenter extends RootPresenter<AccountEditionView> {
     }
 
     public void prepareOptionsMenu() {
-        if (mAccount != null)
-            prepareOptionsMenu(mAccount.isJami());
-    }
-
-    public void prepareOptionsMenu(boolean isJami) {
-        AccountEditionView view = getView();
-        if (view != null) {
-            view.showAdvancedOption(isJami);
-//            view.showBlacklistOption(isJami);
+        if (mAccount != null) {
+            AccountEditionView view = getView();
+            if (view != null) {
+                view.showAdvancedOption(true);
+            }
         }
     }
 }

@@ -43,7 +43,6 @@ import cx.ring.R;
 import cx.ring.application.JamiApplication;
 import cx.ring.client.HomeActivity;
 import cx.ring.fragments.AccountMigrationFragment;
-import cx.ring.fragments.SIPAccountCreationFragment;
 import cx.ring.model.Account;
 import cx.ring.model.AccountConfig;
 import cx.ring.mvp.BaseActivity;
@@ -143,15 +142,6 @@ public class AccountWizardActivity extends BaseActivity<AccountWizardPresenter> 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.wizard_container, fragment, HomeAccountCreationFragment.TAG)
-                .commit();
-    }
-
-    @Override
-    public void goToSipCreation() {
-        Fragment fragment = new SIPAccountCreationFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.wizard_container, fragment, SIPAccountCreationFragment.TAG)
                 .commit();
     }
 

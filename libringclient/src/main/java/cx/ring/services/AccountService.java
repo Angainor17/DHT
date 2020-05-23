@@ -125,6 +125,7 @@ public class AccountService {
         String author;
         Map<String, String> messages;
     }
+
     public static class Location {
         String accountId;
         String callId;
@@ -313,38 +314,33 @@ public class AccountService {
             }
 
 
-            if (account.isSip()) {
-                hasSip = true;
-            } else if (account.isJami()) {
-                hasJami = true;
-                boolean enabled = account.isEnabled();
+            hasJami = true;
+            boolean enabled = account.isEnabled();
 
-                account.setDevices(Ringservice.getKnownRingDevices(accountId).toNative());
-                account.setContacts(Ringservice.getContacts(accountId).toNative());
-                List<Map<String, String>> requests = Ringservice.getTrustRequests(accountId).toNative();
-                for (Map<String, String> requestInfo : requests) {
-                    TrustRequest request = new TrustRequest(accountId, requestInfo);
-                    account.addRequest(request);
-                    CallContact contact = account.getContactFromCache(request.getContactId());
-                    if (!contact.detailsLoaded) {
-                        final VCard vcard = request.getVCard();
-                        contact.setVCard(vcard);
-                        mVCardService.loadVCardProfile(vcard)
-                                .subscribeOn(Schedulers.computation())
-                                .subscribe(profile -> contact.setProfile(profile.first, profile.second));
-                    }
-                    // If name is in cache this can be synchronous
-                    if (enabled)
-                        Ringservice.lookupAddress(accountId, "", request.getContactId());
+            account.setDevices(Ringservice.getKnownRingDevices(accountId).toNative());
+            account.setContacts(Ringservice.getContacts(accountId).toNative());
+            List<Map<String, String>> requests = Ringservice.getTrustRequests(accountId).toNative();
+            for (Map<String, String> requestInfo : requests) {
+                TrustRequest request = new TrustRequest(accountId, requestInfo);
+                account.addRequest(request);
+                CallContact contact = account.getContactFromCache(request.getContactId());
+                if (!contact.detailsLoaded) {
+                    final VCard vcard = request.getVCard();
+                    contact.setVCard(vcard);
+                    mVCardService.loadVCardProfile(vcard)
+                            .subscribeOn(Schedulers.computation())
+                            .subscribe(profile -> contact.setProfile(profile.first, profile.second));
                 }
-                if (enabled) {
-                    for (CallContact contact : account.getContacts().values()) {
-                        if (!contact.isUsernameLoaded())
-                            Ringservice.lookupAddress(accountId, "", contact.getPrimaryUri().getRawRingId());
-                    }
+                // If name is in cache this can be synchronous
+                if (enabled)
+                    Ringservice.lookupAddress(accountId, "", request.getContactId());
+            }
+            if (enabled) {
+                for (CallContact contact : account.getContacts().values()) {
+                    if (!contact.isUsernameLoaded())
+                        Ringservice.lookupAddress(accountId, "", contact.getPrimaryUri().getRawRingId());
                 }
             }
-
         }
 
         mHasSipAccount = hasSip;
@@ -363,10 +359,8 @@ public class AccountService {
                 mVCardService.migrateProfiles(accountIds);
                 for (String accountId : accountIds) {
                     Account account = getAccount(accountId);
-                    if (account.isJami()) {
-                        mVCardService.migrateContact(account.getContacts(), accountId);
-                        migrateContactEvents(account, account.getContacts(), account.getRequestsMigration());
-                    }
+                    mVCardService.migrateContact(account.getContacts(), accountId);
+                    migrateContactEvents(account, account.getContacts(), account.getRequestsMigration());
                 }
                 mVCardService.deleteLegacyProfiles();
             }
@@ -417,9 +411,6 @@ public class AccountService {
                 Map<String, String> accountDevices = Ringservice.getKnownRingDevices(accountId).toNative();
                 account = new Account(accountId, accountDetails, accountCredentials, accountVolatileDetails);
                 account.setDevices(accountDevices);
-                if (account.isSip()) {
-                    account.setRegistrationState(AccountConfig.STATE_READY, -1);
-                }
                 mAccountList.add(account);
                 accountsSubject.onNext(mAccountList);
             }
@@ -1549,7 +1540,7 @@ public class AccountService {
     public void setProxyEnabled(boolean enabled) {
         mExecutor.execute(() -> {
             for (Account acc : mAccountList) {
-                if (acc.isJami() && (acc.isDhtProxyEnabled() != enabled)) {
+                if (acc.isDhtProxyEnabled() != enabled) {
                     Log.d(TAG, (enabled ? "Enabling" : "Disabling") + " proxy for account " + acc.getAccountID());
                     acc.setDhtProxyEnabled(enabled);
                     StringMap details = Ringservice.getAccountDetails(acc.getAccountID());

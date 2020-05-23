@@ -203,62 +203,6 @@ public class ContactServiceImpl extends ContactService {
         return systemContacts;
     }
 
-    @Override
-    protected CallContact findContactByIdFromSystem(Long id, String key) {
-        CallContact contact = null;
-        ContentResolver contentResolver = mContext.getContentResolver();
-
-        try {
-            android.net.Uri contentUri;
-            if (key != null) {
-                contentUri = ContactsContract.Contacts.lookupContact(
-                        contentResolver,
-                        ContactsContract.Contacts.getLookupUri(id, key));
-            } else {
-                contentUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id);
-            }
-
-            Cursor result = null;
-            if (contentUri != null) {
-                result = contentResolver.query(contentUri, CONTACT_PROJECTION, null, null, null);
-            }
-
-            if (result == null) {
-                return null;
-            }
-
-            if (result.moveToFirst()) {
-                int indexId = result.getColumnIndex(ContactsContract.Data._ID);
-                int indexKey = result.getColumnIndex(ContactsContract.Data.LOOKUP_KEY);
-                int indexName = result.getColumnIndex(ContactsContract.Data.DISPLAY_NAME);
-                int indexPhoto = result.getColumnIndex(ContactsContract.Data.PHOTO_ID);
-                int indexStared = result.getColumnIndex(ContactsContract.Contacts.STARRED);
-
-                long contactId = result.getLong(indexId);
-
-                Log.d(TAG, "Contact name: " + result.getString(indexName) + " id:" + contactId + " key:" + result.getString(indexKey));
-
-                contact = new CallContact(contactId, result.getString(indexKey), result.getString(indexName), result.getLong(indexPhoto));
-
-                if (result.getInt(indexStared) != 0) {
-                    contact.setStared();
-                }
-
-                fillContactDetails(contact);
-            }
-
-            result.close();
-        } catch (Exception e) {
-            Log.d(TAG, "findContactByIdFromSystem: Error while searching for contact id=" + id, e);
-        }
-
-        if (contact == null) {
-            Log.d(TAG, "findContactByIdFromSystem: findById " + id + " can't find contact.");
-        }
-
-        return contact;
-    }
-
     private void fillContactDetails(@NonNull CallContact callContact) {
 
         ContentResolver contentResolver = mContext.getContentResolver();

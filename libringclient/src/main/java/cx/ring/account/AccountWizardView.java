@@ -28,8 +28,6 @@ public interface AccountWizardView {
 
     void goToHomeCreation();
 
-    void goToSipCreation();
-
     void displayProgress(boolean display);
 
     void displayCreationError();

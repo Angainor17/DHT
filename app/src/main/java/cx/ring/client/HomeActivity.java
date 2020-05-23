@@ -484,10 +484,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
             mAccountService.setCurrentAccount(mAccountAdapter.getItem(position));
         } else {
             Intent intent = new Intent(HomeActivity.this, AccountWizardActivity.class);
-
-            if (mAccountAdapter.getItemViewType(position) == ToolbarSpinnerAdapter.TYPE_CREATE_SIP) {
-                intent.setAction(AccountConfig.ACCOUNT_TYPE_SIP);
-            }
             startActivity(intent);
 
             Account account = mAccountService.getCurrentAccount();

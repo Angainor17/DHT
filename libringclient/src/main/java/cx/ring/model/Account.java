@@ -92,10 +92,12 @@ public class Account {
         public long timestamp;
         public Date receivedDate;
     }
+
     public static class ContactLocationEntry {
         public CallContact contact;
         public Observable<ContactLocation> location;
     }
+
     public enum ComposingStatus {
         Idle,
         Active;
@@ -258,14 +260,14 @@ public class Account {
     public void clearHistory(Uri contact, boolean delete) {
         Conversation conversation = getByUri(contact);
         // if it is a sip account, we do not add a contact event
-        conversation.clearHistory(delete || isSip());
+        conversation.clearHistory(delete);
         conversationChanged();
     }
 
     public void clearAllHistory() {
         for (Conversation conversation : getConversations()) {
             // if it is a sip account, we do not add a contact event
-            conversation.clearHistory(isSip());
+            conversation.clearHistory(false);
         }
         for (Conversation conversation : pending.values()) {
             conversation.clearHistory(true);
@@ -281,7 +283,7 @@ public class Account {
         else if (conversation == pending.get(key))
             pendingUpdated(conversation);
         else if (conversation == cache.get(key)) {
-            if (mContacts.containsKey(key) || !isJami()) {
+            if (mContacts.containsKey(key)) {
                 conversations.put(key, conversation);
                 conversationChanged();
             } else {
@@ -324,18 +326,11 @@ public class Account {
         return conversation;
     }
 
-    public Observable<Collection<CallContact>> getBannedContactsUpdates() {
-        return contactListSubject.concatMapSingle(list -> Observable.fromIterable(list).filter(CallContact::isBanned).toList());
-    }
-
     public CallContact getContactFromCache(String key) {
         synchronized (mContactCache) {
             CallContact contact = mContactCache.get(key);
             if (contact == null) {
-                if (isSip())
-                    contact = CallContact.buildSIP(new Uri(key));
-                else
-                    contact = CallContact.build(key);
+                contact = CallContact.build(key);
                 mContactCache.put(key, contact);
             }
             return contact;
@@ -394,11 +389,9 @@ public class Account {
     }
 
     public String getDisplayUsername() {
-        if (isJami()) {
-            String registeredName = getRegisteredName();
-            if (registeredName != null && !registeredName.isEmpty()) {
-                return registeredName;
-            }
+        String registeredName = getRegisteredName();
+        if (registeredName != null && !registeredName.isEmpty()) {
+            return registeredName;
         }
         return getUsername();
     }
@@ -446,14 +439,6 @@ public class Account {
 
     public String getAlias() {
         return mDetails.get(ConfigKey.ACCOUNT_ALIAS);
-    }
-
-    public Boolean isSip() {
-        return mDetails.get(ConfigKey.ACCOUNT_TYPE).equals(AccountConfig.ACCOUNT_TYPE_SIP);
-    }
-
-    public Boolean isJami() {
-        return mDetails.get(ConfigKey.ACCOUNT_TYPE).equals(AccountConfig.ACCOUNT_TYPE_RING);
     }
 
     public void setAlias(String alias) {
@@ -515,8 +500,7 @@ public class Account {
     }
 
     public boolean isIP2IP() {
-        boolean emptyHost = getHost() == null || (getHost() != null && getHost().isEmpty());
-        return isSip() && emptyHost;
+        return getHost() == null || (getHost() != null && getHost().isEmpty());
     }
 
     public boolean isAutoanswerEnabled() {
@@ -544,12 +528,7 @@ public class Account {
     }
 
     private String getUri(boolean display) {
-        String username = display ? getDisplayUsername() : getUsername();
-        if (isJami()) {
-            return username;
-        } else {
-            return username + "@" + getHost();
-        }
+        return display ? getDisplayUsername() : getUsername();
     }
 
     public String getUri() {
@@ -559,6 +538,7 @@ public class Account {
     public String getDisplayUri() {
         return getUri(true);
     }
+
     public String getDisplayUri(CharSequence defaultNameSip) {
         return isIP2IP() ? defaultNameSip.toString() : getDisplayUri();
     }
@@ -922,7 +902,7 @@ public class Account {
 
         final Date expiration = new Date(System.currentTimeMillis() - LOCATION_SHARING_EXPIRATION_MS);
         Iterator<Map.Entry<CallContact, Observable<ContactLocation>>> it = contactLocations.entrySet().iterator();
-        while (it.hasNext())  {
+        while (it.hasNext()) {
             Map.Entry<CallContact, Observable<ContactLocation>> e = it.next();
             if (e.getValue().blockingFirst().receivedDate.before(expiration)) {
                 Log.w(TAG, "maintainLocation clearing " + e.getKey().getDisplayName());

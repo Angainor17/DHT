@@ -64,11 +64,8 @@ public class AccountWizardPresenter extends RootPresenter<AccountWizardView> {
 
     public void init(String accountType) {
         mAccountType = accountType;
-        if (AccountConfig.ACCOUNT_TYPE_SIP.equals(mAccountType)) {
-            getView().goToSipCreation();
-        } else {
-            getView().goToHomeCreation();
-        }
+
+        getView().goToHomeCreation();
     }
 
     public void initJamiAccountConnect(AccountCreationModel accountCreationModel, String defaultAccountName) {
@@ -114,7 +111,7 @@ public class AccountWizardPresenter extends RootPresenter<AccountWizardView> {
         Single<Map<String, String>> newAccount = initRingAccountDetails(defaultAccountName)
                 .map(accountDetails -> {
                     Settings settings = mPreferences.getSettings();
-                    if(settings != null && settings.isAllowPushNotifications()) {
+                    if (settings != null && settings.isAllowPushNotifications()) {
                         accountCreationModel.setPush(true);
                         accountDetails.put(ConfigKey.PROXY_ENABLED.key(), AccountConfig.TRUE_STR);
                     }
@@ -137,7 +134,7 @@ public class AccountWizardPresenter extends RootPresenter<AccountWizardView> {
         accountCreationModel.setAccountObservable(newAccount);
         mCompositeDisposable.add(newAccount
                 .observeOn(mUiScheduler)
-                .subscribe(accountCreationModel::setNewAccount, e-> Log.e(TAG, "Can't create account", e)));
+                .subscribe(accountCreationModel::setNewAccount, e -> Log.e(TAG, "Can't create account", e)));
         if (accountCreationModel.isLink()) {
             getView().displayProgress(true);
             mCompositeDisposable.add(newAccount
@@ -209,12 +206,12 @@ public class AccountWizardPresenter extends RootPresenter<AccountWizardView> {
 
         BehaviorSubject<Account> account = BehaviorSubject.create();
         account.filter(a -> {
-                    String newState = a.getRegistrationState();
-                    return !(newState.isEmpty() || newState.contentEquals(AccountConfig.STATE_INITIALIZING));
-                })
+            String newState = a.getRegistrationState();
+            return !(newState.isEmpty() || newState.contentEquals(AccountConfig.STATE_INITIALIZING));
+        })
                 .firstElement()
                 .subscribe(a -> {
-                    if (!model.isLink() && a.isJami() && !StringUtils.isEmpty(model.getUsername()))
+                    if (!model.isLink()  && !StringUtils.isEmpty(model.getUsername()))
                         mAccountService.registerName(a, model.getPassword(), model.getUsername());
                     mAccountService.setCurrentAccount(a);
                     if (model.isPush()) {

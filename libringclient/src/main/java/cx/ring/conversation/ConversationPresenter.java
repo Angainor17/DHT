@@ -162,28 +162,24 @@ public class ConversationPresenter extends RootPresenter<ConversationView> {
     private CallContact initContact(final Account account, final Uri uri,
                                     final ConversationView view) {
         CallContact contact;
-        if (account.isJami()) {
-            String rawId = uri.getRawRingId();
-            contact = account.getContact(rawId);
-            if (contact == null) {
-                contact = account.getContactFromCache(uri);
-                TrustRequest req = account.getRequest(uri);
-                if (req == null) {
-                    view.switchToUnknownView(contact.getRingUsername());
-                } else {
-                    view.switchToIncomingTrustRequestView(req.getDisplayname());
-                }
+        String rawId = uri.getRawRingId();
+        contact = account.getContact(rawId);
+        if (contact == null) {
+            contact = account.getContactFromCache(uri);
+            TrustRequest req = account.getRequest(uri);
+            if (req == null) {
+                view.switchToUnknownView(contact.getRingUsername());
             } else {
-                view.switchToConversationView();
-            }
-            Log.w(TAG, "initContact " + contact.getUsername());
-            if (contact.getUsername() == null) {
-                mAccountService.lookupAddress(mAccountId, "", rawId);
+                view.switchToIncomingTrustRequestView(req.getDisplayname());
             }
         } else {
-            contact = mContactService.findContact(account, uri);
             view.switchToConversationView();
         }
+        Log.w(TAG, "initContact " + contact.getUsername());
+        if (contact.getUsername() == null) {
+            mAccountService.lookupAddress(mAccountId, "", rawId);
+        }
+
         view.displayContact(contact);
         return contact;
     }

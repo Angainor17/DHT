@@ -30,8 +30,6 @@ import javax.inject.Named;
 import cx.ring.facades.ConversationFacade;
 import cx.ring.model.Account;
 import cx.ring.model.CallContact;
-import cx.ring.model.Phone;
-import cx.ring.model.Error;
 import cx.ring.model.Uri;
 import cx.ring.mvp.RootPresenter;
 import cx.ring.services.AccountService;
@@ -120,34 +118,26 @@ public class SmartListPresenter extends RootPresenter<SmartListView> {
             }
 
             Uri uri = new Uri(query);
-            if (currentAccount.isSip()) {
-                // sip search
-                mCallContact = mContactService.findContact(currentAccount, uri);
-                mCompositeDisposable.add(mContactService.loadContactData(mCallContact, currentAccount.getAccountID())
+            if (uri.isRingId()) {
+                mCallContact = currentAccount.getContactFromCache(uri);
+                mCompositeDisposable.add(mContactService.getLoadedContact(currentAccount.getAccountID(), mCallContact)
                         .observeOn(mUiScheduler)
-                        .subscribe(() -> view.displayContact(mCallContact), rt -> view.displayContact(mCallContact)));
+                        .subscribe(view::displayContact, e -> Log.e(TAG, "Can't load contact")));
             } else {
-                if (uri.isRingId()) {
-                    mCallContact = currentAccount.getContactFromCache(uri);
-                    mCompositeDisposable.add(mContactService.getLoadedContact(currentAccount.getAccountID(), mCallContact)
-                            .observeOn(mUiScheduler)
-                            .subscribe(view::displayContact, e -> Log.e(TAG, "Can't load contact")));
-                } else {
-                    view.hideSearchRow();
-                    view.setLoading(true);
+                view.hideSearchRow();
+                view.setLoading(true);
 
-                    // Ring search
-                    if (mQueryDisposable == null || mQueryDisposable.isDisposed()) {
-                        mQueryDisposable = contactQuery
-                                .debounce(350, TimeUnit.MILLISECONDS)
-                                .switchMapSingle(q -> mAccountService.findRegistrationByName(mAccount.getAccountID(), "", q))
-                                .observeOn(mUiScheduler)
-                                .subscribe(q -> parseEventState(mAccountService.getAccount(q.accountId), q.name, q.address, q.state),
-                                        e -> Log.e(TAG, "Can't perform query"));
-                        mCompositeDisposable.add(mQueryDisposable);
-                    }
-                    contactQuery.onNext(query);
+                // Ring search
+                if (mQueryDisposable == null || mQueryDisposable.isDisposed()) {
+                    mQueryDisposable = contactQuery
+                            .debounce(350, TimeUnit.MILLISECONDS)
+                            .switchMapSingle(q -> mAccountService.findRegistrationByName(mAccount.getAccountID(), "", q))
+                            .observeOn(mUiScheduler)
+                            .subscribe(q -> parseEventState(mAccountService.getAccount(q.accountId), q.name, q.address, q.state),
+                                    e -> Log.e(TAG, "Can't perform query"));
+                    mCompositeDisposable.add(mQueryDisposable);
                 }
+                contactQuery.onNext(query);
             }
         }
 
@@ -225,12 +215,12 @@ public class SmartListPresenter extends RootPresenter<SmartListView> {
                 .switchMap(viewModels -> viewModels.isEmpty()
                         ? Observable.just(new ArrayList<SmartListViewModel>())
                         : Observable.combineLatest(viewModels, obs -> {
-                            List<SmartListViewModel> vms = new ArrayList<>(obs.length);
-                            for (Object ob : obs)
-                                vms.add((SmartListViewModel) ob);
-                            mSmartListViewModels = vms;
-                            return vms;
-                        }))
+                    List<SmartListViewModel> vms = new ArrayList<>(obs.length);
+                    for (Object ob : obs)
+                        vms.add((SmartListViewModel) ob);
+                    mSmartListViewModels = vms;
+                    return vms;
+                }))
                 .throttleLatest(150, TimeUnit.MILLISECONDS, mUiScheduler)
                 .observeOn(mUiScheduler)
                 .subscribe(viewModels -> {

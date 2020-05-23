@@ -49,7 +49,6 @@ public class ToolbarSpinnerAdapter extends ArrayAdapter<Account> {
 
     public static final int TYPE_ACCOUNT = 0;
     public static final int TYPE_CREATE_JAMI = 1;
-    public static final int TYPE_CREATE_SIP = 2;
 
     private static final String TAG = ToolbarSpinnerAdapter.class.getSimpleName();
 
@@ -61,7 +60,7 @@ public class ToolbarSpinnerAdapter extends ArrayAdapter<Account> {
     private Context mContext;
     private List<Account> mAccounts;
 
-    public ToolbarSpinnerAdapter(@NonNull Context context, int resource, List<Account> accounts){
+    public ToolbarSpinnerAdapter(@NonNull Context context, int resource, List<Account> accounts) {
         super(context, resource, accounts);
 
         mContext = context;
@@ -84,23 +83,19 @@ public class ToolbarSpinnerAdapter extends ArrayAdapter<Account> {
         if (position == mAccounts.size()) {
             return TYPE_CREATE_JAMI;
         }
-        if (position == mAccounts.size() + 1) {
-            return TYPE_CREATE_SIP;
-        }
-
         return TYPE_ACCOUNT;
     }
 
     @Override
     public int getCount() {
-        return mAccounts.size() + 2;
+        return mAccounts.size() + 1;
     }
 
-    private View selectedView(View convertView , int position){
+    private View selectedView(View convertView, int position) {
 
         int type = getItemViewType(position);
 
-        ViewHolder holder ;
+        ViewHolder holder;
         View rowView = convertView;
         if (rowView == null) {
 
@@ -132,11 +127,10 @@ public class ToolbarSpinnerAdapter extends ArrayAdapter<Account> {
         return rowView;
     }
 
-    private View dropDownView(View convertView , int position){
-
+    private View dropDownView(View convertView, int position) {
         int type = getItemViewType(position);
 
-        ViewHolder holder ;
+        ViewHolder holder;
         View rowView = convertView;
         if (rowView == null) {
 
@@ -163,10 +157,9 @@ public class ToolbarSpinnerAdapter extends ArrayAdapter<Account> {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(avatar -> holder.logo.setImageDrawable(avatar), e -> Log.e(TAG, "Error loading avatar", e)));
         } else {
-            if (type == TYPE_CREATE_JAMI)
+            if (type == TYPE_CREATE_JAMI) {
                 holder.title.setText(R.string.add_ring_account_title);
-            else
-                holder.title.setText(R.string.add_sip_account_title);
+            }
             holder.subTitle.setVisibility(View.GONE);
             holder.logo.setImageResource(R.drawable.baseline_add_24);
 
@@ -220,5 +213,4 @@ public class ToolbarSpinnerAdapter extends ArrayAdapter<Account> {
         }
         return account.getDisplayUri();
     }
-
 }

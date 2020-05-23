@@ -29,7 +29,6 @@ public class AccountConfig {
     public static final String TRUE_STR = "true";
     public static final String FALSE_STR = "false";
     public static final String ACCOUNT_TYPE_RING = "RING";
-    public static final String ACCOUNT_TYPE_SIP = "SIP";
 
     public static final String STATE_REGISTERED = "REGISTERED";
     public static final String STATE_READY = "READY";
