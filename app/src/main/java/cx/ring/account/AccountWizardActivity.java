@@ -40,7 +40,7 @@ import java.io.File;
 import cx.ring.R;
 import cx.ring.application.JamiApplication;
 import cx.ring.client.HomeActivity;
-import cx.ring.fragments.AccountMigrationFragment;
+
 import cx.ring.model.Account;
 import cx.ring.model.AccountConfig;
 import cx.ring.mvp.AccountCreationModel;
@@ -51,7 +51,6 @@ import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 public class AccountWizardActivity extends BaseActivity<AccountWizardPresenter> implements AccountWizardView {
-    static final String TAG = AccountWizardActivity.class.getName();
 
     private ProgressDialog mProgress = null;
     private String mAccountType;
@@ -66,33 +65,14 @@ public class AccountWizardActivity extends BaseActivity<AccountWizardPresenter> 
         JamiApplication.getInstance().startDaemon();
         setContentView(R.layout.activity_wizard);
 
-        String accountToMigrate = null;
+
         Intent intent = getIntent();
         if (intent != null) {
             mAccountType = intent.getAction();
-            Uri path = intent.getData();
-            if (path != null) {
-                accountToMigrate = path.getLastPathSegment();
-            }
-        }
-        if (mAccountType == null) {
-            mAccountType = AccountConfig.ACCOUNT_TYPE_RING;
         }
 
-        if (savedInstanceState == null) {
-            if (accountToMigrate != null) {
-                Bundle args = new Bundle();
-                args.putString(AccountMigrationFragment.ACCOUNT_ID, getIntent().getData().getLastPathSegment());
-                Fragment fragment = new AccountMigrationFragment();
-                fragment.setArguments(args);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.wizard_container, fragment)
-                        .commit();
-            } else {
-                presenter.init(getIntent().getAction() != null ? getIntent().getAction() : AccountConfig.ACCOUNT_TYPE_RING);
-            }
+        if (mAccountType == null) {
+            mAccountType = AccountConfig.ACCOUNT_TYPE_RING;
         }
     }
 

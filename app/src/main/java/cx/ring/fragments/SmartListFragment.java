@@ -92,7 +92,7 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
 
     private SearchView mSearchView = null;
     private MenuItem mSearchMenuItem = null;
-    private MenuItem mDialpadMenuItem = null;
+
     private FragSmartlistBinding binding;
 
     @Override
@@ -107,21 +107,16 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
 
         inflater.inflate(R.menu.smartlist_menu, menu);
         mSearchMenuItem = menu.findItem(R.id.menu_contact_search);
-        mDialpadMenuItem = menu.findItem(R.id.menu_contact_dial);
         mSearchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                mDialpadMenuItem.setVisible(false);
                 binding.newconvFab.show();
-                setOverflowMenuVisible(menu, true);
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-                mDialpadMenuItem.setVisible(true);
                 binding.newconvFab.hide();
-                setOverflowMenuVisible(menu, false);
                 return true;
             }
         });
@@ -177,15 +172,6 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
                         | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
                 );
                 return false;
-            case R.id.menu_contact_dial:
-                if (mSearchView.getInputType() == EditorInfo.TYPE_CLASS_PHONE) {
-                    mSearchView.setInputType(EditorInfo.TYPE_CLASS_TEXT);
-                    mDialpadMenuItem.setIcon(R.drawable.baseline_dialpad_24);
-                } else {
-                    mSearchView.setInputType(EditorInfo.TYPE_CLASS_PHONE);
-                    mDialpadMenuItem.setIcon(R.drawable.baseline_keyboard_24);
-                }
-                return true;
             case R.id.menu_scan_qr:
                 presenter.clickQRSearch();
                 return true;
@@ -272,21 +258,6 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
     @Override
     public void setLoading(final boolean loading) {
         binding.loadingIndicator.setVisibility(loading ? View.VISIBLE : View.GONE);
-    }
-
-    /**
-     * Handles the visibility of some menus to hide / show the overflow menu
-     *
-     * @param menu    the menu containing the menuitems we need to access
-     * @param visible true to display the overflow menu, false otherwise
-     */
-    private void setOverflowMenuVisible(final Menu menu, boolean visible) {
-        if (null != menu) {
-            MenuItem overflowMenuItem = menu.findItem(R.id.menu_overflow);
-            if (null != overflowMenuItem) {
-                overflowMenuItem.setVisible(visible);
-            }
-        }
     }
 
     @Override

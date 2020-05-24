@@ -34,7 +34,6 @@ import cx.ring.client.ConversationSelectionActivity;
 import cx.ring.client.HomeActivity;
 import cx.ring.contactrequests.ContactRequestsFragment;
 import cx.ring.facades.ConversationFacade;
-import cx.ring.fragments.AccountMigrationFragment;
 import cx.ring.fragments.AdvancedAccountFragment;
 import cx.ring.fragments.ConversationFragment;
 import cx.ring.fragments.GeneralAccountFragment;
@@ -75,8 +74,6 @@ public interface JamiInjectionComponent {
     void inject(AccountWizardActivity activity);
 
     void inject(AccountEditionFragment activity);
-
-    void inject(AccountMigrationFragment fragment);
 
     void inject(JamiAccountSummaryFragment fragment);
 

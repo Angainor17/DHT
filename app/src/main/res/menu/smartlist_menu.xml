@@ -13,39 +13,10 @@
         app:showAsAction="collapseActionView|always" />
 
     <item
-        android:id="@+id/menu_contact_dial"
-        android:icon="@drawable/baseline_dialpad_24"
-        android:title="@string/dial_number"
-        android:visible="false"
-        app:showAsAction="always" />
-
-    <!--
-    Created by Rohith M S from Noun Project
-    Licensed under Creative Commons :
-    http://creativecommons.org/licenses/by/3.0/us/legalcode
-    Used without any modification.
-    -->
-    <item
         android:id="@+id/menu_scan_qr"
         android:icon="@drawable/ic_action_scan_qr"
         android:title="@string/scan_qr"
         app:showAsAction="always"
         app:iconTint="?attr/colorControlNormal"/>
-
-    <item
-        android:id="@+id/menu_overflow"
-        android:orderInCategory="101"
-        app:showAsAction="always"
-        android:title=""
-        android:icon="@drawable/ic_baseline_more_vert"
-        app:iconTint="?attr/colorControlNormal">
-
-        <menu>
-            <item android:id="@+id/menu_settings"
-                app:showAsAction="ifRoom"
-                android:title="@string/menu_item_settings" />
-        </menu>
-
-    </item>
 
 </menu>
