@@ -160,7 +160,7 @@
   <string name="prompt_new_password">Новый пароль</string>
   <string name="prompt_new_password_optional">Новый пароль (необязательно)</string>
   <string name="prompt_new_password_repeat">Повторите новый пароль</string>
-  <string name="account_create_title">Создать учётную запись Jami</string>
+
   <string name="prompt_new_username">Введите новое имя пользователя</string>
   <string name="help_password_choose">Выберите надежный пароль, который вы запомните, чтобы защитить свою учетную запись Jami.</string>
   <string name="help_password_enter">Введите ваш основной пароль учётной записи Jami </string>

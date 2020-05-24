@@ -176,7 +176,7 @@
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="24dp"
         android:enabled="false"
-        android:text="@string/account_new_button"
+        android:text="Create account"
         android:theme="@style/ButtonColoredInverse" />
 
 </RelativeLayout>

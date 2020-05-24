@@ -135,11 +135,8 @@
   <string name="account_device_updated_title">Аккаунт устройства обновлён</string>
   <string name="account_device_updated_message">Вы успешно обновили свой Jami аккаунт.</string>
   <string name="account_cannot_be_updated_message">Аккаунт устройство не смог обновиться. Пожалуйста, проверьте свой пароль</string>
-  <string name="account_link_device">Подключиться через другое устройство</string>
-  <string name="account_link_button">Подключиться из сети</string>
-  <string name="account_link_archive_button">Подключиться через резервную копию</string>
   <string name="account_link_prompt_pin">Введите PIN</string>
-  <string name="account_new_button">Создать учётную запись Jami</string>
+
   <string name="account_link_export_info">Чтобы использовать эту учетную запись на других устройствах, вы должны сначала предоставить ее в Jami. При этом будет сгенерирован PIN-код, который необходимо ввести на новом устройстве. PIN-код действителен в течение 10 минут.</string>
   <string name="account_start_export_button">Сгенерировать PIN </string>
   <string name="account_end_export_button">закрыть</string>
@@ -147,7 +144,7 @@
   <string name="account_link_export_info_light">Чтобы использовать эту учетную запись на других устройствах, вы должны сначала предоставить ее в Jami. При этом будет сгенерирован PIN-код, который необходимо ввести на новом устройстве. PIN-код действителен в течение 10 минут.</string>
   <string name="account_export_title">Добавить устройства</string>
   <string name="account_connect_server_button">Подключиться к серверу управления</string>
-  <string name="account_connect_button">Соединение...</string>
+  <string name="account_connect_button">Соединение…</string>
   <string name="prompt_server">URL управляющего сервера Jami</string>
   <string name="help_credentials_enter">Введите учетные данные организации</string>
   <string name="help_connect_password_enter">Введите пароль своей организации</string>
@@ -163,7 +160,7 @@
   <string name="username_already_taken">Имя пользователя уже занято</string>
   <string name="invalid_username">Недопустимое имя пользователя</string>
   <string name="unknown_error">Неизвестная ошибка. Пожалуйста, проверьте ваше интернет соединение</string>
-  <string name="looking_for_username_availability">Проверка на доступность имени пользователя...</string>
+  <string name="looking_for_username_availability">Проверка на доступность имени пользователя…</string>
   <string name="account_status_connecting">Подключение</string>
   <string name="account_status_connection_error">Ошибка соединения</string>
   <string name="account_status_online">В сети</string>

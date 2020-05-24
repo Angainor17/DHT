@@ -24,7 +24,4 @@ public interface HomeAccountCreationView {
 
     void goToAccountCreation();
 
-    void goToAccountLink();
-
-    void goToAccountConnect();
 }

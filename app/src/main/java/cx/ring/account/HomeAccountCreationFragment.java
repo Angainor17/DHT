@@ -19,9 +19,6 @@
  */
 package cx.ring.account;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,17 +28,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import cx.ring.R;
 import cx.ring.application.JamiApplication;
 import cx.ring.databinding.FragAccHomeCreateBinding;
 import cx.ring.mvp.BaseSupportFragment;
-import cx.ring.utils.AndroidFileUtils;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class HomeAccountCreationFragment extends BaseSupportFragment<HomeAccountCreationPresenter> implements HomeAccountCreationView {
-    private static final int ARCHIVE_REQUEST_CODE = 42;
 
     public static final String TAG = HomeAccountCreationFragment.class.getSimpleName();
 
@@ -65,10 +57,8 @@ public class HomeAccountCreationFragment extends BaseSupportFragment<HomeAccount
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setRetainInstance(true);
-        binding.ringAddAccount.setOnClickListener(v -> presenter.clickOnLinkAccount());
+
         binding.ringCreateBtn.setOnClickListener(v -> presenter.clickOnCreateAccount());
-        binding.accountConnectServer.setOnClickListener(v -> presenter.clickOnConnectAccount());
-        binding.ringImportAccount.setOnClickListener(v -> performFileSearch());
     }
 
     @Override
@@ -76,52 +66,5 @@ public class HomeAccountCreationFragment extends BaseSupportFragment<HomeAccount
         AccountCreationModelImpl ringAccountViewModel = new AccountCreationModelImpl();
         Fragment fragment = JamiAccountCreationFragment.newInstance(ringAccountViewModel);
         replaceFragmentWithSlide(fragment, R.id.wizard_container);
-    }
-
-    @Override
-    public void goToAccountLink() {
-        AccountCreationModelImpl ringAccountViewModel = new AccountCreationModelImpl();
-        ringAccountViewModel.setLink(true);
-        Fragment fragment = JamiLinkAccountFragment.newInstance(ringAccountViewModel);
-        replaceFragmentWithSlide(fragment, R.id.wizard_container);
-    }
-
-    @Override
-    public void goToAccountConnect() {
-        AccountCreationModelImpl ringAccountViewModel = new AccountCreationModelImpl();
-        ringAccountViewModel.setLink(true);
-        Fragment fragment = JamiAccountConnectFragment.newInstance(ringAccountViewModel);
-        replaceFragmentWithSlide(fragment, R.id.wizard_container);
-    }
-
-    private void performFileSearch() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*");
-        startActivityForResult(intent, ARCHIVE_REQUEST_CODE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-        if (requestCode == ARCHIVE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            if (resultData != null) {
-                Uri uri = resultData.getData();
-                if (uri != null) {
-                    AndroidFileUtils.getCacheFile(requireContext(), uri)
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(file -> {
-                                AccountCreationModelImpl ringAccountViewModel = new AccountCreationModelImpl();
-                                ringAccountViewModel.setLink(true);
-                                ringAccountViewModel.setArchive(file);
-                                Fragment fragment = JamiLinkAccountFragment.newInstance(ringAccountViewModel);
-                                replaceFragmentWithSlide(fragment, R.id.wizard_container);
-                            }, e-> {
-                                View v = getView();
-                                if (v != null)
-                                    Snackbar.make(v, "Can't import archive: " + e.getMessage(), Snackbar.LENGTH_LONG).show();
-                            });
-                }
-            }
-        }
     }
 }
