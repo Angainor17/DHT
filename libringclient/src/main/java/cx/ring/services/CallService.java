@@ -46,7 +46,6 @@ import cx.ring.utils.Log;
 import ezvcard.VCard;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
@@ -115,7 +114,7 @@ public class CallService {
     }
 
     private void updateConnectionCount() {
-        connectionSubject.onNext(currentConnections.size() - 2*currentCalls.size());
+        connectionSubject.onNext(currentConnections.size() - 2 * currentCalls.size());
     }
 
     public void setIsComposing(String accountId, String uri, boolean isComposing) {
@@ -124,6 +123,7 @@ public class CallService {
 
     private static class ConferenceEntity {
         Conference conference;
+
         ConferenceEntity(Conference conf) {
             conference = conf;
         }
@@ -132,6 +132,7 @@ public class CallService {
     public Observable<Conference> getConfUpdates(final SipCall call) {
         return getConfUpdates(getConference(call));
     }
+
     private Observable<Conference> getConfUpdates(final Conference conference) {
         Log.w(TAG, "getConfUpdates " + conference.getId());
 
@@ -164,6 +165,7 @@ public class CallService {
     public Observable<SipCall> getCallsUpdates() {
         return callSubject;
     }
+
     private Observable<SipCall> getCallUpdates(final SipCall call) {
         return callSubject.filter(c -> c == call)
                 .startWith(call)
@@ -428,7 +430,7 @@ public class CallService {
         if (sipCall != null) {
             sipCall.setCallState(callState);
             sipCall.setDetails(Ringservice.getCallDetails(callId).toNative());
-        } else if (callState !=  SipCall.CallStatus.OVER && callState !=  SipCall.CallStatus.FAILURE) {
+        } else if (callState != SipCall.CallStatus.OVER && callState != SipCall.CallStatus.FAILURE) {
             Map<String, String> callDetails = Ringservice.getCallDetails(callId).toNative();
             sipCall = new SipCall(callId, callDetails);
             if (!callDetails.containsKey(SipCall.KEY_PEER_NUMBER)) {
@@ -456,7 +458,7 @@ public class CallService {
 
     public void connectionUpdate(String id, int state) {
         Log.d(TAG, "connectionUpdate: " + id + " " + state);
-        switch(state) {
+        switch (state) {
             case 0:
                 currentConnections.add(id);
                 break;

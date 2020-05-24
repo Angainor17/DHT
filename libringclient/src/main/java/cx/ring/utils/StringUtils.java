@@ -54,8 +54,9 @@ public final class StringUtils {
             return Character.toUpperCase(first) + s.substring(1);
         }
     }
-    public static String toPassword(String s){
-        if(s == null || s.isEmpty()){
+
+    public static String toPassword(String s) {
+        if (s == null || s.isEmpty()) {
             return "";
         }
         char[] chars = new char[s.length()];
@@ -82,14 +83,17 @@ public final class StringUtils {
     public static Iterable<Integer> codePoints(final String string) {
         return () -> new Iterator<Integer>() {
             int nextIndex = 0;
+
             public boolean hasNext() {
                 return nextIndex < string.length();
             }
+
             public Integer next() {
                 int result = string.codePointAt(nextIndex);
                 nextIndex += Character.charCount(result);
                 return result;
             }
+
             public void remove() {
                 throw new UnsupportedOperationException();
             }

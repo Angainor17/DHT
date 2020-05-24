@@ -72,7 +72,7 @@ public class DataTransferService extends Service {
             serviceNotificationId = notificationId;
         }
 
-        if(notificationId == serviceNotificationId)
+        if (notificationId == serviceNotificationId)
             notificationManager.notify(NOTIF_FILE_SERVICE_ID, notification);
         else
             notificationManager.notify(notificationId, notification);

@@ -32,14 +32,6 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import android.provider.MediaStore;
 import android.text.Layout;
 import android.text.Spannable;
@@ -48,25 +40,27 @@ import android.text.style.AlignmentSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.core.util.Pair;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.util.Map;
 
 import javax.inject.Inject;
-
-import androidx.core.content.FileProvider;
-import androidx.core.util.Pair;
 
 import cx.ring.R;
 import cx.ring.application.JamiApplication;
@@ -173,7 +167,7 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
                         .show();
             }
         });
-        binding.registeredNameShare.setOnClickListener(v ->  {
+        binding.registeredNameShare.setOnClickListener(v -> {
             Intent sendIntent = new Intent(Intent.ACTION_SEND)
                     .putExtra(Intent.EXTRA_TEXT, binding.registeredNameTxt.getText())
                     .setType("text/plain");
@@ -198,7 +192,7 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(d -> {
                     binding.username.setText(getAccountAlias(d.first));
-                    binding.subtitle.setText(getUri(d.first,  getString(R.string.account_type_ip2ip)));
+                    binding.subtitle.setText(getUri(d.first, getString(R.string.account_type_ip2ip)));
                     binding.userPhoto.setImageDrawable(d.second);
                 }, e -> Log.e(TAG, "Error loading avatar", e)));
     }
@@ -223,7 +217,7 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
                         }
                     }
                 }
-            break;
+                break;
             case HomeActivity.REQUEST_CODE_PHOTO:
                 if (resultCode == Activity.RESULT_OK) {
                     if (tmpProfilePhotoUri == null) {
@@ -306,7 +300,7 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
             } else if (account.isRegistered()) {
                 status = getString(R.string.account_status_online);
                 color = R.color.green_400;
-            } else if (!account.isRegistered()){
+            } else if (!account.isRegistered()) {
                 color = R.color.grey_400;
                 status = getString(R.string.account_status_offline);
             } else {
@@ -495,7 +489,7 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
     }
 
     @Override
-    public void displayCompleteArchive(File dest)  {
+    public void displayCompleteArchive(File dest) {
         String type = AndroidFileUtils.getMimeType(dest.getAbsolutePath());
         mCacheArchive = dest;
         dismissWaitDialog();
@@ -598,16 +592,16 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
     private void updatePhoto(Bitmap image) {
         mSourcePhoto = image;
         AvatarDrawable avatarDrawable = new AvatarDrawable.Builder()
-                        .withPhoto(image)
-                        .withNameData(null, mAccountService.getCurrentAccount().getRegisteredName())
-                        .withId(mAccountService.getCurrentAccount().getUri())
-                        .withCircleCrop(true)
-                        .build(getContext());
+                .withPhoto(image)
+                .withNameData(null, mAccountService.getCurrentAccount().getRegisteredName())
+                .withId(mAccountService.getCurrentAccount().getUri())
+                .withCircleCrop(true)
+                .build(getContext());
         mDisposableBag.add(VCardServiceImpl.loadProfile(mAccountService.getCurrentAccount())
                 .map(profile -> avatarDrawable)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(avatar -> mProfilePhoto.setImageDrawable(avatar), e-> Log.e(TAG, "Error loading image", e)));
+                .subscribe(avatar -> mProfilePhoto.setImageDrawable(avatar), e -> Log.e(TAG, "Error loading image", e)));
     }
 
     private String getAccountAlias(Account account) {

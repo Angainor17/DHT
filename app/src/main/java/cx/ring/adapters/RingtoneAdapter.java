@@ -129,7 +129,7 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RingtoneAdapter.Ringto
      * Stops the preview from playing and disables the playing animation
      */
     public void stopPreview() {
-        if(mp.isPlaying())
+        if (mp.isPlaying())
             mp.stop();
         mp.reset();
         ringtoneList.get(currentlySelectedPosition).setPlaying(false);
@@ -150,7 +150,8 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RingtoneAdapter.Ringto
 
     /**
      * Sets the ringtone from the user settings
-     * @param path the ringtone path
+     *
+     * @param path    the ringtone path
      * @param enabled true if the user did not select silent
      */
     public void selectDefaultItem(String path, boolean enabled) {

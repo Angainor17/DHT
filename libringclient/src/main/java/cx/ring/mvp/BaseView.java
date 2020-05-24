@@ -18,6 +18,7 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package cx.ring.mvp;
+
 import cx.ring.model.Error;
 
 public interface BaseView {

@@ -21,7 +21,6 @@
 package cx.ring.utils;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
 
@@ -216,7 +215,8 @@ public final class VCardUtils {
         vcard.setUid(new Uid(accountId));
         saveLocalProfileToDisk(vcard, accountId, filesDir)
                 .subscribeOn(Schedulers.io())
-                .subscribe(vc -> {}, e -> Log.e(TAG, "Error while saving vcard", e));
+                .subscribe(vc -> {
+                }, e -> Log.e(TAG, "Error while saving vcard", e));
         return vcard;
     }
 }

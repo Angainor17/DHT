@@ -22,17 +22,16 @@ package cx.ring.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.format.Formatter;
+import android.view.inputmethod.EditorInfo;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SeekBarPreference;
-import androidx.preference.SwitchPreference;
 import androidx.preference.TwoStatePreference;
-
-import android.text.format.Formatter;
-import android.view.inputmethod.EditorInfo;
 
 import cx.ring.R;
 import cx.ring.account.AccountEditionFragment;
@@ -89,7 +88,7 @@ public class GeneralAccountFragment extends BasePreferenceFragment<GeneralAccoun
     public void accountChanged(@NonNull Account account) {
         PreferenceManager pm = getPreferenceManager();
         pm.setSharedPreferencesMode(Context.MODE_PRIVATE);
-        pm.setSharedPreferencesName(SharedPreferencesServiceImpl.PREFS_ACCOUNT+account.getAccountID());
+        pm.setSharedPreferencesName(SharedPreferencesServiceImpl.PREFS_ACCOUNT + account.getAccountID());
 
         setPreferenceDetails(account.getConfig());
 
@@ -104,7 +103,7 @@ public class GeneralAccountFragment extends BasePreferenceFragment<GeneralAccoun
     }
 
     private CharSequence getFileSizeSummary(int size, int maxSize) {
-        if (size == 0)  {
+        if (size == 0) {
             return getText(R.string.account_accept_files_never);
         } else if (size == maxSize) {
             return getText(R.string.account_accept_files_always);
@@ -119,12 +118,12 @@ public class GeneralAccountFragment extends BasePreferenceFragment<GeneralAccoun
         super.onCreatePreferences(bundle, rootKey);
 
         Bundle args = getArguments();
-        presenter.init(args == null  ? null : args.getString(AccountEditionFragment.ACCOUNT_ID_KEY));
+        presenter.init(args == null ? null : args.getString(AccountEditionFragment.ACCOUNT_ID_KEY));
 
         SeekBarPreference filePref = findPreference("acceptIncomingFilesMaxSize");
         if (filePref != null) {
-            filePref.setOnPreferenceChangeListener((p, v) ->  {
-                SeekBarPreference pref = (SeekBarPreference)p;
+            filePref.setOnPreferenceChangeListener((p, v) -> {
+                SeekBarPreference pref = (SeekBarPreference) p;
                 p.setSummary(getFileSizeSummary((Integer) v, pref.getMax()));
                 return true;
             });
@@ -189,7 +188,7 @@ public class GeneralAccountFragment extends BasePreferenceFragment<GeneralAccoun
     public void addJamiPreferences(String accountId) {
         PreferenceManager pm = getPreferenceManager();
         pm.setSharedPreferencesMode(Context.MODE_PRIVATE);
-        pm.setSharedPreferencesName(SharedPreferencesServiceImpl.PREFS_ACCOUNT+accountId);
+        pm.setSharedPreferencesName(SharedPreferencesServiceImpl.PREFS_ACCOUNT + accountId);
         addPreferencesFromResource(R.xml.account_prefs_app);
     }
 

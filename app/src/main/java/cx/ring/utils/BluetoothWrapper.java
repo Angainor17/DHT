@@ -177,7 +177,7 @@ public class BluetoothWrapper {
             } else {
                 audioManager.stopBluetoothSco();
             }
-        } catch (Exception e)  {
+        } catch (Exception e) {
             Log.d(TAG, "Error switching bluetooth", e);
         }
     }

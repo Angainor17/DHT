@@ -21,7 +21,6 @@
 package cx.ring.launch;
 
 import android.Manifest;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -33,7 +32,6 @@ import cx.ring.services.AccountService;
 import cx.ring.services.DeviceRuntimeService;
 import cx.ring.services.HardwareService;
 import cx.ring.services.PreferencesService;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class LaunchPresenter extends RootPresenter<LaunchView> {
     protected static final String TAG = LaunchPresenter.class.getSimpleName();
@@ -71,7 +69,7 @@ public class LaunchPresenter extends RootPresenter<LaunchView> {
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(accounts -> {
 //                            if (accounts.isEmpty()) {
-                                getView().goToAccountCreation();
+        getView().goToAccountCreation();
 //                            } else {
 //                                getView().goToHome();
 //                            }

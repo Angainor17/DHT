@@ -31,7 +31,7 @@ import cx.ring.services.PreferencesService;
 import cx.ring.utils.Log;
 import io.reactivex.Scheduler;
 
-public class SettingsPresenter extends RootPresenter<GenericView<Settings>>  {
+public class SettingsPresenter extends RootPresenter<GenericView<Settings>> {
 
     private final PreferencesService mPreferencesService;
     private final Scheduler mUiScheduler;
@@ -64,7 +64,8 @@ public class SettingsPresenter extends RootPresenter<GenericView<Settings>>  {
     }
 
     public void clearHistory() {
-        mCompositeDisposable.add(mConversationFacade.clearAllHistory().subscribe(() -> {}, e -> Log.e(TAG, "Error clearing app history", e)));
+        mCompositeDisposable.add(mConversationFacade.clearAllHistory().subscribe(() -> {
+        }, e -> Log.e(TAG, "Error clearing app history", e)));
     }
 
     public void setDarkMode(boolean isChecked) {

@@ -46,6 +46,7 @@ public class Phone {
         mNumber = new Uri(number);
         mLabel = label;
     }
+
     public Phone(Uri number, int category, String label) {
         mNumberType = NumberType.UNKNOWN;
         mCategory = category;
@@ -59,6 +60,7 @@ public class Phone {
         mLabel = label;
         mCategory = category;
     }
+
     public Phone(Uri number, int category, String label, NumberType numberType) {
         mNumberType = numberType;
         mNumber = number;

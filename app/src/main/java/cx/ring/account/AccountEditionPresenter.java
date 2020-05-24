@@ -60,7 +60,7 @@ public class AccountEditionPresenter extends RootPresenter<AccountEditionView> {
         }
         mAccount = account;
 
-            view.displaySummary(account.getAccountID());
+        view.displaySummary(account.getAccountID());
         view.initViewPager(account.getAccountID());
     }
 

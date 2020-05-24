@@ -33,8 +33,7 @@ import cx.ring.application.JamiApplication;
 import cx.ring.services.SyncService;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-public class JamiJobService extends JobService
-{
+public class JamiJobService extends JobService {
     private static final String TAG = JamiJobService.class.getName();
 
     public static final long JOB_INTERVAL = 120 * DateUtils.MINUTE_IN_MILLIS;

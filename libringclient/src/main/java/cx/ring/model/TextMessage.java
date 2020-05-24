@@ -34,7 +34,7 @@ public class TextMessage extends Interaction {
                 try {
                     mDaemonId = Long.parseLong(daemonId, 16);
                 } catch (NumberFormatException e2) {
-                     mDaemonId = 0L;
+                    mDaemonId = 0L;
                 }
             }
         }

@@ -52,16 +52,12 @@ import cx.ring.application.JamiApplication;
 import cx.ring.contactrequests.ContactRequestsFragment;
 import cx.ring.contacts.AvatarFactory;
 import cx.ring.databinding.ActivityHomeBinding;
-import cx.ring.fragments.ConversationFragment;
 import cx.ring.fragments.SmartListFragment;
 import cx.ring.interfaces.BackHandlerInterface;
 import cx.ring.interfaces.Colorable;
 import cx.ring.model.Account;
-import cx.ring.model.AccountConfig;
 import cx.ring.services.AccountService;
 import cx.ring.services.NotificationService;
-import cx.ring.settings.SettingsFragment;
-import cx.ring.settings.VideoSettingsFragment;
 import cx.ring.utils.ContentUriHandler;
 import cx.ring.utils.ConversationPath;
 import io.reactivex.Scheduler;
@@ -84,13 +80,10 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     public static final String HOME_TAG = "Home";
     public static final String CONTACT_REQUESTS_TAG = "Trust request";
     public static final String ACCOUNTS_TAG = "Accounts";
-    public static final String ABOUT_TAG = "About";
-    public static final String SETTINGS_TAG = "Prefs";
-    public static final String VIDEO_SETTINGS_TAG = "VideoPrefs";
+
     public static final String ACTION_PRESENT_TRUST_REQUEST_FRAGMENT = BuildConfig.APPLICATION_ID + "presentTrustRequestFragment";
 
     protected Fragment fContent;
-    protected ConversationFragment fConversation;
 
     private ToolbarSpinnerAdapter mAccountAdapter;
     private BackHandlerInterface mAccountFragmentBackHandlerInterface;
@@ -223,7 +216,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
             handleShareIntent(intent);
         } else if (Intent.ACTION_SEARCH.equals(action)) {
             if (fContent instanceof SmartListFragment) {
-                ((SmartListFragment)fContent).handleIntent(intent);
+                ((SmartListFragment) fContent).handleIntent(intent);
             }
         }
     }
@@ -243,7 +236,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void setToolbarState(int titleRes) {
-        setToolbarState(getString(titleRes) , null);
+        setToolbarState(getString(titleRes), null);
     }
 
     public void setToolbarState(String title, String subtitle) {
@@ -297,7 +290,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                     mAccountAdapter = new ToolbarSpinnerAdapter(HomeActivity.this, R.layout.item_toolbar_spinner, accounts);
                     binding.spinnerToolbar.setAdapter(mAccountAdapter);
                     showProfileInfo();
-                }, e ->  Log.e(TAG, "Error loading account list !", e)));
+                }, e -> Log.e(TAG, "Error loading account list !", e)));
 
         mDisposable.add((mAccountService
                 .getCurrentAccountSubject()
@@ -366,35 +359,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         setToolbarElevation(false);
     }
 
-    public void goToSettings() {
-        if (fContent instanceof SettingsFragment) {
-            return;
-        }
-        popCustomBackStack();
-        hideToolbarSpinner();
-        fContent = new SettingsFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(getFragmentContainerId(), fContent, SETTINGS_TAG)
-                .addToBackStack(SETTINGS_TAG).commit();
-    }
-
-    public void goToVideoSettings() {
-        if (fContent instanceof VideoSettingsFragment) {
-            return;
-        }
-        fContent = new VideoSettingsFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(getFragmentContainerId(), fContent, VIDEO_SETTINGS_TAG)
-                .addToBackStack(VIDEO_SETTINGS_TAG).commit();
-    }
-
     @Override
     public void setColor(int color) {
-//        mToolbar.setBackground(new ColorDrawable(color));
+
     }
 
     @Override
@@ -480,7 +447,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (mAccountAdapter.getItemViewType(position) == ToolbarSpinnerAdapter.TYPE_ACCOUNT){
+        if (mAccountAdapter.getItemViewType(position) == ToolbarSpinnerAdapter.TYPE_ACCOUNT) {
             mAccountService.setCurrentAccount(mAccountAdapter.getItem(position));
         } else {
             Intent intent = new Intent(HomeActivity.this, AccountWizardActivity.class);
@@ -528,7 +495,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    public boolean isConversationSelected(){
+    public boolean isConversationSelected() {
         return conversationSelected;
     }
 

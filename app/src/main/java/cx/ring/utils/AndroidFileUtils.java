@@ -39,6 +39,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
+import androidx.annotation.NonNull;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -49,8 +51,6 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import androidx.annotation.NonNull;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -224,6 +224,7 @@ public class AndroidFileUtils {
         // Save a file: path for use with ACTION_VIEW intents
         return File.createTempFile(imageFileName, ".mp3", getTempShareDir(context));
     }
+
     public static File createVideoFile(@NonNull Context context) throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
@@ -233,7 +234,8 @@ public class AndroidFileUtils {
         return File.createTempFile(imageFileName, ".webm", getTempShareDir(context));
     }
 
-    public static @NonNull Single<File> getCacheFile(@NonNull Context context, @NonNull Uri uri) {
+    public static @NonNull
+    Single<File> getCacheFile(@NonNull Context context, @NonNull Uri uri) {
         ContentResolver contentResolver = context.getContentResolver();
         File cacheDir = context.getCacheDir();
         return Single.fromCallable(() -> {
@@ -275,12 +277,13 @@ public class AndroidFileUtils {
     /**
      * Copies a file to a predefined Uri destination
      * Uses the underlying copyFile(InputStream,OutputStream)
-     * @param cr content resolver
-     * @param input the file we want to copy
+     *
+     * @param cr     content resolver
+     * @param input  the file we want to copy
      * @param outUri the uri destination
      * @return success value
      */
-    public static Completable copyFileToUri(ContentResolver cr, File input, Uri outUri){
+    public static Completable copyFileToUri(ContentResolver cr, File input, Uri outUri) {
         return Completable.fromAction(() -> {
             try (InputStream inputStream = new FileInputStream(input); OutputStream outputStream = cr.openOutputStream(outUri)) {
                 FileUtils.copyFile(inputStream, outputStream);
@@ -406,7 +409,7 @@ public class AndroidFileUtils {
             BitmapFactory.Options dbo = new BitmapFactory.Options();
             dbo.inJustDecodeBounds = true;
 
-            try  (InputStream is = context.getContentResolver().openInputStream(uriImage)) {
+            try (InputStream is = context.getContentResolver().openInputStream(uriImage)) {
                 BitmapFactory.decodeStream(is, null, dbo);
             }
 

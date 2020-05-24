@@ -34,6 +34,8 @@ import android.os.IBinder;
 import android.system.Os;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
+
 import com.bumptech.glide.Glide;
 
 import java.io.File;
@@ -44,9 +46,6 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 
 import cx.ring.BuildConfig;
 import cx.ring.R;
@@ -99,7 +98,7 @@ public abstract class JamiApplication extends Application {
     ConversationFacade mConversationFacade;
 
     private JamiInjectionComponent mJamiInjectionComponent;
-    private final Map<String, Boolean> mPermissionsBeingAsked = new HashMap<>();;
+    private final Map<String, Boolean> mPermissionsBeingAsked = new HashMap<>();
     private final BroadcastReceiver ringerModeListener = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -256,8 +255,8 @@ public abstract class JamiApplication extends Application {
                 Os.symlink(defaultRingtone.getAbsolutePath(), defaultLink.getAbsolutePath());
             }
         })
-        .subscribeOn(Schedulers.io())
-        .subscribe();
+                .subscribeOn(Schedulers.io())
+                .subscribe();
     }
 
     public void startDaemon() {

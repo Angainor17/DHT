@@ -18,6 +18,7 @@ import cx.ring.model.Interaction;
 public class ConversationPath {
     private final String accountId;
     private final String contactId;
+
     public ConversationPath(String account, String contact) {
         accountId = account;
         contactId = contact;
@@ -31,24 +32,29 @@ public class ConversationPath {
     public String getAccountId() {
         return accountId;
     }
+
     public String getContactId() {
         return contactId;
     }
+
     public Uri toUri() {
         return toUri(accountId, contactId);
     }
+
     public static Uri toUri(String accountId, String contactId) {
         Uri.Builder builder = ContentUriHandler.CONVERSATION_CONTENT_URI.buildUpon();
         builder = builder.appendEncodedPath(accountId);
         builder = builder.appendEncodedPath(contactId);
         return builder.build();
     }
+
     public static Uri toUri(String accountId, @NonNull cx.ring.model.Uri contactUri) {
         Uri.Builder builder = ContentUriHandler.CONVERSATION_CONTENT_URI.buildUpon();
         builder = builder.appendEncodedPath(accountId);
         builder = builder.appendEncodedPath(contactUri.getUri());
         return builder.build();
     }
+
     public static Uri toUri(@NonNull Interaction interaction) {
         return toUri(interaction.getAccount(), new cx.ring.model.Uri(interaction.getConversation().getParticipant()));
     }
@@ -56,10 +62,12 @@ public class ConversationPath {
     public Bundle toBundle() {
         return toBundle(accountId, contactId);
     }
+
     public void toBundle(Bundle bundle) {
         bundle.putString(ConversationFragment.KEY_CONTACT_RING_ID, contactId);
         bundle.putString(ConversationFragment.KEY_ACCOUNT_ID, accountId);
     }
+
     public static Bundle toBundle(String accountId, String contactId) {
         Bundle bundle = new Bundle();
         bundle.putString(ConversationFragment.KEY_CONTACT_RING_ID, contactId);

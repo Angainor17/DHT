@@ -9,136 +9,136 @@
 package cx.ring.daemon;
 
 public class StringVect extends java.util.AbstractList<String> implements java.util.RandomAccess {
-  private transient long swigCPtr;
-  protected transient boolean swigCMemOwn;
+    private transient long swigCPtr;
+    protected transient boolean swigCMemOwn;
 
-  protected StringVect(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = cPtr;
-  }
-
-  protected static long getCPtr(StringVect obj) {
-    return (obj == null) ? 0 : obj.swigCPtr;
-  }
-
-  @SuppressWarnings("deprecation")
-  protected void finalize() {
-    delete();
-  }
-
-  public synchronized void delete() {
-    if (swigCPtr != 0) {
-      if (swigCMemOwn) {
-        swigCMemOwn = false;
-        RingserviceJNI.delete_StringVect(swigCPtr);
-      }
-      swigCPtr = 0;
+    protected StringVect(long cPtr, boolean cMemoryOwn) {
+        swigCMemOwn = cMemoryOwn;
+        swigCPtr = cPtr;
     }
-  }
 
-  public StringVect(String[] initialElements) {
-    this();
-    reserve(initialElements.length);
-
-    for (String element : initialElements) {
-      add(element);
+    protected static long getCPtr(StringVect obj) {
+        return (obj == null) ? 0 : obj.swigCPtr;
     }
-  }
 
-  public StringVect(Iterable<String> initialElements) {
-    this();
-    for (String element : initialElements) {
-      add(element);
+    @SuppressWarnings("deprecation")
+    protected void finalize() {
+        delete();
     }
-  }
 
-  public String get(int index) {
-    return doGet(index);
-  }
+    public synchronized void delete() {
+        if (swigCPtr != 0) {
+            if (swigCMemOwn) {
+                swigCMemOwn = false;
+                RingserviceJNI.delete_StringVect(swigCPtr);
+            }
+            swigCPtr = 0;
+        }
+    }
 
-  public String set(int index, String e) {
-    return doSet(index, e);
-  }
+    public StringVect(String[] initialElements) {
+        this();
+        reserve(initialElements.length);
 
-  public boolean add(String e) {
-    modCount++;
-    doAdd(e);
-    return true;
-  }
+        for (String element : initialElements) {
+            add(element);
+        }
+    }
 
-  public void add(int index, String e) {
-    modCount++;
-    doAdd(index, e);
-  }
+    public StringVect(Iterable<String> initialElements) {
+        this();
+        for (String element : initialElements) {
+            add(element);
+        }
+    }
 
-  public String remove(int index) {
-    modCount++;
-    return doRemove(index);
-  }
+    public String get(int index) {
+        return doGet(index);
+    }
 
-  protected void removeRange(int fromIndex, int toIndex) {
-    modCount++;
-    doRemoveRange(fromIndex, toIndex);
-  }
+    public String set(int index, String e) {
+        return doSet(index, e);
+    }
 
-  public int size() {
-    return doSize();
-  }
+    public boolean add(String e) {
+        modCount++;
+        doAdd(e);
+        return true;
+    }
 
-  public StringVect() {
-    this(RingserviceJNI.new_StringVect__SWIG_0(), true);
-  }
+    public void add(int index, String e) {
+        modCount++;
+        doAdd(index, e);
+    }
 
-  public StringVect(StringVect other) {
-    this(RingserviceJNI.new_StringVect__SWIG_1(StringVect.getCPtr(other), other), true);
-  }
+    public String remove(int index) {
+        modCount++;
+        return doRemove(index);
+    }
 
-  public long capacity() {
-    return RingserviceJNI.StringVect_capacity(swigCPtr, this);
-  }
+    protected void removeRange(int fromIndex, int toIndex) {
+        modCount++;
+        doRemoveRange(fromIndex, toIndex);
+    }
 
-  public void reserve(long n) {
-    RingserviceJNI.StringVect_reserve(swigCPtr, this, n);
-  }
+    public int size() {
+        return doSize();
+    }
 
-  public boolean isEmpty() {
-    return RingserviceJNI.StringVect_isEmpty(swigCPtr, this);
-  }
+    public StringVect() {
+        this(RingserviceJNI.new_StringVect__SWIG_0(), true);
+    }
 
-  public void clear() {
-    RingserviceJNI.StringVect_clear(swigCPtr, this);
-  }
+    public StringVect(StringVect other) {
+        this(RingserviceJNI.new_StringVect__SWIG_1(StringVect.getCPtr(other), other), true);
+    }
 
-  public StringVect(int count, String value) {
-    this(RingserviceJNI.new_StringVect__SWIG_2(count, value), true);
-  }
+    public long capacity() {
+        return RingserviceJNI.StringVect_capacity(swigCPtr, this);
+    }
 
-  private int doSize() {
-    return RingserviceJNI.StringVect_doSize(swigCPtr, this);
-  }
+    public void reserve(long n) {
+        RingserviceJNI.StringVect_reserve(swigCPtr, this, n);
+    }
 
-  private void doAdd(String x) {
-    RingserviceJNI.StringVect_doAdd__SWIG_0(swigCPtr, this, x);
-  }
+    public boolean isEmpty() {
+        return RingserviceJNI.StringVect_isEmpty(swigCPtr, this);
+    }
 
-  private void doAdd(int index, String x) {
-    RingserviceJNI.StringVect_doAdd__SWIG_1(swigCPtr, this, index, x);
-  }
+    public void clear() {
+        RingserviceJNI.StringVect_clear(swigCPtr, this);
+    }
 
-  private String doRemove(int index) {
-    return RingserviceJNI.StringVect_doRemove(swigCPtr, this, index);
-  }
+    public StringVect(int count, String value) {
+        this(RingserviceJNI.new_StringVect__SWIG_2(count, value), true);
+    }
 
-  private String doGet(int index) {
-    return RingserviceJNI.StringVect_doGet(swigCPtr, this, index);
-  }
+    private int doSize() {
+        return RingserviceJNI.StringVect_doSize(swigCPtr, this);
+    }
 
-  private String doSet(int index, String val) {
-    return RingserviceJNI.StringVect_doSet(swigCPtr, this, index, val);
-  }
+    private void doAdd(String x) {
+        RingserviceJNI.StringVect_doAdd__SWIG_0(swigCPtr, this, x);
+    }
 
-  private void doRemoveRange(int fromIndex, int toIndex) {
-    RingserviceJNI.StringVect_doRemoveRange(swigCPtr, this, fromIndex, toIndex);
-  }
+    private void doAdd(int index, String x) {
+        RingserviceJNI.StringVect_doAdd__SWIG_1(swigCPtr, this, index, x);
+    }
+
+    private String doRemove(int index) {
+        return RingserviceJNI.StringVect_doRemove(swigCPtr, this, index);
+    }
+
+    private String doGet(int index) {
+        return RingserviceJNI.StringVect_doGet(swigCPtr, this, index);
+    }
+
+    private String doSet(int index, String val) {
+        return RingserviceJNI.StringVect_doSet(swigCPtr, this, index, val);
+    }
+
+    private void doRemoveRange(int fromIndex, int toIndex) {
+        RingserviceJNI.StringVect_doRemoveRange(swigCPtr, this, fromIndex, toIndex);
+    }
 
 }

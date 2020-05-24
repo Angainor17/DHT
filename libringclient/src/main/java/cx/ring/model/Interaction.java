@@ -77,8 +77,7 @@ public class Interaction {
         mStatus = status;
         try {
             mDaemonId = daemonId == null ? null : Long.parseLong(daemonId);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             mDaemonId = 0L;
         }
         mIsRead = Integer.parseInt(isRead);

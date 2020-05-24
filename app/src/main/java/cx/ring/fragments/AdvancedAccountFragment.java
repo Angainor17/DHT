@@ -20,14 +20,14 @@
 package cx.ring.fragments;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.TwoStatePreference;
-import android.text.TextUtils;
-import android.view.inputmethod.EditorInfo;
 
 import java.util.ArrayList;
 
@@ -54,7 +54,7 @@ public class AdvancedAccountFragment extends BasePreferenceFragment<AdvancedAcco
         addPreferencesFromResource(R.xml.account_advanced_prefs);
 
         Bundle args = getArguments();
-        presenter.init(args == null  ? null : args.getString(AccountEditionFragment.ACCOUNT_ID_KEY));
+        presenter.init(args == null ? null : args.getString(AccountEditionFragment.ACCOUNT_ID_KEY));
     }
 
     @Override

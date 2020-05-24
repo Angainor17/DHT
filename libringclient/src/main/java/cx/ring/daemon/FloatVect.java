@@ -9,136 +9,136 @@
 package cx.ring.daemon;
 
 public class FloatVect extends java.util.AbstractList<Float> implements java.util.RandomAccess {
-  private transient long swigCPtr;
-  protected transient boolean swigCMemOwn;
+    private transient long swigCPtr;
+    protected transient boolean swigCMemOwn;
 
-  protected FloatVect(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = cPtr;
-  }
-
-  protected static long getCPtr(FloatVect obj) {
-    return (obj == null) ? 0 : obj.swigCPtr;
-  }
-
-  @SuppressWarnings("deprecation")
-  protected void finalize() {
-    delete();
-  }
-
-  public synchronized void delete() {
-    if (swigCPtr != 0) {
-      if (swigCMemOwn) {
-        swigCMemOwn = false;
-        RingserviceJNI.delete_FloatVect(swigCPtr);
-      }
-      swigCPtr = 0;
+    protected FloatVect(long cPtr, boolean cMemoryOwn) {
+        swigCMemOwn = cMemoryOwn;
+        swigCPtr = cPtr;
     }
-  }
 
-  public FloatVect(float[] initialElements) {
-    this();
-    reserve(initialElements.length);
-
-    for (float element : initialElements) {
-      add(element);
+    protected static long getCPtr(FloatVect obj) {
+        return (obj == null) ? 0 : obj.swigCPtr;
     }
-  }
 
-  public FloatVect(Iterable<Float> initialElements) {
-    this();
-    for (float element : initialElements) {
-      add(element);
+    @SuppressWarnings("deprecation")
+    protected void finalize() {
+        delete();
     }
-  }
 
-  public Float get(int index) {
-    return doGet(index);
-  }
+    public synchronized void delete() {
+        if (swigCPtr != 0) {
+            if (swigCMemOwn) {
+                swigCMemOwn = false;
+                RingserviceJNI.delete_FloatVect(swigCPtr);
+            }
+            swigCPtr = 0;
+        }
+    }
 
-  public Float set(int index, Float e) {
-    return doSet(index, e);
-  }
+    public FloatVect(float[] initialElements) {
+        this();
+        reserve(initialElements.length);
 
-  public boolean add(Float e) {
-    modCount++;
-    doAdd(e);
-    return true;
-  }
+        for (float element : initialElements) {
+            add(element);
+        }
+    }
 
-  public void add(int index, Float e) {
-    modCount++;
-    doAdd(index, e);
-  }
+    public FloatVect(Iterable<Float> initialElements) {
+        this();
+        for (float element : initialElements) {
+            add(element);
+        }
+    }
 
-  public Float remove(int index) {
-    modCount++;
-    return doRemove(index);
-  }
+    public Float get(int index) {
+        return doGet(index);
+    }
 
-  protected void removeRange(int fromIndex, int toIndex) {
-    modCount++;
-    doRemoveRange(fromIndex, toIndex);
-  }
+    public Float set(int index, Float e) {
+        return doSet(index, e);
+    }
 
-  public int size() {
-    return doSize();
-  }
+    public boolean add(Float e) {
+        modCount++;
+        doAdd(e);
+        return true;
+    }
 
-  public FloatVect() {
-    this(RingserviceJNI.new_FloatVect__SWIG_0(), true);
-  }
+    public void add(int index, Float e) {
+        modCount++;
+        doAdd(index, e);
+    }
 
-  public FloatVect(FloatVect other) {
-    this(RingserviceJNI.new_FloatVect__SWIG_1(FloatVect.getCPtr(other), other), true);
-  }
+    public Float remove(int index) {
+        modCount++;
+        return doRemove(index);
+    }
 
-  public long capacity() {
-    return RingserviceJNI.FloatVect_capacity(swigCPtr, this);
-  }
+    protected void removeRange(int fromIndex, int toIndex) {
+        modCount++;
+        doRemoveRange(fromIndex, toIndex);
+    }
 
-  public void reserve(long n) {
-    RingserviceJNI.FloatVect_reserve(swigCPtr, this, n);
-  }
+    public int size() {
+        return doSize();
+    }
 
-  public boolean isEmpty() {
-    return RingserviceJNI.FloatVect_isEmpty(swigCPtr, this);
-  }
+    public FloatVect() {
+        this(RingserviceJNI.new_FloatVect__SWIG_0(), true);
+    }
 
-  public void clear() {
-    RingserviceJNI.FloatVect_clear(swigCPtr, this);
-  }
+    public FloatVect(FloatVect other) {
+        this(RingserviceJNI.new_FloatVect__SWIG_1(FloatVect.getCPtr(other), other), true);
+    }
 
-  public FloatVect(int count, float value) {
-    this(RingserviceJNI.new_FloatVect__SWIG_2(count, value), true);
-  }
+    public long capacity() {
+        return RingserviceJNI.FloatVect_capacity(swigCPtr, this);
+    }
 
-  private int doSize() {
-    return RingserviceJNI.FloatVect_doSize(swigCPtr, this);
-  }
+    public void reserve(long n) {
+        RingserviceJNI.FloatVect_reserve(swigCPtr, this, n);
+    }
 
-  private void doAdd(float x) {
-    RingserviceJNI.FloatVect_doAdd__SWIG_0(swigCPtr, this, x);
-  }
+    public boolean isEmpty() {
+        return RingserviceJNI.FloatVect_isEmpty(swigCPtr, this);
+    }
 
-  private void doAdd(int index, float x) {
-    RingserviceJNI.FloatVect_doAdd__SWIG_1(swigCPtr, this, index, x);
-  }
+    public void clear() {
+        RingserviceJNI.FloatVect_clear(swigCPtr, this);
+    }
 
-  private float doRemove(int index) {
-    return RingserviceJNI.FloatVect_doRemove(swigCPtr, this, index);
-  }
+    public FloatVect(int count, float value) {
+        this(RingserviceJNI.new_FloatVect__SWIG_2(count, value), true);
+    }
 
-  private float doGet(int index) {
-    return RingserviceJNI.FloatVect_doGet(swigCPtr, this, index);
-  }
+    private int doSize() {
+        return RingserviceJNI.FloatVect_doSize(swigCPtr, this);
+    }
 
-  private float doSet(int index, float val) {
-    return RingserviceJNI.FloatVect_doSet(swigCPtr, this, index, val);
-  }
+    private void doAdd(float x) {
+        RingserviceJNI.FloatVect_doAdd__SWIG_0(swigCPtr, this, x);
+    }
 
-  private void doRemoveRange(int fromIndex, int toIndex) {
-    RingserviceJNI.FloatVect_doRemoveRange(swigCPtr, this, fromIndex, toIndex);
-  }
+    private void doAdd(int index, float x) {
+        RingserviceJNI.FloatVect_doAdd__SWIG_1(swigCPtr, this, index, x);
+    }
+
+    private float doRemove(int index) {
+        return RingserviceJNI.FloatVect_doRemove(swigCPtr, this, index);
+    }
+
+    private float doGet(int index) {
+        return RingserviceJNI.FloatVect_doGet(swigCPtr, this, index);
+    }
+
+    private float doSet(int index, float val) {
+        return RingserviceJNI.FloatVect_doSet(swigCPtr, this, index, val);
+    }
+
+    private void doRemoveRange(int fromIndex, int toIndex) {
+        RingserviceJNI.FloatVect_doRemoveRange(swigCPtr, this, fromIndex, toIndex);
+    }
 
 }

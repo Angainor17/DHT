@@ -82,6 +82,7 @@ public class Conference {
         }
         return mConfState;
     }
+
     public List<SipCall> getParticipants() {
         return mParticipants;
     }

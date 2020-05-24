@@ -211,7 +211,7 @@ public class AccountWizardPresenter extends RootPresenter<AccountWizardView> {
         })
                 .firstElement()
                 .subscribe(a -> {
-                    if (!model.isLink()  && !StringUtils.isEmpty(model.getUsername()))
+                    if (!model.isLink() && !StringUtils.isEmpty(model.getUsername()))
                         mAccountService.registerName(a, model.getPassword(), model.getUsername());
                     mAccountService.setCurrentAccount(a);
                     if (model.isPush()) {

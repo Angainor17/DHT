@@ -20,8 +20,6 @@
  */
 package cx.ring.views;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.animation.ValueAnimator;
 import android.media.MediaPlayer;
 import android.view.Surface;
@@ -32,6 +30,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import cx.ring.R;
 import cx.ring.adapters.ConversationAdapter;

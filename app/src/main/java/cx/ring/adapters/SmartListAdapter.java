@@ -20,22 +20,20 @@
  */
 package cx.ring.adapters;
 
-import cx.ring.databinding.ItemSmartlistBinding;
-import cx.ring.smartlist.SmartListViewModel;
-import cx.ring.viewholders.SmartListViewHolder;
-
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cx.ring.databinding.ItemSmartlistBinding;
+import cx.ring.smartlist.SmartListViewModel;
+import cx.ring.viewholders.SmartListViewHolder;
 
 public class SmartListAdapter extends RecyclerView.Adapter<SmartListViewHolder> {
 

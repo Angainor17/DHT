@@ -23,11 +23,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import javax.inject.Inject;
-
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import javax.inject.Inject;
+
 import cx.ring.R;
 import cx.ring.model.Error;
 

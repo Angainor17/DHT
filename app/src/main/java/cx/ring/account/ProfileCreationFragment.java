@@ -30,15 +30,15 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -110,10 +110,12 @@ public class ProfileCreationFragment extends BaseSupportFragment<ProfileCreation
         binding.skipCreateAccount.setOnClickListener(v -> presenter.skipClick());
         binding.userName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -136,13 +138,13 @@ public class ProfileCreationFragment extends BaseSupportFragment<ProfileCreation
                             }
                         }
                     } else {
-                        presenter.photoUpdated(AndroidFileUtils.loadBitmap(getContext(), tmpProfilePhotoUri).map(b -> (Object)b));
+                        presenter.photoUpdated(AndroidFileUtils.loadBitmap(getContext(), tmpProfilePhotoUri).map(b -> (Object) b));
                     }
                 }
                 break;
             case REQUEST_CODE_GALLERY:
                 if (resultCode == Activity.RESULT_OK && intent != null) {
-                    presenter.photoUpdated(AndroidFileUtils.loadBitmap(getActivity(), intent.getData()).map(b -> (Object)b));
+                    presenter.photoUpdated(AndroidFileUtils.loadBitmap(getActivity(), intent.getData()).map(b -> (Object) b));
                 }
                 break;
             default:

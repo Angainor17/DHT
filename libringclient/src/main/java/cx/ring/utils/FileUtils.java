@@ -24,7 +24,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.DecimalFormat;
 
 public class FileUtils {
     private static final String TAG = FileUtils.class.getSimpleName();

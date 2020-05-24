@@ -25,7 +25,6 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -189,9 +188,6 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
                 return true;
             case R.id.menu_scan_qr:
                 presenter.clickQRSearch();
-                return true;
-            case R.id.menu_settings:
-                ((HomeActivity) getActivity()).goToSettings();
                 return true;
             default:
                 return false;
@@ -444,7 +440,7 @@ public class SmartListFragment extends BaseSupportFragment<SmartListPresenter> i
         if (mSearchMenuItem != null) {
             mSearchMenuItem.collapseActionView();
         }
-            startActivity(new Intent(Intent.ACTION_VIEW, ConversationPath.toUri(accountId, contactId.toString()), requireContext(), ConversationActivity.class));
+        startActivity(new Intent(Intent.ACTION_VIEW, ConversationPath.toUri(accountId, contactId.toString()), requireContext(), ConversationActivity.class));
     }
 
     @Override

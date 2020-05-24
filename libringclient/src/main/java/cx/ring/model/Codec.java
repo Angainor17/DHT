@@ -23,8 +23,6 @@ package cx.ring.model;
 
 import java.util.Map;
 
-import cx.ring.utils.Log;
-
 public class Codec {
 
     public enum Type {AUDIO, VIDEO}

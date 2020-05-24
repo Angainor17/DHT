@@ -93,7 +93,6 @@ import cx.ring.utils.StringUtils;
 import cx.ring.views.ConversationViewHolder;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHolder> {
     private final static String TAG = ConversationAdapter.class.getSimpleName();
@@ -117,7 +116,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
 
     private boolean isComposing = false;
 
-    private static int[] msgBGLayouts = new int[] {
+    private static int[] msgBGLayouts = new int[]{
             R.drawable.textmsg_bg_out_first,
             R.drawable.textmsg_bg_out_middle,
             R.drawable.textmsg_bg_out_last,
@@ -368,6 +367,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
             this.position = position;
             this.id = id;
         }
+
         final public int position;
         final public long id;
     }
@@ -499,12 +499,12 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
         viewHolder.player = player;
         final Drawable playBtn = ContextCompat.getDrawable(viewHolder.mLayout.getContext(), R.drawable.baseline_play_arrow_24).mutate();
         DrawableCompat.setTint(playBtn, Color.WHITE);
-        ((CardView) viewHolder.mLayout).setForeground(playBtn);
+        viewHolder.mLayout.setForeground(playBtn);
         player.setOnCompletionListener(mp -> {
             if (player.isPlaying())
                 player.pause();
             player.seekTo(1);
-            ((CardView) viewHolder.mLayout).setForeground(playBtn);
+            viewHolder.mLayout.setForeground(playBtn);
         });
         player.setOnVideoSizeChangedListener((mp, width, height) -> {
             Log.w(TAG, "OnVideoSizeChanged " + width + "x" + height);
@@ -551,10 +551,10 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
         viewHolder.video.setOnClickListener(v -> {
             if (player.isPlaying()) {
                 player.pause();
-                ((CardView) viewHolder.mLayout).setForeground(playBtn);
+                viewHolder.mLayout.setForeground(playBtn);
             } else {
                 player.start();
-                ((CardView) viewHolder.mLayout).setForeground(null);
+                viewHolder.mLayout.setForeground(null);
             }
         });
         player.seekTo(1);
@@ -728,7 +728,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
                                          @NonNull final Interaction interaction,
                                          int position) {
         final Context context = convViewHolder.itemView.getContext();
-        TextMessage textMessage = (TextMessage)interaction;
+        TextMessage textMessage = (TextMessage) interaction;
         CallContact contact = textMessage.getContact();
         if (contact == null) {
             Log.e(TAG, "Invalid contact, not able to display message correctly");
@@ -802,13 +802,15 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
                 if (position == lastMsgPos - 1 && convViewHolder.mAvatar != null) {
                     Animation animation = AnimationUtils.loadAnimation(
                             convViewHolder.mAvatar.getContext(), R.anim.fade_out);
-                    animation.setAnimationListener(new Animation.AnimationListener(){
+                    animation.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation arg0) {
                         }
+
                         @Override
                         public void onAnimationRepeat(Animation arg0) {
                         }
+
                         @Override
                         public void onAnimationEnd(Animation arg0) {
                             convViewHolder.mAvatar.setImageBitmap(null);
@@ -1144,7 +1146,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
         FIRST,
         MIDDLE,
         LAST,
-        SINGLE;
+        SINGLE
     }
 
     public enum MessageType {
@@ -1173,6 +1175,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
         FILE,
         IMAGE,
         AUDIO,
-        VIDEO;
+        VIDEO
     }
 }

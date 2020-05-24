@@ -2,16 +2,17 @@ package cx.ring.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import androidx.appcompat.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.widget.Checkable;
+
+import androidx.appcompat.widget.AppCompatImageButton;
 
 public class CheckableImageButton extends AppCompatImageButton implements Checkable {
     private boolean mChecked;
     private OnCheckedChangeListener onCheckedChangeListener;
 
     private static final int[] CHECKED_STATE_SET = {
-        android.R.attr.state_checked
+            android.R.attr.state_checked
     };
 
     public CheckableImageButton(Context context, AttributeSet attrs) {
@@ -52,8 +53,7 @@ public class CheckableImageButton extends AppCompatImageButton implements Checka
     /**
      * Register a callback to be invoked when the checked state of this button changes.
      *
-     * @param listener
-     *            the callback to call on checked state change
+     * @param listener the callback to call on checked state change
      */
     public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
         onCheckedChangeListener = listener;
@@ -65,14 +65,12 @@ public class CheckableImageButton extends AppCompatImageButton implements Checka
         return super.performClick();
     }
 
-    public static interface OnCheckedChangeListener {
+    public interface OnCheckedChangeListener {
         /**
          * Called when the checked state of a button has changed.
          *
-         * @param button
-         *            The button view whose state has changed.
-         * @param isChecked
-         *            The new checked state of button.
+         * @param button    The button view whose state has changed.
+         * @param isChecked The new checked state of button.
          */
         void onCheckedChanged(Checkable button, boolean isChecked);
     }

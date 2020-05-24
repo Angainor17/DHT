@@ -97,7 +97,8 @@ public class VCardServiceImpl extends VCardService {
 
     /**
      * Migrates the user's contacts to their individual account folders under the subfolder profiles
-     * @param contacts a hash map of the user's contacts
+     *
+     * @param contacts  a hash map of the user's contacts
      * @param accountId the directory where the profile is stored
      */
     @Override

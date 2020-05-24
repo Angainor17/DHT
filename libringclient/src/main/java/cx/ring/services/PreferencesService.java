@@ -41,6 +41,7 @@ public abstract class PreferencesService {
     private final Subject<Settings> mSettingsSubject = BehaviorSubject.create();
 
     protected abstract Settings loadSettings();
+
     protected abstract void saveSettings(Settings settings);
 
     public Settings getSettings() {

@@ -81,9 +81,11 @@ public class DataTransfer extends Interaction {
     public boolean isPicture() {
         return IMAGE_EXTENSIONS.contains(getExtension());
     }
+
     public boolean isAudio() {
         return AUDIO_EXTENSIONS.contains(getExtension());
     }
+
     public boolean isVideo() {
         return VIDEO_EXTENSIONS.contains(getExtension());
     }
@@ -91,6 +93,7 @@ public class DataTransfer extends Interaction {
     public boolean isComplete() {
         return isOutgoing() || InteractionStatus.TRANSFER_FINISHED.toString().equals(mStatus);
     }
+
     public boolean showPicture() {
         return isPicture() && isComplete();
     }
@@ -122,7 +125,8 @@ public class DataTransfer extends Interaction {
         return mBytesProgress;
     }
 
-    public void setBytesProgress(long bytesProgress) { mBytesProgress = bytesProgress;
+    public void setBytesProgress(long bytesProgress) {
+        mBytesProgress = bytesProgress;
     }
 
     public String getPeerId() {

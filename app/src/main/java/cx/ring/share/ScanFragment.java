@@ -26,17 +26,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.ResultPoint;
@@ -48,7 +46,6 @@ import com.journeyapps.barcodescanner.DefaultDecoderFactory;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 
 import cx.ring.R;
 import cx.ring.application.JamiApplication;
@@ -167,6 +164,7 @@ public class ScanFragment extends BaseSupportFragment {
             }
         }
     }
+
     private void initializeBarcode() {
         if (barcodeView != null) {
             Collection<BarcodeFormat> formats = Collections.singletonList(BarcodeFormat.QR_CODE);
@@ -181,7 +179,7 @@ public class ScanFragment extends BaseSupportFragment {
         public void barcodeResult(@NonNull BarcodeResult result) {
             if (result.getText() != null) {
                 String contact_uri = result.getText();
-                if (contact_uri != null ) {
+                if (contact_uri != null) {
                     goToConversation(contact_uri);
                 }
             }

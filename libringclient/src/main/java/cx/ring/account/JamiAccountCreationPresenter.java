@@ -76,6 +76,7 @@ public class JamiAccountCreationPresenter extends RootPresenter<JamiAccountCreat
      * Called everytime the provided username for the new account changes
      * Sends the new value of the username to the ContactQuery subjet and shows the loading
      * animation if it has not been started before
+     *
      * @param userName
      */
     public void userNameChanged(String userName) {
@@ -164,7 +165,7 @@ public class JamiAccountCreationPresenter extends RootPresenter<JamiAccountCreat
     private void checkForms() {
         boolean valid = isInputValid();
         getView().enableNextButton(valid);
-        if(valid && isRingUserNameCorrect)
+        if (valid && isRingUserNameCorrect)
             getView().updateUsernameAvailability(JamiAccountCreationView.
                     UsernameAvailabilityStatus.AVAILABLE);
     }

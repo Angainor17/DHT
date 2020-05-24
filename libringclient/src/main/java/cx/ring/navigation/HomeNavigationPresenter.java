@@ -73,14 +73,14 @@ public class HomeNavigationPresenter extends RootPresenter<HomeNavigationView> {
                     HomeNavigationView v = getView();
                     if (v != null)
                         v.showViewModel(new HomeNavigationViewModel(accounts.isEmpty() ? null : accounts.get(0), accounts));
-                }, e ->  Log.e(TAG, "Error loading account list !", e)));
+                }, e -> Log.e(TAG, "Error loading account list !", e)));
         mCompositeDisposable.add(mAccountService.getObservableAccounts()
                 .observeOn(mUiScheduler)
                 .subscribe(account -> {
                     HomeNavigationView v = getView();
                     if (v != null)
                         v.updateModel(account);
-                }, e ->  Log.e(TAG, "Error loading account list !", e)));
+                }, e -> Log.e(TAG, "Error loading account list !", e)));
     }
 
     public void setAccountOrder(Account selectedAccount) {

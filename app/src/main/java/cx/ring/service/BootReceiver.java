@@ -38,7 +38,8 @@ public class BootReceiver extends BroadcastReceiver {
     @Inject
     PreferencesService mPreferencesService;
 
-    public BootReceiver() {}
+    public BootReceiver() {
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {

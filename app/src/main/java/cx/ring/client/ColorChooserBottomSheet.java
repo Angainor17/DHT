@@ -7,12 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
 import cx.ring.R;
 
 public class ColorChooserBottomSheet extends BottomSheetDialogFragment {
@@ -41,6 +42,7 @@ public class ColorChooserBottomSheet extends BottomSheetDialogFragment {
     private class ColorView extends RecyclerView.ViewHolder {
         ImageView view;
         int color;
+
         ColorView(@NonNull View itemView) {
             super(itemView);
             view = (ImageView) itemView;
@@ -52,7 +54,7 @@ public class ColorChooserBottomSheet extends BottomSheetDialogFragment {
         }
     }
 
-    class ColorAdapter extends RecyclerView.Adapter<ColorView>  {
+    class ColorAdapter extends RecyclerView.Adapter<ColorView> {
         @NonNull
         @Override
         public ColorView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

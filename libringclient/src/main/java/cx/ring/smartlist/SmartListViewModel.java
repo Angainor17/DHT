@@ -23,8 +23,7 @@ package cx.ring.smartlist;
 import cx.ring.model.CallContact;
 import cx.ring.model.Interaction;
 
-public class SmartListViewModel
-{
+public class SmartListViewModel {
     private final String accountId;
     private final CallContact contact;
     private final String uuid;
@@ -44,6 +43,7 @@ public class SmartListViewModel
         this.lastEvent = lastEvent;
         isOnline = contact.isOnline();
     }
+
     public SmartListViewModel(String accountId, CallContact contact, Interaction lastEvent) {
         this.accountId = accountId;
         this.contact = contact;

@@ -143,8 +143,8 @@ public class ConferenceService {
     public String getConferenceDetails(final String callId) {
         try {
             return mExecutor.submit(() -> {
-                    Log.i(TAG, "getConferenceDetails() thread running...");
-                    return Ringservice.getConferenceDetails(callId).get("CONF_STATE");
+                Log.i(TAG, "getConferenceDetails() thread running...");
+                return Ringservice.getConferenceDetails(callId).get("CONF_STATE");
             }).get();
         } catch (Exception e) {
             Log.e(TAG, "Error running getParticipantList()", e);

@@ -83,15 +83,15 @@ public class JamiAccountSummaryPresenter extends RootPresenter<JamiAccountSummar
                 .exportOnRing(mAccountID, password)
                 .observeOn(mUiScheduler)
                 .subscribe(pin -> getView().showPIN(pin),
-                           error -> {
-                    if (error instanceof IllegalArgumentException) {
-                        getView().showPasswordError();
-                    } else if (error instanceof SocketException) {
-                        getView().showNetworkError();
-                    } else {
-                        getView().showGenericError();
-                    }
-                }));
+                        error -> {
+                            if (error instanceof IllegalArgumentException) {
+                                getView().showPasswordError();
+                            } else if (error instanceof SocketException) {
+                                getView().showNetworkError();
+                            } else {
+                                getView().showGenericError();
+                            }
+                        }));
     }
 
     public void setAccountId(String accountID) {
@@ -158,10 +158,10 @@ public class JamiAccountSummaryPresenter extends RootPresenter<JamiAccountSummar
     public void downloadAccountsArchive(File dest, String password) {
         getView().showExportingProgressDialog();
         mCompositeDisposable.add(
-            mAccountService.exportToFile(mAccountID, dest.getAbsolutePath(), password)
-            .observeOn(mUiScheduler)
-            .subscribe(() -> getView().displayCompleteArchive(dest),
-                    error -> getView().passwordChangeEnded(false)));
+                mAccountService.exportToFile(mAccountID, dest.getAbsolutePath(), password)
+                        .observeOn(mUiScheduler)
+                        .subscribe(() -> getView().displayCompleteArchive(dest),
+                                error -> getView().passwordChangeEnded(false)));
     }
 
     public void saveVCardFormattedName(String username) {

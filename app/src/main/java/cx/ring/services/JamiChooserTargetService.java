@@ -78,7 +78,7 @@ public class JamiChooserTargetService extends ChooserTargetService {
                                         .subscribeOn(Schedulers.computation())
                                         .toFuture());
                             }
-                            int i=0;
+                            int i = 0;
                             List<ChooserTarget> choosers = new ArrayList<>(conversations.size());
                             for (Conversation conversation : conversations) {
                                 CallContact contact = conversation.getContact();
@@ -91,7 +91,7 @@ public class JamiChooserTargetService extends ChooserTargetService {
                                 } catch (Exception e) {
                                     Log.w("RingChooserService", "Failed to load icon", e);
                                 }
-                                ChooserTarget target = new ChooserTarget(contact.getDisplayName(), icon, 1.f-(i/(float)conversations.size()), componentName, bundle);
+                                ChooserTarget target = new ChooserTarget(contact.getDisplayName(), icon, 1.f - (i / (float) conversations.size()), componentName, bundle);
                                 choosers.add(target);
                                 i++;
                             }

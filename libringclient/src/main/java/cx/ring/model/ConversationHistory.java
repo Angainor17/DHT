@@ -30,7 +30,7 @@ public class ConversationHistory {
     public static final String COLUMN_PARTICIPANT = "participant";
     public static final String COLUMN_EXTRA_DATA = "extra_data";
 
-    @DatabaseField(generatedId = true , columnName = COLUMN_CONVERSATION_ID, canBeNull = false)
+    @DatabaseField(generatedId = true, columnName = COLUMN_CONVERSATION_ID, canBeNull = false)
     Integer mId;
     @DatabaseField(columnName = COLUMN_PARTICIPANT, index = true)
     String mParticipant;

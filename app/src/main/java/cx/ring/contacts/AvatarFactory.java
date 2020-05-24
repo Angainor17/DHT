@@ -26,7 +26,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -44,7 +43,8 @@ public class AvatarFactory {
     public static final int SIZE_AB = 36;
     public static final int SIZE_NOTIF = 48;
 
-    private AvatarFactory() {}
+    private AvatarFactory() {
+    }
 
     public static void loadGlideAvatar(ImageView view, CallContact contact) {
         getGlideAvatar(view.getContext(), contact).into(view);
@@ -58,6 +58,7 @@ public class AvatarFactory {
                         .withPresence(presence)
                         .build(context));
     }
+
     public static Single<Drawable> getAvatar(Context context, CallContact contact) {
         return getAvatar(context, contact, true);
     }
@@ -66,6 +67,7 @@ public class AvatarFactory {
         return getAvatar(context, contact, presence)
                 .map(d -> drawableToBitmap(d, size));
     }
+
     public static Single<Bitmap> getBitmapAvatar(Context context, CallContact contact, int size) {
         return getBitmapAvatar(context, contact, size, true);
     }
@@ -92,12 +94,12 @@ public class AvatarFactory {
     }
 
     private static RequestBuilder<Drawable> getGlideAvatar(Context context, RequestManager manager, CallContact contact) {
-        return getGlideRequest(context, manager.asDrawable(), (Bitmap)contact.getPhoto(), contact.getProfileName(), contact.getUsername(), contact.getPrimaryNumber());
+        return getGlideRequest(context, manager.asDrawable(), (Bitmap) contact.getPhoto(), contact.getProfileName(), contact.getUsername(), contact.getPrimaryNumber());
     }
 
     public static Bitmap drawableToBitmap(Drawable drawable, int size) {
         if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable)drawable).getBitmap();
+            return ((BitmapDrawable) drawable).getBitmap();
         }
 
         int width = drawable.getIntrinsicWidth();

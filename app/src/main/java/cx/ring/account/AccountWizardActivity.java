@@ -26,18 +26,16 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import java.io.File;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import java.io.File;
 
 import cx.ring.R;
 import cx.ring.application.JamiApplication;
@@ -45,8 +43,8 @@ import cx.ring.client.HomeActivity;
 import cx.ring.fragments.AccountMigrationFragment;
 import cx.ring.model.Account;
 import cx.ring.model.AccountConfig;
-import cx.ring.mvp.BaseActivity;
 import cx.ring.mvp.AccountCreationModel;
+import cx.ring.mvp.BaseActivity;
 import cx.ring.utils.VCardUtils;
 import ezvcard.VCard;
 import io.reactivex.Single;

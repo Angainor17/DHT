@@ -77,8 +77,7 @@ public class SyncService extends Service {
 
                 JamiApplication.getInstance().startDaemon();
             }
-        }
-        else if (ACTION_STOP.equals(action)) {
+        } else if (ACTION_STOP.equals(action)) {
             stopForeground(true);
             stopSelf();
             isFirst = true;

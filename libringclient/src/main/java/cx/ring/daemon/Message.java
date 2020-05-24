@@ -9,60 +9,60 @@
 package cx.ring.daemon;
 
 public class Message {
-  private transient long swigCPtr;
-  protected transient boolean swigCMemOwn;
+    private transient long swigCPtr;
+    protected transient boolean swigCMemOwn;
 
-  protected Message(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = cPtr;
-  }
-
-  protected static long getCPtr(Message obj) {
-    return (obj == null) ? 0 : obj.swigCPtr;
-  }
-
-  @SuppressWarnings("deprecation")
-  protected void finalize() {
-    delete();
-  }
-
-  public synchronized void delete() {
-    if (swigCPtr != 0) {
-      if (swigCMemOwn) {
-        swigCMemOwn = false;
-        RingserviceJNI.delete_Message(swigCPtr);
-      }
-      swigCPtr = 0;
+    protected Message(long cPtr, boolean cMemoryOwn) {
+        swigCMemOwn = cMemoryOwn;
+        swigCPtr = cPtr;
     }
-  }
 
-  public void setFrom(String value) {
-    RingserviceJNI.Message_from_set(swigCPtr, this, value);
-  }
+    protected static long getCPtr(Message obj) {
+        return (obj == null) ? 0 : obj.swigCPtr;
+    }
 
-  public String getFrom() {
-    return RingserviceJNI.Message_from_get(swigCPtr, this);
-  }
+    @SuppressWarnings("deprecation")
+    protected void finalize() {
+        delete();
+    }
 
-  public void setPayloads(StringMap value) {
-    RingserviceJNI.Message_payloads_set(swigCPtr, this, StringMap.getCPtr(value), value);
-  }
+    public synchronized void delete() {
+        if (swigCPtr != 0) {
+            if (swigCMemOwn) {
+                swigCMemOwn = false;
+                RingserviceJNI.delete_Message(swigCPtr);
+            }
+            swigCPtr = 0;
+        }
+    }
 
-  public StringMap getPayloads() {
-    long cPtr = RingserviceJNI.Message_payloads_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new StringMap(cPtr, false);
-  }
+    public void setFrom(String value) {
+        RingserviceJNI.Message_from_set(swigCPtr, this, value);
+    }
 
-  public void setReceived(long value) {
-    RingserviceJNI.Message_received_set(swigCPtr, this, value);
-  }
+    public String getFrom() {
+        return RingserviceJNI.Message_from_get(swigCPtr, this);
+    }
 
-  public long getReceived() {
-    return RingserviceJNI.Message_received_get(swigCPtr, this);
-  }
+    public void setPayloads(StringMap value) {
+        RingserviceJNI.Message_payloads_set(swigCPtr, this, StringMap.getCPtr(value), value);
+    }
 
-  public Message() {
-    this(RingserviceJNI.new_Message(), true);
-  }
+    public StringMap getPayloads() {
+        long cPtr = RingserviceJNI.Message_payloads_get(swigCPtr, this);
+        return (cPtr == 0) ? null : new StringMap(cPtr, false);
+    }
+
+    public void setReceived(long value) {
+        RingserviceJNI.Message_received_set(swigCPtr, this, value);
+    }
+
+    public long getReceived() {
+        return RingserviceJNI.Message_received_get(swigCPtr, this);
+    }
+
+    public Message() {
+        this(RingserviceJNI.new_Message(), true);
+    }
 
 }

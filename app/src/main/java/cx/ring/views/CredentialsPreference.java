@@ -22,9 +22,10 @@ package cx.ring.views;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.preference.DialogPreference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+
+import androidx.preference.DialogPreference;
 
 import cx.ring.R;
 import cx.ring.model.AccountCredentials;

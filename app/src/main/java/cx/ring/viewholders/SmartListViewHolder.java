@@ -19,16 +19,6 @@
  */
 package cx.ring.viewholders;
 
-import cx.ring.R;
-import cx.ring.databinding.ItemSmartlistBinding;
-import cx.ring.model.CallContact;
-import cx.ring.model.ContactEvent;
-import cx.ring.model.Interaction;
-import cx.ring.model.SipCall;
-import cx.ring.smartlist.SmartListViewModel;
-import cx.ring.views.AvatarDrawable;
-import io.reactivex.disposables.CompositeDisposable;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.format.DateUtils;
@@ -40,6 +30,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.rxbinding3.view.RxView;
 
 import java.util.concurrent.TimeUnit;
+
+import cx.ring.R;
+import cx.ring.databinding.ItemSmartlistBinding;
+import cx.ring.model.CallContact;
+import cx.ring.model.ContactEvent;
+import cx.ring.model.Interaction;
+import cx.ring.model.SipCall;
+import cx.ring.smartlist.SmartListViewModel;
+import cx.ring.views.AvatarDrawable;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class SmartListViewHolder extends RecyclerView.ViewHolder {
     public ItemSmartlistBinding binding;

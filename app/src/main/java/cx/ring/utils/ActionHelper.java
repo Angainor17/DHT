@@ -50,8 +50,8 @@ public class ActionHelper {
     }
 
     public static void launchClearAction(final Context context,
-                                                 final CallContact callContact,
-                                                 final Conversation.ConversationActionCallback callback) {
+                                         final CallContact callContact,
+                                         final Conversation.ConversationActionCallback callback) {
         if (context == null) {
             Log.d(TAG, "launchClearAction: activity is null");
             return;
@@ -77,8 +77,8 @@ public class ActionHelper {
     }
 
     public static void launchDeleteAction(final Context context,
-                                                 final CallContact callContact,
-                                                 final Conversation.ConversationActionCallback callback) {
+                                          final CallContact callContact,
+                                          final Conversation.ConversationActionCallback callback) {
         if (context == null) {
             Log.d(TAG, "launchDeleteAction: activity is null");
             return;

@@ -22,7 +22,8 @@ public class TouchClickListener implements GestureDetector.OnGestureListener, Vi
     }
 
     @Override
-    public void onShowPress(MotionEvent e) {}
+    public void onShowPress(MotionEvent e) {
+    }
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
@@ -36,7 +37,8 @@ public class TouchClickListener implements GestureDetector.OnGestureListener, Vi
     }
 
     @Override
-    public void onLongPress(MotionEvent e) {}
+    public void onLongPress(MotionEvent e) {
+    }
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {

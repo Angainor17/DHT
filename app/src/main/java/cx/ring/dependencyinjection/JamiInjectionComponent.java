@@ -60,7 +60,6 @@ import cx.ring.services.JamiChooserTargetService;
 import cx.ring.services.LocationSharingService;
 import cx.ring.services.NotificationServiceImpl;
 import cx.ring.services.SharedPreferencesServiceImpl;
-import cx.ring.settings.SettingsFragment;
 import cx.ring.share.ShareFragment;
 import dagger.Component;
 
@@ -90,8 +89,6 @@ public interface JamiInjectionComponent {
     void inject(SecurityAccountFragment fragment);
 
     void inject(ShareFragment fragment);
-
-    void inject(SettingsFragment fragment);
 
     void inject(ProfileCreationFragment fragment);
 

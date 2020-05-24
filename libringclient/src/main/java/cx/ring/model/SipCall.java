@@ -291,17 +291,20 @@ public class SipCall extends Interaction {
         }
     }
 
-    public enum  Direction {
+    public enum Direction {
         INCOMING(0),
         OUTGOING(1);
 
         private final int value;
+
         Direction(int v) {
             value = v;
         }
+
         int getValue() {
             return value;
         }
+
         static Direction fromInt(int value) {
             return value == INCOMING.value ? INCOMING : OUTGOING;
         }

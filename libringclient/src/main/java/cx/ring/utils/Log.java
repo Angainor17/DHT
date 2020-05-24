@@ -26,7 +26,7 @@ public class Log {
 
     private static LogService mLogService;
 
-    public static void injectLogService (LogService service) {
+    public static void injectLogService(LogService service) {
         mLogService = service;
     }
 

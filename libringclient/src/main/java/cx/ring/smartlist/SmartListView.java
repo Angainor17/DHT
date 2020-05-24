@@ -50,7 +50,9 @@ public interface SmartListView extends BaseView {
     void hideNoConversationMessage();
 
     void updateList(List<SmartListViewModel> smartListViewModels);
+
     void update(SmartListViewModel model);
+
     void update(int position);
 
     void goToConversation(String accountId, Uri contactId);

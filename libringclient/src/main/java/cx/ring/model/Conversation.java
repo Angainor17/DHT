@@ -321,13 +321,14 @@ public class Conversation extends ConversationHistory {
 
     /**
      * Clears the conversation cache.
+     *
      * @param delete true if you do not want to re-add contact events
      */
     public void clearHistory(boolean delete) {
         mAggregateHistory.clear();
         mHistory.clear();
         mDirty = false;
-        if(!delete)
+        if (!delete)
             mAggregateHistory.add(new ContactEvent(mContact));
         clearedSubject.onNext(mAggregateHistory);
     }

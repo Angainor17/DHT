@@ -9,107 +9,107 @@
 package cx.ring.daemon;
 
 public class DataTransferInfo {
-  private transient long swigCPtr;
-  protected transient boolean swigCMemOwn;
+    private transient long swigCPtr;
+    protected transient boolean swigCMemOwn;
 
-  protected DataTransferInfo(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = cPtr;
-  }
-
-  protected static long getCPtr(DataTransferInfo obj) {
-    return (obj == null) ? 0 : obj.swigCPtr;
-  }
-
-  @SuppressWarnings("deprecation")
-  protected void finalize() {
-    delete();
-  }
-
-  public synchronized void delete() {
-    if (swigCPtr != 0) {
-      if (swigCMemOwn) {
-        swigCMemOwn = false;
-        RingserviceJNI.delete_DataTransferInfo(swigCPtr);
-      }
-      swigCPtr = 0;
+    protected DataTransferInfo(long cPtr, boolean cMemoryOwn) {
+        swigCMemOwn = cMemoryOwn;
+        swigCPtr = cPtr;
     }
-  }
 
-  public void setAccountId(String value) {
-    RingserviceJNI.DataTransferInfo_accountId_set(swigCPtr, this, value);
-  }
+    protected static long getCPtr(DataTransferInfo obj) {
+        return (obj == null) ? 0 : obj.swigCPtr;
+    }
 
-  public String getAccountId() {
-    return RingserviceJNI.DataTransferInfo_accountId_get(swigCPtr, this);
-  }
+    @SuppressWarnings("deprecation")
+    protected void finalize() {
+        delete();
+    }
 
-  public void setLastEvent(long value) {
-    RingserviceJNI.DataTransferInfo_lastEvent_set(swigCPtr, this, value);
-  }
+    public synchronized void delete() {
+        if (swigCPtr != 0) {
+            if (swigCMemOwn) {
+                swigCMemOwn = false;
+                RingserviceJNI.delete_DataTransferInfo(swigCPtr);
+            }
+            swigCPtr = 0;
+        }
+    }
 
-  public long getLastEvent() {
-    return RingserviceJNI.DataTransferInfo_lastEvent_get(swigCPtr, this);
-  }
+    public void setAccountId(String value) {
+        RingserviceJNI.DataTransferInfo_accountId_set(swigCPtr, this, value);
+    }
 
-  public void setFlags(long value) {
-    RingserviceJNI.DataTransferInfo_flags_set(swigCPtr, this, value);
-  }
+    public String getAccountId() {
+        return RingserviceJNI.DataTransferInfo_accountId_get(swigCPtr, this);
+    }
 
-  public long getFlags() {
-    return RingserviceJNI.DataTransferInfo_flags_get(swigCPtr, this);
-  }
+    public void setLastEvent(long value) {
+        RingserviceJNI.DataTransferInfo_lastEvent_set(swigCPtr, this, value);
+    }
 
-  public void setTotalSize(long value) {
-    RingserviceJNI.DataTransferInfo_totalSize_set(swigCPtr, this, value);
-  }
+    public long getLastEvent() {
+        return RingserviceJNI.DataTransferInfo_lastEvent_get(swigCPtr, this);
+    }
 
-  public long getTotalSize() {
-    return RingserviceJNI.DataTransferInfo_totalSize_get(swigCPtr, this);
-  }
+    public void setFlags(long value) {
+        RingserviceJNI.DataTransferInfo_flags_set(swigCPtr, this, value);
+    }
 
-  public void setBytesProgress(long value) {
-    RingserviceJNI.DataTransferInfo_bytesProgress_set(swigCPtr, this, value);
-  }
+    public long getFlags() {
+        return RingserviceJNI.DataTransferInfo_flags_get(swigCPtr, this);
+    }
 
-  public long getBytesProgress() {
-    return RingserviceJNI.DataTransferInfo_bytesProgress_get(swigCPtr, this);
-  }
+    public void setTotalSize(long value) {
+        RingserviceJNI.DataTransferInfo_totalSize_set(swigCPtr, this, value);
+    }
 
-  public void setPeer(String value) {
-    RingserviceJNI.DataTransferInfo_peer_set(swigCPtr, this, value);
-  }
+    public long getTotalSize() {
+        return RingserviceJNI.DataTransferInfo_totalSize_get(swigCPtr, this);
+    }
 
-  public String getPeer() {
-    return RingserviceJNI.DataTransferInfo_peer_get(swigCPtr, this);
-  }
+    public void setBytesProgress(long value) {
+        RingserviceJNI.DataTransferInfo_bytesProgress_set(swigCPtr, this, value);
+    }
 
-  public void setDisplayName(String value) {
-    RingserviceJNI.DataTransferInfo_displayName_set(swigCPtr, this, value);
-  }
+    public long getBytesProgress() {
+        return RingserviceJNI.DataTransferInfo_bytesProgress_get(swigCPtr, this);
+    }
 
-  public String getDisplayName() {
-    return RingserviceJNI.DataTransferInfo_displayName_get(swigCPtr, this);
-  }
+    public void setPeer(String value) {
+        RingserviceJNI.DataTransferInfo_peer_set(swigCPtr, this, value);
+    }
 
-  public void setPath(String value) {
-    RingserviceJNI.DataTransferInfo_path_set(swigCPtr, this, value);
-  }
+    public String getPeer() {
+        return RingserviceJNI.DataTransferInfo_peer_get(swigCPtr, this);
+    }
 
-  public String getPath() {
-    return RingserviceJNI.DataTransferInfo_path_get(swigCPtr, this);
-  }
+    public void setDisplayName(String value) {
+        RingserviceJNI.DataTransferInfo_displayName_set(swigCPtr, this, value);
+    }
 
-  public void setMimetype(String value) {
-    RingserviceJNI.DataTransferInfo_mimetype_set(swigCPtr, this, value);
-  }
+    public String getDisplayName() {
+        return RingserviceJNI.DataTransferInfo_displayName_get(swigCPtr, this);
+    }
 
-  public String getMimetype() {
-    return RingserviceJNI.DataTransferInfo_mimetype_get(swigCPtr, this);
-  }
+    public void setPath(String value) {
+        RingserviceJNI.DataTransferInfo_path_set(swigCPtr, this, value);
+    }
 
-  public DataTransferInfo() {
-    this(RingserviceJNI.new_DataTransferInfo(), true);
-  }
+    public String getPath() {
+        return RingserviceJNI.DataTransferInfo_path_get(swigCPtr, this);
+    }
+
+    public void setMimetype(String value) {
+        RingserviceJNI.DataTransferInfo_mimetype_set(swigCPtr, this, value);
+    }
+
+    public String getMimetype() {
+        return RingserviceJNI.DataTransferInfo_mimetype_get(swigCPtr, this);
+    }
+
+    public DataTransferInfo() {
+        this(RingserviceJNI.new_DataTransferInfo(), true);
+    }
 
 }

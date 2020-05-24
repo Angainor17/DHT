@@ -22,8 +22,8 @@ package cx.ring.call;
 import java.util.List;
 
 import cx.ring.model.CallContact;
-import cx.ring.model.SipCall.CallStatus;
 import cx.ring.model.SipCall;
+import cx.ring.model.SipCall.CallStatus;
 import cx.ring.services.HardwareService;
 
 
@@ -40,6 +40,7 @@ public interface CallView {
     void displayDialPadKeyboard();
 
     void switchCameraIcon(boolean isFront);
+
     void updateAudioState(HardwareService.AudioState state);
 
     void updateMenu();
@@ -59,6 +60,7 @@ public interface CallView {
     void initOutGoingCallDisplay();
 
     void resetPreviewVideoSize(int previewWidth, int previewHeight, int rot);
+
     void resetVideoSize(int videoWidth, int videoHeight);
 
     void goToConversation(String accountId, String conversationId);

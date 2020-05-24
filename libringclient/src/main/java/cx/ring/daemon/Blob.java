@@ -9,162 +9,163 @@
 package cx.ring.daemon;
 
 public class Blob extends java.util.AbstractList<Byte> implements java.util.RandomAccess {
-  private transient long swigCPtr;
-  protected transient boolean swigCMemOwn;
+    private transient long swigCPtr;
+    protected transient boolean swigCMemOwn;
 
-  protected Blob(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = cPtr;
-  }
-
-  protected static long getCPtr(Blob obj) {
-    return (obj == null) ? 0 : obj.swigCPtr;
-  }
-
-  @SuppressWarnings("deprecation")
-  protected void finalize() {
-    delete();
-  }
-
-  public synchronized void delete() {
-    if (swigCPtr != 0) {
-      if (swigCMemOwn) {
-        swigCMemOwn = false;
-        RingserviceJNI.delete_Blob(swigCPtr);
-      }
-      swigCPtr = 0;
+    protected Blob(long cPtr, boolean cMemoryOwn) {
+        swigCMemOwn = cMemoryOwn;
+        swigCPtr = cPtr;
     }
-  }
 
-  public static Blob fromString(String in) {
-    byte[] dat;
-    try {
-      dat = in.getBytes("UTF-8");
-    } catch (java.io.UnsupportedEncodingException e) {
-      dat = in.getBytes();
+    protected static long getCPtr(Blob obj) {
+        return (obj == null) ? 0 : obj.swigCPtr;
     }
-    Blob n = new Blob();
-    n.reserve(dat.length);
-    for (int i=0; i<dat.length; i++) {
-      n.add(dat[i]);
+
+    @SuppressWarnings("deprecation")
+    protected void finalize() {
+        delete();
     }
-    return n;
-  }
-  public String toJavaString() {
-    byte[] dat = new byte[(int)size()];
-    for (int i=0; i<dat.length; i++) {
-        dat[i] = (byte)get(i);
+
+    public synchronized void delete() {
+        if (swigCPtr != 0) {
+            if (swigCMemOwn) {
+                swigCMemOwn = false;
+                RingserviceJNI.delete_Blob(swigCPtr);
+            }
+            swigCPtr = 0;
+        }
     }
-    try {
-        return new String(dat, "utf-8");
-    } catch (java.io.UnsupportedEncodingException e) {
-        return "";
+
+    public static Blob fromString(String in) {
+        byte[] dat;
+        try {
+            dat = in.getBytes("UTF-8");
+        } catch (java.io.UnsupportedEncodingException e) {
+            dat = in.getBytes();
+        }
+        Blob n = new Blob();
+        n.reserve(dat.length);
+        for (int i = 0; i < dat.length; i++) {
+            n.add(dat[i]);
+        }
+        return n;
     }
-  }
 
-  public Blob(byte[] initialElements) {
-    this();
-    reserve(initialElements.length);
-
-    for (byte element : initialElements) {
-      add(element);
+    public String toJavaString() {
+        byte[] dat = new byte[(int) size()];
+        for (int i = 0; i < dat.length; i++) {
+            dat[i] = (byte) get(i);
+        }
+        try {
+            return new String(dat, "utf-8");
+        } catch (java.io.UnsupportedEncodingException e) {
+            return "";
+        }
     }
-  }
 
-  public Blob(Iterable<Byte> initialElements) {
-    this();
-    for (byte element : initialElements) {
-      add(element);
+    public Blob(byte[] initialElements) {
+        this();
+        reserve(initialElements.length);
+
+        for (byte element : initialElements) {
+            add(element);
+        }
     }
-  }
 
-  public Byte get(int index) {
-    return doGet(index);
-  }
+    public Blob(Iterable<Byte> initialElements) {
+        this();
+        for (byte element : initialElements) {
+            add(element);
+        }
+    }
 
-  public Byte set(int index, Byte e) {
-    return doSet(index, e);
-  }
+    public Byte get(int index) {
+        return doGet(index);
+    }
 
-  public boolean add(Byte e) {
-    modCount++;
-    doAdd(e);
-    return true;
-  }
+    public Byte set(int index, Byte e) {
+        return doSet(index, e);
+    }
 
-  public void add(int index, Byte e) {
-    modCount++;
-    doAdd(index, e);
-  }
+    public boolean add(Byte e) {
+        modCount++;
+        doAdd(e);
+        return true;
+    }
 
-  public Byte remove(int index) {
-    modCount++;
-    return doRemove(index);
-  }
+    public void add(int index, Byte e) {
+        modCount++;
+        doAdd(index, e);
+    }
 
-  protected void removeRange(int fromIndex, int toIndex) {
-    modCount++;
-    doRemoveRange(fromIndex, toIndex);
-  }
+    public Byte remove(int index) {
+        modCount++;
+        return doRemove(index);
+    }
 
-  public int size() {
-    return doSize();
-  }
+    protected void removeRange(int fromIndex, int toIndex) {
+        modCount++;
+        doRemoveRange(fromIndex, toIndex);
+    }
 
-  public Blob() {
-    this(RingserviceJNI.new_Blob__SWIG_0(), true);
-  }
+    public int size() {
+        return doSize();
+    }
 
-  public Blob(Blob other) {
-    this(RingserviceJNI.new_Blob__SWIG_1(Blob.getCPtr(other), other), true);
-  }
+    public Blob() {
+        this(RingserviceJNI.new_Blob__SWIG_0(), true);
+    }
 
-  public long capacity() {
-    return RingserviceJNI.Blob_capacity(swigCPtr, this);
-  }
+    public Blob(Blob other) {
+        this(RingserviceJNI.new_Blob__SWIG_1(Blob.getCPtr(other), other), true);
+    }
 
-  public void reserve(long n) {
-    RingserviceJNI.Blob_reserve(swigCPtr, this, n);
-  }
+    public long capacity() {
+        return RingserviceJNI.Blob_capacity(swigCPtr, this);
+    }
 
-  public boolean isEmpty() {
-    return RingserviceJNI.Blob_isEmpty(swigCPtr, this);
-  }
+    public void reserve(long n) {
+        RingserviceJNI.Blob_reserve(swigCPtr, this, n);
+    }
 
-  public void clear() {
-    RingserviceJNI.Blob_clear(swigCPtr, this);
-  }
+    public boolean isEmpty() {
+        return RingserviceJNI.Blob_isEmpty(swigCPtr, this);
+    }
 
-  public Blob(int count, byte value) {
-    this(RingserviceJNI.new_Blob__SWIG_2(count, value), true);
-  }
+    public void clear() {
+        RingserviceJNI.Blob_clear(swigCPtr, this);
+    }
 
-  private int doSize() {
-    return RingserviceJNI.Blob_doSize(swigCPtr, this);
-  }
+    public Blob(int count, byte value) {
+        this(RingserviceJNI.new_Blob__SWIG_2(count, value), true);
+    }
 
-  private void doAdd(byte x) {
-    RingserviceJNI.Blob_doAdd__SWIG_0(swigCPtr, this, x);
-  }
+    private int doSize() {
+        return RingserviceJNI.Blob_doSize(swigCPtr, this);
+    }
 
-  private void doAdd(int index, byte x) {
-    RingserviceJNI.Blob_doAdd__SWIG_1(swigCPtr, this, index, x);
-  }
+    private void doAdd(byte x) {
+        RingserviceJNI.Blob_doAdd__SWIG_0(swigCPtr, this, x);
+    }
 
-  private byte doRemove(int index) {
-    return RingserviceJNI.Blob_doRemove(swigCPtr, this, index);
-  }
+    private void doAdd(int index, byte x) {
+        RingserviceJNI.Blob_doAdd__SWIG_1(swigCPtr, this, index, x);
+    }
 
-  private byte doGet(int index) {
-    return RingserviceJNI.Blob_doGet(swigCPtr, this, index);
-  }
+    private byte doRemove(int index) {
+        return RingserviceJNI.Blob_doRemove(swigCPtr, this, index);
+    }
 
-  private byte doSet(int index, byte val) {
-    return RingserviceJNI.Blob_doSet(swigCPtr, this, index, val);
-  }
+    private byte doGet(int index) {
+        return RingserviceJNI.Blob_doGet(swigCPtr, this, index);
+    }
 
-  private void doRemoveRange(int fromIndex, int toIndex) {
-    RingserviceJNI.Blob_doRemoveRange(swigCPtr, this, fromIndex, toIndex);
-  }
+    private byte doSet(int index, byte val) {
+        return RingserviceJNI.Blob_doSet(swigCPtr, this, index, val);
+    }
+
+    private void doRemoveRange(int fromIndex, int toIndex) {
+        RingserviceJNI.Blob_doRemoveRange(swigCPtr, this, fromIndex, toIndex);
+    }
 
 }

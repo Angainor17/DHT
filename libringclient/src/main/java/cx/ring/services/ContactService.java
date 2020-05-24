@@ -30,8 +30,6 @@ import cx.ring.model.Account;
 import cx.ring.model.CallContact;
 import cx.ring.model.Settings;
 import cx.ring.model.Uri;
-import cx.ring.utils.Log;
-import cx.ring.utils.StringUtils;
 import ezvcard.VCard;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -63,7 +61,8 @@ public abstract class ContactService {
 
     public abstract void saveVCardContactData(CallContact contact, String accountId, VCard vcard);
 
-    public ContactService() {}
+    public ContactService() {
+    }
 
     /**
      * Load contacts from system and generate a local contact cache
@@ -92,7 +91,8 @@ public abstract class ContactService {
                             if (!contact.isUsernameLoaded())
                                 mAccountService.lookupAddress(accountId, "", uri.getRawRingId());
                             loadContactData(contact, accountId)
-                                    .subscribe(() -> {}, e -> {/*Log.e(TAG, "Error loading contact data: " + e.getMessage())*/});
+                                    .subscribe(() -> {
+                                    }, e -> {/*Log.e(TAG, "Error loading contact data: " + e.getMessage())*/});
                         })
                         .doOnDispose(() -> {
                             mAccountService.subscribeBuddy(accountId, uriString, false);

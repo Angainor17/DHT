@@ -35,12 +35,12 @@ public final class NetworkUtils {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm == null)
             return null;
-        for (Network n: cm.getAllNetworks()) {
+        for (Network n : cm.getAllNetworks()) {
             NetworkCapabilities caps = cm.getNetworkCapabilities(n);
             if (caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET))
                 continue;
             NetworkInfo nInfo = cm.getNetworkInfo(n);
-            if(nInfo != null && nInfo.isConnected())
+            if (nInfo != null && nInfo.isConnected())
                 return nInfo;
         }
         return null;
@@ -50,6 +50,7 @@ public final class NetworkUtils {
         NetworkInfo info = NetworkUtils.getNetworkInfo(context);
         return info != null && info.isConnected();
     }
+
     public static boolean isPushAllowed(Context context, boolean allowMobile) {
         if (allowMobile)
             return true;

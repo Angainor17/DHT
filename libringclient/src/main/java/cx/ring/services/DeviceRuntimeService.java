@@ -26,10 +26,13 @@ public abstract class DeviceRuntimeService implements DaemonService.SystemInfoCa
     public abstract void loadNativeLibrary();
 
     public abstract File provideFilesDir();
+
     public abstract File getCacheDir();
 
     public abstract File getFilePath(String name);
+
     public abstract File getConversationPath(String conversationId, String name);
+
     public abstract File getTemporaryPath(String conversationId, String name);
 
     public abstract String getPushToken();

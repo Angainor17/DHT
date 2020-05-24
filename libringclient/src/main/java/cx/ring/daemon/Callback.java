@@ -9,127 +9,177 @@
 package cx.ring.daemon;
 
 public class Callback {
-  private transient long swigCPtr;
-  protected transient boolean swigCMemOwn;
+    private transient long swigCPtr;
+    protected transient boolean swigCMemOwn;
 
-  protected Callback(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = cPtr;
-  }
-
-  protected static long getCPtr(Callback obj) {
-    return (obj == null) ? 0 : obj.swigCPtr;
-  }
-
-  @SuppressWarnings("deprecation")
-  protected void finalize() {
-    delete();
-  }
-
-  public synchronized void delete() {
-    if (swigCPtr != 0) {
-      if (swigCMemOwn) {
-        swigCMemOwn = false;
-        RingserviceJNI.delete_Callback(swigCPtr);
-      }
-      swigCPtr = 0;
+    protected Callback(long cPtr, boolean cMemoryOwn) {
+        swigCMemOwn = cMemoryOwn;
+        swigCPtr = cPtr;
     }
-  }
 
-  protected void swigDirectorDisconnect() {
-    swigCMemOwn = false;
-    delete();
-  }
+    protected static long getCPtr(Callback obj) {
+        return (obj == null) ? 0 : obj.swigCPtr;
+    }
 
-  public void swigReleaseOwnership() {
-    swigCMemOwn = false;
-    RingserviceJNI.Callback_change_ownership(this, swigCPtr, false);
-  }
+    @SuppressWarnings("deprecation")
+    protected void finalize() {
+        delete();
+    }
 
-  public void swigTakeOwnership() {
-    swigCMemOwn = true;
-    RingserviceJNI.Callback_change_ownership(this, swigCPtr, true);
-  }
+    public synchronized void delete() {
+        if (swigCPtr != 0) {
+            if (swigCMemOwn) {
+                swigCMemOwn = false;
+                RingserviceJNI.delete_Callback(swigCPtr);
+            }
+            swigCPtr = 0;
+        }
+    }
 
-  public void callStateChanged(String call_id, String state, int detail_code) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_callStateChanged(swigCPtr, this, call_id, state, detail_code); else RingserviceJNI.Callback_callStateChangedSwigExplicitCallback(swigCPtr, this, call_id, state, detail_code);
-  }
+    protected void swigDirectorDisconnect() {
+        swigCMemOwn = false;
+        delete();
+    }
 
-  public void transferFailed() {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_transferFailed(swigCPtr, this); else RingserviceJNI.Callback_transferFailedSwigExplicitCallback(swigCPtr, this);
-  }
+    public void swigReleaseOwnership() {
+        swigCMemOwn = false;
+        RingserviceJNI.Callback_change_ownership(this, swigCPtr, false);
+    }
 
-  public void transferSucceeded() {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_transferSucceeded(swigCPtr, this); else RingserviceJNI.Callback_transferSucceededSwigExplicitCallback(swigCPtr, this);
-  }
+    public void swigTakeOwnership() {
+        swigCMemOwn = true;
+        RingserviceJNI.Callback_change_ownership(this, swigCPtr, true);
+    }
 
-  public void recordPlaybackStopped(String path) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_recordPlaybackStopped(swigCPtr, this, path); else RingserviceJNI.Callback_recordPlaybackStoppedSwigExplicitCallback(swigCPtr, this, path);
-  }
+    public void callStateChanged(String call_id, String state, int detail_code) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_callStateChanged(swigCPtr, this, call_id, state, detail_code);
+        else
+            RingserviceJNI.Callback_callStateChangedSwigExplicitCallback(swigCPtr, this, call_id, state, detail_code);
+    }
 
-  public void voiceMailNotify(String accountId, int newCount, int oldCount, int urgentCount) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_voiceMailNotify(swigCPtr, this, accountId, newCount, oldCount, urgentCount); else RingserviceJNI.Callback_voiceMailNotifySwigExplicitCallback(swigCPtr, this, accountId, newCount, oldCount, urgentCount);
-  }
+    public void transferFailed() {
+        if (getClass() == Callback.class) RingserviceJNI.Callback_transferFailed(swigCPtr, this);
+        else RingserviceJNI.Callback_transferFailedSwigExplicitCallback(swigCPtr, this);
+    }
 
-  public void incomingMessage(String id, String from, StringMap messages) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_incomingMessage(swigCPtr, this, id, from, StringMap.getCPtr(messages), messages); else RingserviceJNI.Callback_incomingMessageSwigExplicitCallback(swigCPtr, this, id, from, StringMap.getCPtr(messages), messages);
-  }
+    public void transferSucceeded() {
+        if (getClass() == Callback.class) RingserviceJNI.Callback_transferSucceeded(swigCPtr, this);
+        else RingserviceJNI.Callback_transferSucceededSwigExplicitCallback(swigCPtr, this);
+    }
 
-  public void incomingCall(String account_id, String call_id, String from) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_incomingCall(swigCPtr, this, account_id, call_id, from); else RingserviceJNI.Callback_incomingCallSwigExplicitCallback(swigCPtr, this, account_id, call_id, from);
-  }
+    public void recordPlaybackStopped(String path) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_recordPlaybackStopped(swigCPtr, this, path);
+        else
+            RingserviceJNI.Callback_recordPlaybackStoppedSwigExplicitCallback(swigCPtr, this, path);
+    }
 
-  public void recordPlaybackFilepath(String id, String filename) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_recordPlaybackFilepath(swigCPtr, this, id, filename); else RingserviceJNI.Callback_recordPlaybackFilepathSwigExplicitCallback(swigCPtr, this, id, filename);
-  }
+    public void voiceMailNotify(String accountId, int newCount, int oldCount, int urgentCount) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_voiceMailNotify(swigCPtr, this, accountId, newCount, oldCount, urgentCount);
+        else
+            RingserviceJNI.Callback_voiceMailNotifySwigExplicitCallback(swigCPtr, this, accountId, newCount, oldCount, urgentCount);
+    }
 
-  public void conferenceCreated(String conf_id) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_conferenceCreated(swigCPtr, this, conf_id); else RingserviceJNI.Callback_conferenceCreatedSwigExplicitCallback(swigCPtr, this, conf_id);
-  }
+    public void incomingMessage(String id, String from, StringMap messages) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_incomingMessage(swigCPtr, this, id, from, StringMap.getCPtr(messages), messages);
+        else
+            RingserviceJNI.Callback_incomingMessageSwigExplicitCallback(swigCPtr, this, id, from, StringMap.getCPtr(messages), messages);
+    }
 
-  public void conferenceChanged(String conf_id, String state) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_conferenceChanged(swigCPtr, this, conf_id, state); else RingserviceJNI.Callback_conferenceChangedSwigExplicitCallback(swigCPtr, this, conf_id, state);
-  }
+    public void incomingCall(String account_id, String call_id, String from) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_incomingCall(swigCPtr, this, account_id, call_id, from);
+        else
+            RingserviceJNI.Callback_incomingCallSwigExplicitCallback(swigCPtr, this, account_id, call_id, from);
+    }
 
-  public void conferenceRemoved(String conf_id) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_conferenceRemoved(swigCPtr, this, conf_id); else RingserviceJNI.Callback_conferenceRemovedSwigExplicitCallback(swigCPtr, this, conf_id);
-  }
+    public void recordPlaybackFilepath(String id, String filename) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_recordPlaybackFilepath(swigCPtr, this, id, filename);
+        else
+            RingserviceJNI.Callback_recordPlaybackFilepathSwigExplicitCallback(swigCPtr, this, id, filename);
+    }
 
-  public void updatePlaybackScale(String filepath, int position, int scale) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_updatePlaybackScale(swigCPtr, this, filepath, position, scale); else RingserviceJNI.Callback_updatePlaybackScaleSwigExplicitCallback(swigCPtr, this, filepath, position, scale);
-  }
+    public void conferenceCreated(String conf_id) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_conferenceCreated(swigCPtr, this, conf_id);
+        else RingserviceJNI.Callback_conferenceCreatedSwigExplicitCallback(swigCPtr, this, conf_id);
+    }
 
-  public void newCall(String account_id, String call_id, String to) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_newCall(swigCPtr, this, account_id, call_id, to); else RingserviceJNI.Callback_newCallSwigExplicitCallback(swigCPtr, this, account_id, call_id, to);
-  }
+    public void conferenceChanged(String conf_id, String state) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_conferenceChanged(swigCPtr, this, conf_id, state);
+        else
+            RingserviceJNI.Callback_conferenceChangedSwigExplicitCallback(swigCPtr, this, conf_id, state);
+    }
 
-  public void sipCallStateChange(String call_id, String state, int code) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_sipCallStateChange(swigCPtr, this, call_id, state, code); else RingserviceJNI.Callback_sipCallStateChangeSwigExplicitCallback(swigCPtr, this, call_id, state, code);
-  }
+    public void conferenceRemoved(String conf_id) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_conferenceRemoved(swigCPtr, this, conf_id);
+        else RingserviceJNI.Callback_conferenceRemovedSwigExplicitCallback(swigCPtr, this, conf_id);
+    }
 
-  public void recordingStateChanged(String call_id, int code) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_recordingStateChanged(swigCPtr, this, call_id, code); else RingserviceJNI.Callback_recordingStateChangedSwigExplicitCallback(swigCPtr, this, call_id, code);
-  }
+    public void updatePlaybackScale(String filepath, int position, int scale) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_updatePlaybackScale(swigCPtr, this, filepath, position, scale);
+        else
+            RingserviceJNI.Callback_updatePlaybackScaleSwigExplicitCallback(swigCPtr, this, filepath, position, scale);
+    }
 
-  public void recordStateChange(String call_id, int state) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_recordStateChange(swigCPtr, this, call_id, state); else RingserviceJNI.Callback_recordStateChangeSwigExplicitCallback(swigCPtr, this, call_id, state);
-  }
+    public void newCall(String account_id, String call_id, String to) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_newCall(swigCPtr, this, account_id, call_id, to);
+        else
+            RingserviceJNI.Callback_newCallSwigExplicitCallback(swigCPtr, this, account_id, call_id, to);
+    }
 
-  public void onRtcpReportReceived(String call_id, IntegerMap stats) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_onRtcpReportReceived(swigCPtr, this, call_id, IntegerMap.getCPtr(stats), stats); else RingserviceJNI.Callback_onRtcpReportReceivedSwigExplicitCallback(swigCPtr, this, call_id, IntegerMap.getCPtr(stats), stats);
-  }
+    public void sipCallStateChange(String call_id, String state, int code) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_sipCallStateChange(swigCPtr, this, call_id, state, code);
+        else
+            RingserviceJNI.Callback_sipCallStateChangeSwigExplicitCallback(swigCPtr, this, call_id, state, code);
+    }
 
-  public void peerHold(String call_id, boolean holding) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_peerHold(swigCPtr, this, call_id, holding); else RingserviceJNI.Callback_peerHoldSwigExplicitCallback(swigCPtr, this, call_id, holding);
-  }
+    public void recordingStateChanged(String call_id, int code) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_recordingStateChanged(swigCPtr, this, call_id, code);
+        else
+            RingserviceJNI.Callback_recordingStateChangedSwigExplicitCallback(swigCPtr, this, call_id, code);
+    }
 
-  public void connectionUpdate(String id, int state) {
-    if (getClass() == Callback.class) RingserviceJNI.Callback_connectionUpdate(swigCPtr, this, id, state); else RingserviceJNI.Callback_connectionUpdateSwigExplicitCallback(swigCPtr, this, id, state);
-  }
+    public void recordStateChange(String call_id, int state) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_recordStateChange(swigCPtr, this, call_id, state);
+        else
+            RingserviceJNI.Callback_recordStateChangeSwigExplicitCallback(swigCPtr, this, call_id, state);
+    }
 
-  public Callback() {
-    this(RingserviceJNI.new_Callback(), true);
-    RingserviceJNI.Callback_director_connect(this, swigCPtr, true, true);
-  }
+    public void onRtcpReportReceived(String call_id, IntegerMap stats) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_onRtcpReportReceived(swigCPtr, this, call_id, IntegerMap.getCPtr(stats), stats);
+        else
+            RingserviceJNI.Callback_onRtcpReportReceivedSwigExplicitCallback(swigCPtr, this, call_id, IntegerMap.getCPtr(stats), stats);
+    }
+
+    public void peerHold(String call_id, boolean holding) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_peerHold(swigCPtr, this, call_id, holding);
+        else RingserviceJNI.Callback_peerHoldSwigExplicitCallback(swigCPtr, this, call_id, holding);
+    }
+
+    public void connectionUpdate(String id, int state) {
+        if (getClass() == Callback.class)
+            RingserviceJNI.Callback_connectionUpdate(swigCPtr, this, id, state);
+        else
+            RingserviceJNI.Callback_connectionUpdateSwigExplicitCallback(swigCPtr, this, id, state);
+    }
+
+    public Callback() {
+        this(RingserviceJNI.new_Callback(), true);
+        RingserviceJNI.Callback_director_connect(this, swigCPtr, true, true);
+    }
 
 }

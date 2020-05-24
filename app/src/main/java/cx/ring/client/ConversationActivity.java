@@ -156,13 +156,13 @@ public class ConversationActivity extends AppCompatActivity implements Colorable
         for (int i = 0; i < toolbar.getChildCount(); i++) {
             final View view = toolbar.getChildAt(i);
             if (view instanceof ImageButton) {
-                ((ImageButton)view).getDrawable().setColorFilter(colorFilter);
+                ((ImageButton) view).getDrawable().setColorFilter(colorFilter);
             } else if (view instanceof ActionMenuView) {
                 for (int j = 0; j < ((ActionMenuView) view).getChildCount(); j++) {
-                    final View innerView = ((ActionMenuView)view).getChildAt(j);
+                    final View innerView = ((ActionMenuView) view).getChildAt(j);
                     //Any ActionMenuViews - icons that are not back button, text or overflow menu
                     if (innerView instanceof ActionMenuItemView) {
-                        final Drawable[] drawables = ((ActionMenuItemView)innerView).getCompoundDrawables();
+                        final Drawable[] drawables = ((ActionMenuItemView) innerView).getCompoundDrawables();
                         for (int k = 0; k < drawables.length; k++) {
                             final Drawable drawable = drawables[k];
                             if (drawable != null) {

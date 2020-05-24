@@ -20,13 +20,14 @@ package cx.ring.views;
 
 import android.content.Context;
 import android.os.Build;
-import androidx.core.view.inputmethod.EditorInfoCompat;
-import androidx.core.view.inputmethod.InputConnectionCompat;
-import androidx.core.view.inputmethod.InputContentInfoCompat;
-import androidx.appcompat.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.view.inputmethod.EditorInfoCompat;
+import androidx.core.view.inputmethod.InputConnectionCompat;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
 
 public class MessageEditText extends AppCompatEditText {
     static private final String[] SUPPORTED_MIME_TYPES = new String[]{"image/png", "image/jpg", "image/gif", "image/webp"};

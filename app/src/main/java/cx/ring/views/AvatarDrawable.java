@@ -67,7 +67,6 @@ public class AvatarDrawable extends Drawable {
         int cx, cy, radius;
     }
 
-    ;
     private final PresenceIndicatorInfo presence = new PresenceIndicatorInfo();
 
     private boolean update = true;

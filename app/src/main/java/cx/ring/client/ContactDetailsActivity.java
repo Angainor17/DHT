@@ -28,20 +28,21 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.ImageViewCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +50,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import androidx.core.widget.ImageViewCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
 import cx.ring.R;
 import cx.ring.application.JamiApplication;
 import cx.ring.databinding.ActivityContactDetailsBinding;
@@ -59,11 +57,8 @@ import cx.ring.databinding.ItemContactActionBinding;
 import cx.ring.facades.ConversationFacade;
 import cx.ring.fragments.ConversationFragment;
 import cx.ring.model.CallContact;
-import cx.ring.model.Conference;
 import cx.ring.model.Conversation;
-import cx.ring.model.SipCall;
 import cx.ring.services.AccountService;
-import cx.ring.services.NotificationService;
 import cx.ring.utils.ConversationPath;
 import cx.ring.views.AvatarDrawable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -101,6 +96,7 @@ public class ContactDetailsActivity extends AppCompatActivity {
             title = t;
             callback = cb;
         }
+
         ContactAction(int i, CharSequence t, IContactAction cb) {
             icon = i;
             iconTint = Color.BLACK;
@@ -111,12 +107,16 @@ public class ContactDetailsActivity extends AppCompatActivity {
         void setIconTint(int tint) {
             iconTint = tint;
         }
-        void setTitle(CharSequence t) { title = t; }
+
+        void setTitle(CharSequence t) {
+            title = t;
+        }
     }
 
     class ContactActionView extends RecyclerView.ViewHolder {
         final ItemContactActionBinding binding;
         IContactAction callback;
+
         ContactActionView(@NonNull ItemContactActionBinding b) {
             super(b.getRoot());
             binding = b;
@@ -125,7 +125,7 @@ public class ContactDetailsActivity extends AppCompatActivity {
                     if (callback != null)
                         callback.onAction();
                 } catch (Exception e) {
-                    Log.w(TAG, "Error performing action" ,e);
+                    Log.w(TAG, "Error performing action", e);
                 }
             });
         }

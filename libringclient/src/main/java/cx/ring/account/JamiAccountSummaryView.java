@@ -45,6 +45,7 @@ public interface JamiAccountSummaryView {
     void updateDeviceList(Map<String, String> devices, String currentDeviceId);
 
     void deviceRevocationEnded(String device, int status);
+
     void passwordChangeEnded(boolean ok);
 
     void displayCompleteArchive(File dest);

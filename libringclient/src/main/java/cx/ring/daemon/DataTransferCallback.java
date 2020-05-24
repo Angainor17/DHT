@@ -9,55 +9,58 @@
 package cx.ring.daemon;
 
 public class DataTransferCallback {
-  private transient long swigCPtr;
-  protected transient boolean swigCMemOwn;
+    private transient long swigCPtr;
+    protected transient boolean swigCMemOwn;
 
-  protected DataTransferCallback(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = cPtr;
-  }
-
-  protected static long getCPtr(DataTransferCallback obj) {
-    return (obj == null) ? 0 : obj.swigCPtr;
-  }
-
-  @SuppressWarnings("deprecation")
-  protected void finalize() {
-    delete();
-  }
-
-  public synchronized void delete() {
-    if (swigCPtr != 0) {
-      if (swigCMemOwn) {
-        swigCMemOwn = false;
-        RingserviceJNI.delete_DataTransferCallback(swigCPtr);
-      }
-      swigCPtr = 0;
+    protected DataTransferCallback(long cPtr, boolean cMemoryOwn) {
+        swigCMemOwn = cMemoryOwn;
+        swigCPtr = cPtr;
     }
-  }
 
-  protected void swigDirectorDisconnect() {
-    swigCMemOwn = false;
-    delete();
-  }
+    protected static long getCPtr(DataTransferCallback obj) {
+        return (obj == null) ? 0 : obj.swigCPtr;
+    }
 
-  public void swigReleaseOwnership() {
-    swigCMemOwn = false;
-    RingserviceJNI.DataTransferCallback_change_ownership(this, swigCPtr, false);
-  }
+    @SuppressWarnings("deprecation")
+    protected void finalize() {
+        delete();
+    }
 
-  public void swigTakeOwnership() {
-    swigCMemOwn = true;
-    RingserviceJNI.DataTransferCallback_change_ownership(this, swigCPtr, true);
-  }
+    public synchronized void delete() {
+        if (swigCPtr != 0) {
+            if (swigCMemOwn) {
+                swigCMemOwn = false;
+                RingserviceJNI.delete_DataTransferCallback(swigCPtr);
+            }
+            swigCPtr = 0;
+        }
+    }
 
-  public void dataTransferEvent(long transferId, int eventCode) {
-    if (getClass() == DataTransferCallback.class) RingserviceJNI.DataTransferCallback_dataTransferEvent(swigCPtr, this, transferId, eventCode); else RingserviceJNI.DataTransferCallback_dataTransferEventSwigExplicitDataTransferCallback(swigCPtr, this, transferId, eventCode);
-  }
+    protected void swigDirectorDisconnect() {
+        swigCMemOwn = false;
+        delete();
+    }
 
-  public DataTransferCallback() {
-    this(RingserviceJNI.new_DataTransferCallback(), true);
-    RingserviceJNI.DataTransferCallback_director_connect(this, swigCPtr, true, true);
-  }
+    public void swigReleaseOwnership() {
+        swigCMemOwn = false;
+        RingserviceJNI.DataTransferCallback_change_ownership(this, swigCPtr, false);
+    }
+
+    public void swigTakeOwnership() {
+        swigCMemOwn = true;
+        RingserviceJNI.DataTransferCallback_change_ownership(this, swigCPtr, true);
+    }
+
+    public void dataTransferEvent(long transferId, int eventCode) {
+        if (getClass() == DataTransferCallback.class)
+            RingserviceJNI.DataTransferCallback_dataTransferEvent(swigCPtr, this, transferId, eventCode);
+        else
+            RingserviceJNI.DataTransferCallback_dataTransferEventSwigExplicitDataTransferCallback(swigCPtr, this, transferId, eventCode);
+    }
+
+    public DataTransferCallback() {
+        this(RingserviceJNI.new_DataTransferCallback(), true);
+        RingserviceJNI.DataTransferCallback_director_connect(this, swigCPtr, true, true);
+    }
 
 }

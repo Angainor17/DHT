@@ -19,11 +19,12 @@
 package cx.ring.utils;
 
 import android.content.Context;
-import com.google.android.material.textfield.TextInputLayout;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.lang.ref.WeakReference;
 

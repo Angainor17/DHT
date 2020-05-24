@@ -306,7 +306,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                         "\t   ON historytext.number = historydata.peerId");
 
 
-
                 // DATA TRANSFER TABLE
 
                 // Data transfer migration is done first as we maintain the same ID's as in the previous database

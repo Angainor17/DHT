@@ -49,7 +49,7 @@ public class SwigNativeConverter {
     }
 
     public static ArrayList<Message> toJava(MessageVect vector) {
-        int size = (int)vector.size();
+        int size = (int) vector.size();
         ArrayList<Message> toReturn = new ArrayList<>(size);
         for (int i = 0; i < size; i++)
             toReturn.add(vector.get(i));

@@ -65,7 +65,7 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case JamiApplication.PERMISSIONS_REQUEST: {
                 if (grantResults.length == 0) {

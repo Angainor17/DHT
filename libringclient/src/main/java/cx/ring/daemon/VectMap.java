@@ -9,144 +9,144 @@
 package cx.ring.daemon;
 
 public class VectMap extends java.util.AbstractList<StringMap> implements java.util.RandomAccess {
-  private transient long swigCPtr;
-  protected transient boolean swigCMemOwn;
+    private transient long swigCPtr;
+    protected transient boolean swigCMemOwn;
 
-  protected VectMap(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = cPtr;
-  }
-
-  protected static long getCPtr(VectMap obj) {
-    return (obj == null) ? 0 : obj.swigCPtr;
-  }
-
-  @SuppressWarnings("deprecation")
-  protected void finalize() {
-    delete();
-  }
-
-  public synchronized void delete() {
-    if (swigCPtr != 0) {
-      if (swigCMemOwn) {
-        swigCMemOwn = false;
-        RingserviceJNI.delete_VectMap(swigCPtr);
-      }
-      swigCPtr = 0;
+    protected VectMap(long cPtr, boolean cMemoryOwn) {
+        swigCMemOwn = cMemoryOwn;
+        swigCPtr = cPtr;
     }
-  }
 
-  public java.util.ArrayList<java.util.Map<String, String>> toNative() {
-    java.util.ArrayList<java.util.Map<String, String>> out = new java.util.ArrayList<>();
-    for (int i = 0; i < size(); ++i) {
-        out.add(get(i).toNative());
+    protected static long getCPtr(VectMap obj) {
+        return (obj == null) ? 0 : obj.swigCPtr;
     }
-    return out;
-  }
 
-  public VectMap(StringMap[] initialElements) {
-    this();
-    reserve(initialElements.length);
-
-    for (StringMap element : initialElements) {
-      add(element);
+    @SuppressWarnings("deprecation")
+    protected void finalize() {
+        delete();
     }
-  }
 
-  public VectMap(Iterable<StringMap> initialElements) {
-    this();
-    for (StringMap element : initialElements) {
-      add(element);
+    public synchronized void delete() {
+        if (swigCPtr != 0) {
+            if (swigCMemOwn) {
+                swigCMemOwn = false;
+                RingserviceJNI.delete_VectMap(swigCPtr);
+            }
+            swigCPtr = 0;
+        }
     }
-  }
 
-  public StringMap get(int index) {
-    return doGet(index);
-  }
+    public java.util.ArrayList<java.util.Map<String, String>> toNative() {
+        java.util.ArrayList<java.util.Map<String, String>> out = new java.util.ArrayList<>();
+        for (int i = 0; i < size(); ++i) {
+            out.add(get(i).toNative());
+        }
+        return out;
+    }
 
-  public StringMap set(int index, StringMap e) {
-    return doSet(index, e);
-  }
+    public VectMap(StringMap[] initialElements) {
+        this();
+        reserve(initialElements.length);
 
-  public boolean add(StringMap e) {
-    modCount++;
-    doAdd(e);
-    return true;
-  }
+        for (StringMap element : initialElements) {
+            add(element);
+        }
+    }
 
-  public void add(int index, StringMap e) {
-    modCount++;
-    doAdd(index, e);
-  }
+    public VectMap(Iterable<StringMap> initialElements) {
+        this();
+        for (StringMap element : initialElements) {
+            add(element);
+        }
+    }
 
-  public StringMap remove(int index) {
-    modCount++;
-    return doRemove(index);
-  }
+    public StringMap get(int index) {
+        return doGet(index);
+    }
 
-  protected void removeRange(int fromIndex, int toIndex) {
-    modCount++;
-    doRemoveRange(fromIndex, toIndex);
-  }
+    public StringMap set(int index, StringMap e) {
+        return doSet(index, e);
+    }
 
-  public int size() {
-    return doSize();
-  }
+    public boolean add(StringMap e) {
+        modCount++;
+        doAdd(e);
+        return true;
+    }
 
-  public VectMap() {
-    this(RingserviceJNI.new_VectMap__SWIG_0(), true);
-  }
+    public void add(int index, StringMap e) {
+        modCount++;
+        doAdd(index, e);
+    }
 
-  public VectMap(VectMap other) {
-    this(RingserviceJNI.new_VectMap__SWIG_1(VectMap.getCPtr(other), other), true);
-  }
+    public StringMap remove(int index) {
+        modCount++;
+        return doRemove(index);
+    }
 
-  public long capacity() {
-    return RingserviceJNI.VectMap_capacity(swigCPtr, this);
-  }
+    protected void removeRange(int fromIndex, int toIndex) {
+        modCount++;
+        doRemoveRange(fromIndex, toIndex);
+    }
 
-  public void reserve(long n) {
-    RingserviceJNI.VectMap_reserve(swigCPtr, this, n);
-  }
+    public int size() {
+        return doSize();
+    }
 
-  public boolean isEmpty() {
-    return RingserviceJNI.VectMap_isEmpty(swigCPtr, this);
-  }
+    public VectMap() {
+        this(RingserviceJNI.new_VectMap__SWIG_0(), true);
+    }
 
-  public void clear() {
-    RingserviceJNI.VectMap_clear(swigCPtr, this);
-  }
+    public VectMap(VectMap other) {
+        this(RingserviceJNI.new_VectMap__SWIG_1(VectMap.getCPtr(other), other), true);
+    }
 
-  public VectMap(int count, StringMap value) {
-    this(RingserviceJNI.new_VectMap__SWIG_2(count, StringMap.getCPtr(value), value), true);
-  }
+    public long capacity() {
+        return RingserviceJNI.VectMap_capacity(swigCPtr, this);
+    }
 
-  private int doSize() {
-    return RingserviceJNI.VectMap_doSize(swigCPtr, this);
-  }
+    public void reserve(long n) {
+        RingserviceJNI.VectMap_reserve(swigCPtr, this, n);
+    }
 
-  private void doAdd(StringMap x) {
-    RingserviceJNI.VectMap_doAdd__SWIG_0(swigCPtr, this, StringMap.getCPtr(x), x);
-  }
+    public boolean isEmpty() {
+        return RingserviceJNI.VectMap_isEmpty(swigCPtr, this);
+    }
 
-  private void doAdd(int index, StringMap x) {
-    RingserviceJNI.VectMap_doAdd__SWIG_1(swigCPtr, this, index, StringMap.getCPtr(x), x);
-  }
+    public void clear() {
+        RingserviceJNI.VectMap_clear(swigCPtr, this);
+    }
 
-  private StringMap doRemove(int index) {
-    return new StringMap(RingserviceJNI.VectMap_doRemove(swigCPtr, this, index), true);
-  }
+    public VectMap(int count, StringMap value) {
+        this(RingserviceJNI.new_VectMap__SWIG_2(count, StringMap.getCPtr(value), value), true);
+    }
 
-  private StringMap doGet(int index) {
-    return new StringMap(RingserviceJNI.VectMap_doGet(swigCPtr, this, index), false);
-  }
+    private int doSize() {
+        return RingserviceJNI.VectMap_doSize(swigCPtr, this);
+    }
 
-  private StringMap doSet(int index, StringMap val) {
-    return new StringMap(RingserviceJNI.VectMap_doSet(swigCPtr, this, index, StringMap.getCPtr(val), val), true);
-  }
+    private void doAdd(StringMap x) {
+        RingserviceJNI.VectMap_doAdd__SWIG_0(swigCPtr, this, StringMap.getCPtr(x), x);
+    }
 
-  private void doRemoveRange(int fromIndex, int toIndex) {
-    RingserviceJNI.VectMap_doRemoveRange(swigCPtr, this, fromIndex, toIndex);
-  }
+    private void doAdd(int index, StringMap x) {
+        RingserviceJNI.VectMap_doAdd__SWIG_1(swigCPtr, this, index, StringMap.getCPtr(x), x);
+    }
+
+    private StringMap doRemove(int index) {
+        return new StringMap(RingserviceJNI.VectMap_doRemove(swigCPtr, this, index), true);
+    }
+
+    private StringMap doGet(int index) {
+        return new StringMap(RingserviceJNI.VectMap_doGet(swigCPtr, this, index), false);
+    }
+
+    private StringMap doSet(int index, StringMap val) {
+        return new StringMap(RingserviceJNI.VectMap_doSet(swigCPtr, this, index, StringMap.getCPtr(val), val), true);
+    }
+
+    private void doRemoveRange(int fromIndex, int toIndex) {
+        RingserviceJNI.VectMap_doRemoveRange(swigCPtr, this, fromIndex, toIndex);
+    }
 
 }

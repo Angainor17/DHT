@@ -9,136 +9,136 @@
 package cx.ring.daemon;
 
 public class MessageVect extends java.util.AbstractList<Message> implements java.util.RandomAccess {
-  private transient long swigCPtr;
-  protected transient boolean swigCMemOwn;
+    private transient long swigCPtr;
+    protected transient boolean swigCMemOwn;
 
-  protected MessageVect(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = cPtr;
-  }
-
-  protected static long getCPtr(MessageVect obj) {
-    return (obj == null) ? 0 : obj.swigCPtr;
-  }
-
-  @SuppressWarnings("deprecation")
-  protected void finalize() {
-    delete();
-  }
-
-  public synchronized void delete() {
-    if (swigCPtr != 0) {
-      if (swigCMemOwn) {
-        swigCMemOwn = false;
-        RingserviceJNI.delete_MessageVect(swigCPtr);
-      }
-      swigCPtr = 0;
+    protected MessageVect(long cPtr, boolean cMemoryOwn) {
+        swigCMemOwn = cMemoryOwn;
+        swigCPtr = cPtr;
     }
-  }
 
-  public MessageVect(Message[] initialElements) {
-    this();
-    reserve(initialElements.length);
-
-    for (Message element : initialElements) {
-      add(element);
+    protected static long getCPtr(MessageVect obj) {
+        return (obj == null) ? 0 : obj.swigCPtr;
     }
-  }
 
-  public MessageVect(Iterable<Message> initialElements) {
-    this();
-    for (Message element : initialElements) {
-      add(element);
+    @SuppressWarnings("deprecation")
+    protected void finalize() {
+        delete();
     }
-  }
 
-  public Message get(int index) {
-    return doGet(index);
-  }
+    public synchronized void delete() {
+        if (swigCPtr != 0) {
+            if (swigCMemOwn) {
+                swigCMemOwn = false;
+                RingserviceJNI.delete_MessageVect(swigCPtr);
+            }
+            swigCPtr = 0;
+        }
+    }
 
-  public Message set(int index, Message e) {
-    return doSet(index, e);
-  }
+    public MessageVect(Message[] initialElements) {
+        this();
+        reserve(initialElements.length);
 
-  public boolean add(Message e) {
-    modCount++;
-    doAdd(e);
-    return true;
-  }
+        for (Message element : initialElements) {
+            add(element);
+        }
+    }
 
-  public void add(int index, Message e) {
-    modCount++;
-    doAdd(index, e);
-  }
+    public MessageVect(Iterable<Message> initialElements) {
+        this();
+        for (Message element : initialElements) {
+            add(element);
+        }
+    }
 
-  public Message remove(int index) {
-    modCount++;
-    return doRemove(index);
-  }
+    public Message get(int index) {
+        return doGet(index);
+    }
 
-  protected void removeRange(int fromIndex, int toIndex) {
-    modCount++;
-    doRemoveRange(fromIndex, toIndex);
-  }
+    public Message set(int index, Message e) {
+        return doSet(index, e);
+    }
 
-  public int size() {
-    return doSize();
-  }
+    public boolean add(Message e) {
+        modCount++;
+        doAdd(e);
+        return true;
+    }
 
-  public MessageVect() {
-    this(RingserviceJNI.new_MessageVect__SWIG_0(), true);
-  }
+    public void add(int index, Message e) {
+        modCount++;
+        doAdd(index, e);
+    }
 
-  public MessageVect(MessageVect other) {
-    this(RingserviceJNI.new_MessageVect__SWIG_1(MessageVect.getCPtr(other), other), true);
-  }
+    public Message remove(int index) {
+        modCount++;
+        return doRemove(index);
+    }
 
-  public long capacity() {
-    return RingserviceJNI.MessageVect_capacity(swigCPtr, this);
-  }
+    protected void removeRange(int fromIndex, int toIndex) {
+        modCount++;
+        doRemoveRange(fromIndex, toIndex);
+    }
 
-  public void reserve(long n) {
-    RingserviceJNI.MessageVect_reserve(swigCPtr, this, n);
-  }
+    public int size() {
+        return doSize();
+    }
 
-  public boolean isEmpty() {
-    return RingserviceJNI.MessageVect_isEmpty(swigCPtr, this);
-  }
+    public MessageVect() {
+        this(RingserviceJNI.new_MessageVect__SWIG_0(), true);
+    }
 
-  public void clear() {
-    RingserviceJNI.MessageVect_clear(swigCPtr, this);
-  }
+    public MessageVect(MessageVect other) {
+        this(RingserviceJNI.new_MessageVect__SWIG_1(MessageVect.getCPtr(other), other), true);
+    }
 
-  public MessageVect(int count, Message value) {
-    this(RingserviceJNI.new_MessageVect__SWIG_2(count, Message.getCPtr(value), value), true);
-  }
+    public long capacity() {
+        return RingserviceJNI.MessageVect_capacity(swigCPtr, this);
+    }
 
-  private int doSize() {
-    return RingserviceJNI.MessageVect_doSize(swigCPtr, this);
-  }
+    public void reserve(long n) {
+        RingserviceJNI.MessageVect_reserve(swigCPtr, this, n);
+    }
 
-  private void doAdd(Message x) {
-    RingserviceJNI.MessageVect_doAdd__SWIG_0(swigCPtr, this, Message.getCPtr(x), x);
-  }
+    public boolean isEmpty() {
+        return RingserviceJNI.MessageVect_isEmpty(swigCPtr, this);
+    }
 
-  private void doAdd(int index, Message x) {
-    RingserviceJNI.MessageVect_doAdd__SWIG_1(swigCPtr, this, index, Message.getCPtr(x), x);
-  }
+    public void clear() {
+        RingserviceJNI.MessageVect_clear(swigCPtr, this);
+    }
 
-  private Message doRemove(int index) {
-    return new Message(RingserviceJNI.MessageVect_doRemove(swigCPtr, this, index), true);
-  }
+    public MessageVect(int count, Message value) {
+        this(RingserviceJNI.new_MessageVect__SWIG_2(count, Message.getCPtr(value), value), true);
+    }
 
-  private Message doGet(int index) {
-    return new Message(RingserviceJNI.MessageVect_doGet(swigCPtr, this, index), false);
-  }
+    private int doSize() {
+        return RingserviceJNI.MessageVect_doSize(swigCPtr, this);
+    }
 
-  private Message doSet(int index, Message val) {
-    return new Message(RingserviceJNI.MessageVect_doSet(swigCPtr, this, index, Message.getCPtr(val), val), true);
-  }
+    private void doAdd(Message x) {
+        RingserviceJNI.MessageVect_doAdd__SWIG_0(swigCPtr, this, Message.getCPtr(x), x);
+    }
 
-  private void doRemoveRange(int fromIndex, int toIndex) {
-    RingserviceJNI.MessageVect_doRemoveRange(swigCPtr, this, fromIndex, toIndex);
-  }
+    private void doAdd(int index, Message x) {
+        RingserviceJNI.MessageVect_doAdd__SWIG_1(swigCPtr, this, index, Message.getCPtr(x), x);
+    }
+
+    private Message doRemove(int index) {
+        return new Message(RingserviceJNI.MessageVect_doRemove(swigCPtr, this, index), true);
+    }
+
+    private Message doGet(int index) {
+        return new Message(RingserviceJNI.MessageVect_doGet(swigCPtr, this, index), false);
+    }
+
+    private Message doSet(int index, Message val) {
+        return new Message(RingserviceJNI.MessageVect_doSet(swigCPtr, this, index, Message.getCPtr(val), val), true);
+    }
+
+    private void doRemoveRange(int fromIndex, int toIndex) {
+        RingserviceJNI.MessageVect_doRemoveRange(swigCPtr, this, fromIndex, toIndex);
+    }
 
 }

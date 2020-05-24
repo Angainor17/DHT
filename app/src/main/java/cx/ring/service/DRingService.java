@@ -685,7 +685,6 @@ public class DRingService extends Service {
     }
 
 
-
     private void handleConvAction(Intent intent, String action, Bundle extras) {
         ConversationPath path = ConversationPath.fromIntent(intent);
 

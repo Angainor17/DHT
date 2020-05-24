@@ -88,7 +88,7 @@ public class ContactEvent extends Interaction {
         // success for added contacts
         if (status == InteractionStatus.SUCCESS)
             return Event.ADDED;
-        // storage is unknown status for trust requests
+            // storage is unknown status for trust requests
         else if (status == InteractionStatus.UNKNOWN)
             return Event.INCOMING_REQUEST;
 

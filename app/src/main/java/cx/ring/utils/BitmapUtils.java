@@ -26,19 +26,21 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
-import ezvcard.parameter.ImageType;
-import ezvcard.property.Photo;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
+import ezvcard.parameter.ImageType;
+import ezvcard.property.Photo;
+
 /**
  * Helper calls to manipulates Bitmaps
  */
-public final class BitmapUtils
-{
+public final class BitmapUtils {
     private static final String TAG = BitmapUtils.class.getName();
-    private BitmapUtils() {}
+
+    private BitmapUtils() {
+    }
 
     public static Photo bitmapToPhoto(@NonNull Bitmap image) {
         return new Photo(bitmapToPng(image), ImageType.PNG);
@@ -88,10 +90,10 @@ public final class BitmapUtils
         Log.d(TAG, "reduceBitmap: bitmap size before reduce " + bmp.getByteCount());
         int height = bmp.getHeight();
         int width = bmp.getWidth();
-        int minRatio = bmp.getByteCount()/size;
+        int minRatio = bmp.getByteCount() / size;
 
         int ratio = 2;
-        while (ratio*ratio < minRatio)
+        while (ratio * ratio < minRatio)
             ratio *= 2;
 
         height /= ratio;

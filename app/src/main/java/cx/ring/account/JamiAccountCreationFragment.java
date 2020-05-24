@@ -85,7 +85,8 @@ public class JamiAccountCreationFragment extends BaseSupportFragment<JamiAccount
         binding.createAccount.setOnClickListener(v -> presenter.createAccount());
         binding.ringPassword.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -93,11 +94,13 @@ public class JamiAccountCreationFragment extends BaseSupportFragment<JamiAccount
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
         binding.ringPasswordRepeat.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -105,7 +108,8 @@ public class JamiAccountCreationFragment extends BaseSupportFragment<JamiAccount
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
         binding.ringPasswordRepeat.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -115,10 +119,12 @@ public class JamiAccountCreationFragment extends BaseSupportFragment<JamiAccount
         });
         binding.ringUsername.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -145,7 +151,7 @@ public class JamiAccountCreationFragment extends BaseSupportFragment<JamiAccount
     public void updateUsernameAvailability(UsernameAvailabilityStatus status) {
         binding.ringUsernameAvailabilitySpinner.setVisibility(View.GONE);
         //mUsernameAvailabilityImageView.setVisibility(View.VISIBLE);
-        switch (status){
+        switch (status) {
             case ERROR:
                 binding.ringUsernameTxtBox.setErrorEnabled(true);
                 binding.ringUsernameTxtBox.setError(getString(R.string.unknown_error));

@@ -25,13 +25,13 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Pair;
 
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.TwoStatePreference;
-import android.util.Pair;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -104,9 +104,9 @@ public class SecurityAccountFragment extends BasePreferenceFragment<SecurityAcco
         super.onCreatePreferences(bundle, s);
 
         addPreferencesFromResource(R.xml.account_security_prefs);
-        credentialsCategory = (PreferenceCategory) findPreference("Account.credentials");
+        credentialsCategory = findPreference("Account.credentials");
         credentialsCategory.findPreference("Add.credentials").setOnPreferenceChangeListener(addCredentialListener);
-        tlsCategory = (PreferenceCategory) findPreference("TLS.category");
+        tlsCategory = findPreference("TLS.category");
 
         presenter.init(getArguments().getString(AccountEditionFragment.ACCOUNT_ID_KEY));
     }

@@ -114,10 +114,9 @@ public class CameraService {
         String cameraFront;
 
         String switchInput(boolean setDefaultCamera) {
-            if(setDefaultCamera && !cameras.isEmpty()) {
+            if (setDefaultCamera && !cameras.isEmpty()) {
                 currentId = cameras.get(0);
-            }
-            else if (!cameras.isEmpty()) {
+            } else if (!cameras.isEmpty()) {
                 currentIndex = (currentIndex + 1) % cameras.size();
                 currentId = cameras.get(currentIndex);
             } else {
@@ -269,11 +268,16 @@ public class CameraService {
             if (codec == null)
                 return MediaFormat.MIMETYPE_VIDEO_AVC;
             switch (codec) {
-                case "H264": return MediaFormat.MIMETYPE_VIDEO_AVC;
-                case "H265": return MediaFormat.MIMETYPE_VIDEO_HEVC;
-                case "VP8": return MediaFormat.MIMETYPE_VIDEO_VP8;
-                case "VP9": return MediaFormat.MIMETYPE_VIDEO_VP9;
-                case "MP4V-ES": return MediaFormat.MIMETYPE_VIDEO_MPEG4;
+                case "H264":
+                    return MediaFormat.MIMETYPE_VIDEO_AVC;
+                case "H265":
+                    return MediaFormat.MIMETYPE_VIDEO_HEVC;
+                case "VP8":
+                    return MediaFormat.MIMETYPE_VIDEO_VP8;
+                case "VP9":
+                    return MediaFormat.MIMETYPE_VIDEO_VP9;
+                case "MP4V-ES":
+                    return MediaFormat.MIMETYPE_VIDEO_MPEG4;
             }
             return codec;
         }
@@ -322,7 +326,7 @@ public class CameraService {
             Observable<String> externalCameras;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                 externalCameras = filterCameraIdsFacing(cameras, CameraCharacteristics.LENS_FACING_EXTERNAL);
-            } else  {
+            } else {
                 externalCameras = Observable.empty();
             }
             Observable.concat(
@@ -373,6 +377,7 @@ public class CameraService {
 
     interface CameraListener {
         void onOpened();
+
         void onError();
     }
 
@@ -437,7 +442,7 @@ public class CameraService {
     public static Pair<MediaCodec, Surface> openEncoder(VideoParams videoParams, String mimeType, Handler handler, int resolution, int bitrate) {
         Log.d(TAG, "Video with codec " + mimeType + " resolution: " + videoParams.width + "x" + videoParams.height + " Bitrate: " + bitrate);
         int bitrateValue;
-        if(bitrate == 0)
+        if (bitrate == 0)
             bitrateValue = resolution >= 720 ? 192 * 8 * 1024 : 100 * 8 * 1024;
         else
             bitrateValue = bitrate * 8 * 1024;
@@ -479,7 +484,8 @@ public class CameraService {
                 encoderInput = codec.createInputSurface();
                 MediaCodec.Callback callback = new MediaCodec.Callback() {
                     @Override
-                    public void onInputBufferAvailable(@NonNull MediaCodec codec, int index) {}
+                    public void onInputBufferAvailable(@NonNull MediaCodec codec, int index) {
+                    }
 
                     @Override
                     public void onOutputBufferAvailable(@NonNull MediaCodec codec, int index, @NonNull MediaCodec.BufferInfo info) {
@@ -560,7 +566,8 @@ public class CameraService {
         }
     }
 
-    private static @NonNull Size chooseOptimalSize(@Nullable Size[] choices, int textureViewWidth, int textureViewHeight, int maxWidth, int maxHeight, Size target) {
+    private static @NonNull
+    Size chooseOptimalSize(@Nullable Size[] choices, int textureViewWidth, int textureViewHeight, int maxWidth, int maxHeight, Size target) {
         if (choices == null)
             return target;
         // Collect the supported resolutions that are at least as big as the preview Surface
@@ -594,7 +601,8 @@ public class CameraService {
         }
     }
 
-    private static @NonNull Range<Integer> chooseOptimalFpsRange(Range<Integer>[] ranges) {
+    private static @NonNull
+    Range<Integer> chooseOptimalFpsRange(Range<Integer>[] ranges) {
         Range<Integer> range = null;
         if (ranges != null && ranges.length > 0) {
             for (Range<Integer> r : ranges) {
@@ -678,7 +686,7 @@ public class CameraService {
 
     boolean startScreenSharing(MediaProjection mediaProjection, DisplayMetrics metrics) {
         Pair<MediaCodec, VirtualDisplay> r = createVirtualDisplay(mediaProjection, metrics);
-        if (r != null)  {
+        if (r != null) {
             currentMediaProjection = mediaProjection;
             currentCodec = r.first;
             virtualDisplay = r.second;
@@ -719,7 +727,7 @@ public class CameraService {
                     flip ? view.getHeight() : view.getWidth(), flip ? view.getWidth() : view.getHeight(),
                     videoParams.width, videoParams.height,
                     new Size(videoParams.width, videoParams.height));
-            Log.d(TAG, "Selected preview size: " + previewSize + ", fps range: " + fpsRange + " rate: "+videoParams.rate);
+            Log.d(TAG, "Selected preview size: " + previewSize + ", fps range: " + fpsRange + " rate: " + videoParams.rate);
             view.setAspectRatio(previewSize.getHeight(), previewSize.getWidth());
 
             SurfaceTexture texture = view.getSurfaceTexture();
@@ -884,13 +892,13 @@ public class CameraService {
                 if ((s.getWidth() == minVideoSize.x && s.getHeight() == minVideoSize.y)
                         // Has height closer but still higher than target
                         || (newSize.getHeight() < minVideoSize.y
-                            ? s.getHeight() > newSize.getHeight()
-                            : (s.getHeight() >= minVideoSize.y && s.getHeight() < newSize.getHeight()))
+                        ? s.getHeight() > newSize.getHeight()
+                        : (s.getHeight() >= minVideoSize.y && s.getHeight() < newSize.getHeight()))
                         // Has width closer but still higher than target
                         || (s.getHeight() == newSize.getHeight()
-                            && newSize.getWidth() < minVideoSize.x
-                                    ? s.getWidth() > newSize.getWidth()
-                                    : (s.getWidth() >= minVideoSize.x && s.getWidth() < newSize.getWidth()))) {
+                        && newSize.getWidth() < minVideoSize.x
+                        ? s.getWidth() > newSize.getWidth()
+                        : (s.getWidth() >= minVideoSize.x && s.getWidth() < newSize.getWidth()))) {
                     newSize = s;
                 }
             }

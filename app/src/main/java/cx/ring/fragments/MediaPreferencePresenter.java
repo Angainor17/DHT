@@ -21,7 +21,6 @@ package cx.ring.fragments;
 
 import android.util.Log;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -35,8 +34,7 @@ import cx.ring.services.AccountService;
 import cx.ring.services.DeviceRuntimeService;
 import io.reactivex.Scheduler;
 
-public class MediaPreferencePresenter extends RootPresenter<MediaPreferenceView>
-{
+public class MediaPreferencePresenter extends RootPresenter<MediaPreferenceView> {
     public static final String TAG = MediaPreferencePresenter.class.getSimpleName();
 
     protected AccountService mAccountService;
@@ -83,7 +81,8 @@ public class MediaPreferencePresenter extends RootPresenter<MediaPreferenceView>
                             }
                             getView().accountChanged(account, audioCodec, videoCodec);
                         }))
-                .subscribe(l -> {}, e -> Log.e(TAG, "Error loading codec list")));
+                .subscribe(l -> {
+                }, e -> Log.e(TAG, "Error loading codec list")));
     }
 
 
@@ -92,8 +91,8 @@ public class MediaPreferencePresenter extends RootPresenter<MediaPreferenceView>
     }
 
     void videoPreferenceChanged(ConfigKey key, Object newValue) {
-            mAccount.setDetail(key, newValue.toString());
-            updateAccount();
+        mAccount.setDetail(key, newValue.toString());
+        updateAccount();
     }
 
     private void updateAccount() {

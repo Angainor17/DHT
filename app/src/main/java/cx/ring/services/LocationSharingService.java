@@ -195,7 +195,7 @@ public class LocationSharingService extends Service implements LocationListener 
                             out.put("lat", location.getLatitude());
                             out.put("long", location.getLongitude());
                             out.put("alt", location.getAltitude());
-                            out.put("time",location.getElapsedRealtimeNanos()/1000000L);
+                            out.put("time", location.getElapsedRealtimeNanos() / 1000000L);
                             float bearing = location.getBearing();
                             if (bearing != 0.f)
                                 out.put("bearing", bearing);
@@ -208,7 +208,7 @@ public class LocationSharingService extends Service implements LocationListener 
                             Log.w(TAG, "location send " + location + " to " + contactLocationShare.size());
                             StringMap msgs = new StringMap();
                             msgs.setRaw(CallService.MIME_GEOLOCATION, Blob.fromString(location.toString()));
-                            for (ConversationPath p : contactLocationShare.keySet())  {
+                            for (ConversationPath p : contactLocationShare.keySet()) {
                                 Ringservice.sendAccountTextMessage(p.getAccountId(), p.getContactId(), msgs);
                             }
                         }));
@@ -216,8 +216,7 @@ public class LocationSharingService extends Service implements LocationListener 
                 mDisposableBag.add(getNotification(now)
                         .subscribe(notification -> mNoticationManager.notify(NOTIF_SYNC_SERVICE_ID, notification)));
             }
-        }
-        else if (ACTION_STOP.equals(action)) {
+        } else if (ACTION_STOP.equals(action)) {
             if (path == null)
                 contactLocationShare.clear();
             else
@@ -242,7 +241,7 @@ public class LocationSharingService extends Service implements LocationListener 
     @Override
     public void onDestroy() {
         Log.w(TAG, "onDestroy");
-        if (mLocationManager !=  null) {
+        if (mLocationManager != null) {
             mLocationManager.removeUpdates(this);
         }
         mMyLocationSubject.onComplete();
@@ -271,7 +270,8 @@ public class LocationSharingService extends Service implements LocationListener 
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {}
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
 
     @Override
     public void onProviderEnabled(String provider) {
@@ -307,7 +307,7 @@ public class LocationSharingService extends Service implements LocationListener 
                     } else {
                         title = getString(R.string.notif_location_multi_title, contactCount);
                     }
-                    String subtitle = getString(R.string.notif_location_remaining, (int)Math.ceil((largestDate - now)/(double)(1000 * 60)));
+                    String subtitle = getString(R.string.notif_location_remaining, (int) Math.ceil((largestDate - now) / (double) (1000 * 60)));
 
                     return new NotificationCompat.Builder(this, NotificationServiceImpl.NOTIF_CHANNEL_SYNC)
                             .setContentTitle(title)
@@ -344,7 +344,7 @@ public class LocationSharingService extends Service implements LocationListener 
         boolean changed = false;
         final Date now = new Date(SystemClock.uptimeMillis());
         Iterator<Map.Entry<ConversationPath, Date>> it = contactLocationShare.entrySet().iterator();
-        while (it.hasNext())  {
+        while (it.hasNext()) {
             Map.Entry<ConversationPath, Date> e = it.next();
             if (e.getValue().before(now)) {
                 changed = true;

@@ -199,7 +199,7 @@ public class CallPresenter extends RootPresenter<CallView> {
                     }
                 }, e -> {
                     hangupCall();
-                    Log.e(TAG, "Error with initIncoming, preparing call flow :" , e);
+                    Log.e(TAG, "Error with initIncoming, preparing call flow :", e);
                 }));
 
         // Handles retrieving call updates. Items emitted are only used if call is already in process or if user is returning to a call.
@@ -251,7 +251,7 @@ public class CallPresenter extends RootPresenter<CallView> {
     }
 
     public void switchVideoInputClick() {
-        if(mConference == null)
+        if (mConference == null)
             return;
         mHardwareService.switchInput(mConference.getId(), false);
         getView().switchCameraIcon(mHardwareService.isPreviewFromFrontCamera());
@@ -401,8 +401,8 @@ public class CallPresenter extends RootPresenter<CallView> {
                                 Log.w(TAG, "flatMapObservable " + objects.length);
                                 ArrayList<SipCall> calls = new ArrayList<>(objects.length);
                                 for (Object call : objects)
-                                    calls.add((SipCall)call);
-                                return (List<SipCall>)calls;
+                                    calls.add((SipCall) call);
+                                return (List<SipCall>) calls;
                             }))
                     .filter(list -> !list.isEmpty());
 
@@ -562,8 +562,10 @@ public class CallPresenter extends RootPresenter<CallView> {
                     if (confs.isEmpty()) {
                         final Observer<SipCall> pendingObserver = new Observer<SipCall>() {
                             private SipCall call = null;
+
                             @Override
-                            public void onSubscribe(Disposable d) {}
+                            public void onSubscribe(Disposable d) {
+                            }
 
                             @Override
                             public void onNext(SipCall sipCall) {
@@ -575,7 +577,8 @@ public class CallPresenter extends RootPresenter<CallView> {
                             }
 
                             @Override
-                            public void onError(Throwable e) {}
+                            public void onError(Throwable e) {
+                            }
 
                             @Override
                             public void onComplete() {
@@ -594,7 +597,7 @@ public class CallPresenter extends RootPresenter<CallView> {
                                 .firstElement()
                                 .delay(1, TimeUnit.SECONDS)
                                 .doOnEvent((v, e) -> pendingObserver.onComplete());
-                        mCompositeDisposable.add(newCall.subscribe(call ->  {
+                        mCompositeDisposable.add(newCall.subscribe(call -> {
                             String id = mConference.getId();
                             if (mConference.isConference()) {
                                 mCallService.addParticipant(call.getDaemonIdString(), id);

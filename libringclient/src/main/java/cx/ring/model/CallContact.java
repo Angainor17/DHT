@@ -23,12 +23,10 @@ package cx.ring.model;
 import java.util.ArrayList;
 import java.util.Date;
 
-import cx.ring.utils.Log;
 import cx.ring.utils.StringUtils;
 import ezvcard.VCard;
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
 public class CallContact {
@@ -100,9 +98,11 @@ public class CallContact {
     public Observable<CallContact> getUpdatesSubject() {
         return mContactUpdates;
     }
+
     public Observable<CallContact> getUpdates() {
         return mContactObservable;
     }
+
     public void setUpdates(Observable<CallContact> observable) {
         mContactObservable = observable;
     }
@@ -205,6 +205,7 @@ public class CallContact {
     public String getPrimaryNumber() {
         return getPrimaryUri().getRawRingId();
     }
+
     public Uri getPrimaryUri() {
         return getPhones().get(0).getNumber();
     }
@@ -260,7 +261,9 @@ public class CallContact {
         mStatus = status;
     }
 
-    public boolean isBanned() { return  mStatus == Status.BANNED; }
+    public boolean isBanned() {
+        return mStatus == Status.BANNED;
+    }
 
     public void setFromSystem(boolean fromSystem) {
         isFromSystem = fromSystem;
@@ -269,6 +272,7 @@ public class CallContact {
     public void setAddedDate(Date addedDate) {
         mAddedDate = addedDate;
     }
+
     public Date getAddedDate() {
         return mAddedDate;
     }

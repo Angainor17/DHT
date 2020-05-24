@@ -35,8 +35,8 @@ import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.media.AudioAttributesCompat;
-import androidx.media.AudioManagerCompat;
 import androidx.media.AudioFocusRequestCompat;
+import androidx.media.AudioManagerCompat;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -213,7 +213,7 @@ public class HardwareServiceImpl extends HardwareService implements AudioManager
      */
     @Override
     public boolean shouldPlaySpeaker() {
-        if(mBluetoothWrapper != null && mBluetoothWrapper.canBluetooth() && mBluetoothWrapper.isBTHeadsetConnected() )
+        if (mBluetoothWrapper != null && mBluetoothWrapper.canBluetooth() && mBluetoothWrapper.isBTHeadsetConnected())
             return false;
         else
             return mShouldSpeakerphone;
@@ -422,7 +422,7 @@ public class HardwareServiceImpl extends HardwareService implements AudioManager
     }
 
     private Point parseResolution(int resolution) {
-        switch(resolution) {
+        switch (resolution) {
             case 480:
                 return VIDEO_SIZE_DEFAULT;
             case 720:
@@ -450,7 +450,7 @@ public class HardwareServiceImpl extends HardwareService implements AudioManager
         }
         if (!mIsScreenSharing && mediaProjection != null) {
             mIsScreenSharing = true;
-            mediaProjection.registerCallback(new MediaProjection.Callback(){
+            mediaProjection.registerCallback(new MediaProjection.Callback() {
                 @Override
                 public void onStop() {
                     stopScreenShare();
@@ -608,8 +608,7 @@ public class HardwareServiceImpl extends HardwareService implements AudioManager
     }
 
     @Override
-    public void updateVideoSurfaceId(String currentId, String newId)
-    {
+    public void updateVideoSurfaceId(String currentId, String newId) {
         Log.w(TAG, "updateVideoSurfaceId " + currentId + " " + newId);
 
         WeakReference<SurfaceHolder> surfaceHolder = videoSurfaces.get(currentId);
@@ -650,7 +649,7 @@ public class HardwareServiceImpl extends HardwareService implements AudioManager
     }
 
     @Override
-    public void updatePreviewVideoSurface(Conference conference)  {
+    public void updatePreviewVideoSurface(Conference conference) {
         Conference old = mCameraPreviewCall.get();
         mCameraPreviewCall = new WeakReference<>(conference);
         if (old != conference && mIsCapturing) {

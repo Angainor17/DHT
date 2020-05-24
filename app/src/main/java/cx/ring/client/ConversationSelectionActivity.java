@@ -21,15 +21,11 @@ package cx.ring.client;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -39,8 +35,6 @@ import cx.ring.adapters.SmartListAdapter;
 import cx.ring.application.JamiApplication;
 import cx.ring.facades.ConversationFacade;
 import cx.ring.model.Account;
-import cx.ring.model.Conference;
-import cx.ring.model.SipCall;
 import cx.ring.services.CallService;
 import cx.ring.smartlist.SmartListViewModel;
 import cx.ring.utils.ConversationPath;

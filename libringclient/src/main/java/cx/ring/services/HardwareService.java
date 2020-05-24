@@ -67,22 +67,41 @@ public abstract class HardwareService {
         public int rot = 0;
         public String callId = null;
     }
+
     public static class BluetoothEvent {
         public boolean connected;
     }
+
     public enum AudioOutput {
         INTERNAL, SPEAKERS, BLUETOOTH
     }
+
     public static class AudioState {
         private final AudioOutput outputType;
         private final String outputName;
 
-        AudioState() {outputType = AudioOutput.INTERNAL; outputName = null;}
-        AudioState(AudioOutput ot) { outputType = ot; outputName = null; }
-        AudioState(AudioOutput ot, String name) { outputType = ot; outputName = name; }
+        AudioState() {
+            outputType = AudioOutput.INTERNAL;
+            outputName = null;
+        }
 
-        public AudioOutput getOutputType() { return outputType; }
-        public String getOutputName() { return outputName; }
+        AudioState(AudioOutput ot) {
+            outputType = ot;
+            outputName = null;
+        }
+
+        AudioState(AudioOutput ot, String name) {
+            outputType = ot;
+            outputName = name;
+        }
+
+        public AudioOutput getOutputType() {
+            return outputType;
+        }
+
+        public String getOutputName() {
+            return outputName;
+        }
     }
 
     protected final Subject<VideoEvent> videoEvents = PublishSubject.create();
@@ -93,12 +112,15 @@ public abstract class HardwareService {
     public Observable<VideoEvent> getVideoEvents() {
         return videoEvents;
     }
+
     public Observable<BluetoothEvent> getBluetoothEvents() {
         return bluetoothEvents;
     }
+
     public Observable<AudioState> getAudioState() {
         return audioStateSubject;
     }
+
     public Observable<Boolean> getConnectivityState() {
         return connectivityEvents;
     }
@@ -130,23 +152,31 @@ public abstract class HardwareService {
     public abstract void setParameters(String camId, int format, int width, int height, int rate);
 
     public abstract void startCapture(String camId);
+
     public abstract boolean startScreenShare(Object mediaProjection);
 
     public abstract boolean hasMicrophone();
 
     public abstract void stopCapture();
+
     public abstract void endCapture();
+
     public abstract void stopScreenShare();
 
     public abstract void requestKeyFrame();
+
     public abstract void setBitrate(String device, int bitrate);
 
     public abstract void addVideoSurface(String id, Object holder);
+
     public abstract void updateVideoSurfaceId(String currentId, String newId);
+
     public abstract void removeVideoSurface(String id);
 
     public abstract void addPreviewVideoSurface(Object holder, Conference conference);
+
     public abstract void updatePreviewVideoSurface(Conference conference);
+
     public abstract void removePreviewVideoSurface();
 
     public abstract void switchInput(String id, boolean setDefaultCamera);
@@ -154,6 +184,7 @@ public abstract class HardwareService {
     public abstract void setPreviewSettings();
 
     public abstract boolean hasCamera();
+
     public abstract int getCameraCount();
 
     public abstract boolean isPreviewFromFrontCamera();
