@@ -41,14 +41,14 @@ import cx.ring.mvp.AccountCreationModel;
 import cx.ring.mvp.BaseSupportFragment;
 import cx.ring.utils.RegisteredNameFilter;
 
-public class JamiAccountCreationFragment extends BaseSupportFragment<JamiAccountCreationPresenter>
-        implements JamiAccountCreationView {
+public class AccountCreationFragment extends BaseSupportFragment<AppAccountCreationPresenter>
+        implements AppAccountCreationView {
 
     private AccountCreationModel model;
     private FragAccRingCreateBinding binding;
 
-    public static JamiAccountCreationFragment newInstance(AccountCreationModelImpl ringAccountViewModel) {
-        JamiAccountCreationFragment fragment = new JamiAccountCreationFragment();
+    public static AccountCreationFragment newInstance(AccountCreationModelImpl ringAccountViewModel) {
+        AccountCreationFragment fragment = new AccountCreationFragment();
         fragment.model = ringAccountViewModel;
         return fragment;
     }

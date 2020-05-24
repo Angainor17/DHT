@@ -24,7 +24,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -65,7 +64,6 @@ public class AccountWizardActivity extends BaseActivity<AccountWizardPresenter> 
         JamiApplication.getInstance().startDaemon();
         setContentView(R.layout.activity_wizard);
 
-
         Intent intent = getIntent();
         if (intent != null) {
             mAccountType = intent.getAction();
@@ -74,6 +72,8 @@ public class AccountWizardActivity extends BaseActivity<AccountWizardPresenter> 
         if (mAccountType == null) {
             mAccountType = AccountConfig.ACCOUNT_TYPE_RING;
         }
+
+        presenter.init(getIntent().getAction() != null ? getIntent().getAction() : AccountConfig.ACCOUNT_TYPE_RING);
     }
 
     @Override
@@ -103,10 +103,10 @@ public class AccountWizardActivity extends BaseActivity<AccountWizardPresenter> 
 
     public void createAccount(AccountCreationModel accountCreationModel) {
         if (!TextUtils.isEmpty(accountCreationModel.getManagementServer())) {
-            presenter.initJamiAccountConnect(accountCreationModel,
+            presenter.initAccountConnect(accountCreationModel,
                     getText(R.string.ring_account_default_name).toString());
         } else if (accountCreationModel.isLink()) {
-            presenter.initRingAccountLink(accountCreationModel,
+            presenter.initAccountLink(accountCreationModel,
                     getText(R.string.ring_account_default_name).toString());
         } else {
             presenter.initRingAccountCreation(accountCreationModel,
@@ -115,11 +115,11 @@ public class AccountWizardActivity extends BaseActivity<AccountWizardPresenter> 
     }
 
     @Override
-    public void goToHomeCreation() {
-        Fragment fragment = new HomeAccountCreationFragment();
+    public void goToAccCreation() {
+        Fragment fragment = AccountCreationFragment.newInstance(new AccountCreationModelImpl());
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.wizard_container, fragment, HomeAccountCreationFragment.TAG)
+                .replace(R.id.wizard_container, fragment, AccountCreationFragment.class.getSimpleName())
                 .commit();
     }
 

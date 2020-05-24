@@ -236,14 +236,6 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity
-            android:name=".client.ContactDetailsActivity"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/conversation_details"
-            android:resizeableActivity="true"
-            android:theme="@style/AppTheme.DarkToolbar"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".client.ConversationSelectionActivity"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
             android:icon="@mipmap/ic_launcher"

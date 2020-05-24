@@ -25,12 +25,12 @@ import cx.ring.mvp.AccountCreationModel;
 import cx.ring.mvp.RootPresenter;
 import cx.ring.utils.StringUtils;
 
-public class JamiAccountConnectPresenter extends RootPresenter<JamiConnectAccountView> {
+public class AppAccountConnectPresenter extends RootPresenter<AppConnectAccountView> {
 
     private AccountCreationModel mAccountCreationModel;
 
     @Inject
-    public JamiAccountConnectPresenter() {
+    public AppAccountConnectPresenter() {
     }
 
     public void init(AccountCreationModel accountCreationModel) {

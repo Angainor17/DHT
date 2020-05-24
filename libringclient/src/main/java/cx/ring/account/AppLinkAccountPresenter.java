@@ -24,12 +24,12 @@ import javax.inject.Inject;
 import cx.ring.mvp.AccountCreationModel;
 import cx.ring.mvp.RootPresenter;
 
-public class JamiLinkAccountPresenter extends RootPresenter<JamiLinkAccountView> {
+public class AppLinkAccountPresenter extends RootPresenter<AppLinkAccountView> {
 
     private AccountCreationModel mAccountCreationModel;
 
     @Inject
-    public JamiLinkAccountPresenter() {
+    public AppLinkAccountPresenter() {
     }
 
     public void init(AccountCreationModel accountCreationModel) {
@@ -40,7 +40,7 @@ public class JamiLinkAccountPresenter extends RootPresenter<JamiLinkAccountView>
         }
 
         boolean hasArchive = mAccountCreationModel.getArchive() != null;
-        JamiLinkAccountView view = getView();
+        AppLinkAccountView view = getView();
         if (view != null) {
             view.showPin(!hasArchive);
             view.enableLinkButton(hasArchive);

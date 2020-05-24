@@ -43,9 +43,9 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-public class JamiAccountSummaryPresenter extends RootPresenter<JamiAccountSummaryView> {
+public class AppAccountSummaryPresenter extends RootPresenter<AppAccountSummaryView> {
 
-    private static final String TAG = JamiAccountSummaryPresenter.class.getSimpleName();
+    private static final String TAG = AppAccountSummaryPresenter.class.getSimpleName();
 
     private final DeviceRuntimeService mDeviceRuntimeService;
     private final HardwareService mHardwareService;
@@ -57,9 +57,9 @@ public class JamiAccountSummaryPresenter extends RootPresenter<JamiAccountSummar
     protected Scheduler mUiScheduler;
 
     @Inject
-    public JamiAccountSummaryPresenter(AccountService accountService,
-                                       HardwareService hardwareService,
-                                       DeviceRuntimeService deviceRuntimeService) {
+    public AppAccountSummaryPresenter(AccountService accountService,
+                                      HardwareService hardwareService,
+                                      DeviceRuntimeService deviceRuntimeService) {
         mAccountService = accountService;
         mHardwareService = hardwareService;
         mDeviceRuntimeService = deviceRuntimeService;
@@ -97,14 +97,14 @@ public class JamiAccountSummaryPresenter extends RootPresenter<JamiAccountSummar
     public void setAccountId(String accountID) {
         mCompositeDisposable.clear();
         mAccountID = accountID;
-        JamiAccountSummaryView v = getView();
+        AppAccountSummaryView v = getView();
         Account account = mAccountService.getAccount(mAccountID);
         if (v != null && account != null)
             v.accountChanged(account);
         mCompositeDisposable.add(mAccountService.getObservableAccountUpdates(mAccountID)
                 .observeOn(mUiScheduler)
                 .subscribe(a -> {
-                    JamiAccountSummaryView view = getView();
+                    AppAccountSummaryView view = getView();
                     if (view != null)
                         view.accountChanged(a);
                 }));
@@ -136,7 +136,7 @@ public class JamiAccountSummaryPresenter extends RootPresenter<JamiAccountSummar
     }
 
     public void changePassword(String oldPassword, String newPassword) {
-        JamiAccountSummaryView view = getView();
+        AppAccountSummaryView view = getView();
         if (view != null)
             view.showPasswordProgressDialog();
         mCompositeDisposable.add(mAccountService.setAccountPassword(mAccountID, oldPassword, newPassword)

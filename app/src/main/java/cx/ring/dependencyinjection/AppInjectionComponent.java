@@ -22,10 +22,9 @@ package cx.ring.dependencyinjection;
 import javax.inject.Singleton;
 
 import cx.ring.account.AccountEditionFragment;
+import cx.ring.account.AccountSummaryFragment;
 import cx.ring.account.AccountWizardActivity;
-import cx.ring.account.HomeAccountCreationFragment;
-import cx.ring.account.JamiAccountCreationFragment;
-import cx.ring.account.JamiAccountSummaryFragment;
+import cx.ring.account.AccountCreationFragment;
 import cx.ring.account.ProfileCreationFragment;
 import cx.ring.account.RegisterNameDialog;
 import cx.ring.application.JamiApplication;
@@ -63,8 +62,8 @@ import cx.ring.share.ShareFragment;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {JamiInjectionModule.class, ServiceInjectionModule.class})
-public interface JamiInjectionComponent {
+@Component(modules = {AppInjectionModule.class, ServiceInjectionModule.class})
+public interface AppInjectionComponent {
     void inject(JamiApplication app);
 
     void inject(HomeActivity activity);
@@ -75,13 +74,13 @@ public interface JamiInjectionComponent {
 
     void inject(AccountEditionFragment activity);
 
-    void inject(JamiAccountSummaryFragment fragment);
+    void inject(AccountSummaryFragment fragment);
 
     void inject(SmartListFragment fragment);
 
     void inject(ConversationSelectionActivity fragment);
 
-    void inject(JamiAccountCreationFragment fragment);
+    void inject(AccountCreationFragment fragment);
 
     void inject(SecurityAccountFragment fragment);
 
@@ -128,8 +127,6 @@ public interface JamiInjectionComponent {
     void inject(AdvancedAccountFragment fragment);
 
     void inject(GeneralAccountFragment fragment);
-
-    void inject(HomeAccountCreationFragment fragment);
 
     void inject(LaunchActivity activity);
 

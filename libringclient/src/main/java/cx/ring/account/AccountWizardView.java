@@ -26,7 +26,7 @@ import io.reactivex.Single;
 
 public interface AccountWizardView {
 
-    void goToHomeCreation();
+    void goToAccCreation();
 
     void displayProgress(boolean display);
 

@@ -107,17 +107,17 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
     public void displaySummary(String accountId) {
         toggleView(accountId, true);
         FragmentManager fragmentManager = getChildFragmentManager();
-        Fragment existingFragment = fragmentManager.findFragmentByTag(JamiAccountSummaryFragment.TAG);
+        Fragment existingFragment = fragmentManager.findFragmentByTag(AccountSummaryFragment.TAG);
         if (existingFragment == null) {
-            JamiAccountSummaryFragment fragment = new JamiAccountSummaryFragment();
+            AccountSummaryFragment fragment = new AccountSummaryFragment();
             Bundle args = new Bundle();
             args.putString(ACCOUNT_ID_KEY, accountId);
             fragment.setArguments(args);
             fragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, fragment, JamiAccountSummaryFragment.TAG)
+                    .add(R.id.fragment_container, fragment, AccountSummaryFragment.TAG)
                     .commit();
         } else {
-            ((JamiAccountSummaryFragment) existingFragment).setAccount(accountId);
+            ((AccountSummaryFragment) existingFragment).setAccount(accountId);
         }
     }
 
@@ -202,7 +202,7 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
                 binding.slidingTabs.setVisibility(View.VISIBLE);
                 binding.pager.setVisibility(View.VISIBLE);
                 binding.fragmentContainer.setVisibility(View.GONE);
-                JamiAccountSummaryFragment fragment = (JamiAccountSummaryFragment) getChildFragmentManager().findFragmentByTag(JamiAccountSummaryFragment.TAG);
+                AccountSummaryFragment fragment = (AccountSummaryFragment) getChildFragmentManager().findFragmentByTag(AccountSummaryFragment.TAG);
                 if (fragment != null)
                     fragment.setFragmentVisibility(false);
                 mIsVisible = true;

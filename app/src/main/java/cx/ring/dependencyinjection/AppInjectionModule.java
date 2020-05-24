@@ -28,11 +28,11 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 @Module
-public class JamiInjectionModule {
+public class AppInjectionModule {
 
     private final JamiApplication mJamiApplication;
 
-    public JamiInjectionModule(JamiApplication app) {
+    public AppInjectionModule(JamiApplication app) {
         mJamiApplication = app;
     }
 

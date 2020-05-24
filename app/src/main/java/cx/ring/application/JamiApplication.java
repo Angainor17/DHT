@@ -51,9 +51,9 @@ import cx.ring.BuildConfig;
 import cx.ring.R;
 import cx.ring.contacts.AvatarFactory;
 import cx.ring.daemon.Ringservice;
-import cx.ring.dependencyinjection.DaggerJamiInjectionComponent;
-import cx.ring.dependencyinjection.JamiInjectionComponent;
-import cx.ring.dependencyinjection.JamiInjectionModule;
+import cx.ring.dependencyinjection.AppInjectionModule;
+import cx.ring.dependencyinjection.DaggerAppInjectionComponent;
+import cx.ring.dependencyinjection.AppInjectionComponent;
 import cx.ring.dependencyinjection.ServiceInjectionModule;
 import cx.ring.facades.ConversationFacade;
 import cx.ring.service.DRingService;
@@ -97,7 +97,7 @@ public abstract class JamiApplication extends Application {
     @Inject
     ConversationFacade mConversationFacade;
 
-    private JamiInjectionComponent mJamiInjectionComponent;
+    private AppInjectionComponent appInjectionComponent;
     private final Map<String, Boolean> mPermissionsBeingAsked = new HashMap<>();
     private final BroadcastReceiver ringerModeListener = new BroadcastReceiver() {
         @Override
@@ -232,13 +232,13 @@ public abstract class JamiApplication extends Application {
         RxJavaPlugins.setErrorHandler(e -> Log.e(TAG, "Unhandled RxJava error", e));
 
         // building injection dependency tree
-        mJamiInjectionComponent = DaggerJamiInjectionComponent.builder()
-                .jamiInjectionModule(new JamiInjectionModule(this))
+        appInjectionComponent = DaggerAppInjectionComponent.builder()
+                .appInjectionModule(new AppInjectionModule(this))
                 .serviceInjectionModule(new ServiceInjectionModule(this))
                 .build();
 
         // we can now inject in our self whatever modules define
-        mJamiInjectionComponent.inject(this);
+        appInjectionComponent.inject(this);
 
         bootstrapDaemon();
 
@@ -298,8 +298,8 @@ public abstract class JamiApplication extends Application {
         sInstance = null;
     }
 
-    public JamiInjectionComponent getInjectionComponent() {
-        return mJamiInjectionComponent;
+    public AppInjectionComponent getInjectionComponent() {
+        return appInjectionComponent;
     }
 
     public boolean canAskForPermission(String permission) {

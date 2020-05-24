@@ -82,15 +82,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountSummaryPresenter> implements
+public class AccountSummaryFragment extends BaseSupportFragment<AppAccountSummaryPresenter> implements
         RegisterNameDialog.RegisterNameDialogListener,
         RenameDeviceDialog.RenameDeviceListener,
         DeviceAdapter.DeviceRevocationListener,
         ConfirmRevocationDialog.ConfirmRevocationListener,
-        JamiAccountSummaryView, ChangePasswordDialog.PasswordChangedListener,
+        AppAccountSummaryView, ChangePasswordDialog.PasswordChangedListener,
         ViewTreeObserver.OnScrollChangedListener {
 
-    public static final String TAG = JamiAccountSummaryFragment.class.getSimpleName();
+    public static final String TAG = AccountSummaryFragment.class.getSimpleName();
     private static final String FRAGMENT_DIALOG_REVOCATION = TAG + ".dialog.deviceRevocation";
     private static final String FRAGMENT_DIALOG_RENAME = TAG + ".dialog.deviceRename";
     private static final String FRAGMENT_DIALOG_PASSWORD = TAG + ".dialog.changePassword";
@@ -242,7 +242,7 @@ public class JamiAccountSummaryFragment extends BaseSupportFragment<JamiAccountS
         updateUserView(account);
         if (mDeviceAdapter == null) {
             mDeviceAdapter = new DeviceAdapter(requireContext(), account.getDevices(), account.getDeviceId(),
-                    JamiAccountSummaryFragment.this);
+                    AccountSummaryFragment.this);
             binding.deviceList.setAdapter(mDeviceAdapter);
         } else {
             mDeviceAdapter.setData(account.getDevices(), account.getDeviceId());

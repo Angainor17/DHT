@@ -48,7 +48,6 @@ public class AccountWizardPresenter extends RootPresenter<AccountWizardView> {
     private final PreferencesService mPreferences;
     private final Scheduler mUiScheduler;
 
-    //private boolean mCreationError = false;
     private boolean mCreatingAccount = false;
     private String mAccountType;
     private AccountCreationModel mAccountCreationModel;
@@ -65,11 +64,11 @@ public class AccountWizardPresenter extends RootPresenter<AccountWizardView> {
     public void init(String accountType) {
         mAccountType = accountType;
 
-        getView().goToHomeCreation();
+        getView().goToAccCreation();
     }
 
-    public void initJamiAccountConnect(AccountCreationModel accountCreationModel, String defaultAccountName) {
-        Single<Map<String, String>> newAccount = initRingAccountDetails(defaultAccountName)
+    public void initAccountConnect(AccountCreationModel accountCreationModel, String defaultAccountName) {
+        Single<Map<String, String>> newAccount = initAccountDetails(defaultAccountName)
                 .map(accountDetails -> {
                     if (!StringUtils.isEmpty(accountCreationModel.getManagementServer())) {
                         accountDetails.put(ConfigKey.MANAGER_URI.key(), accountCreationModel.getManagementServer());
@@ -91,7 +90,7 @@ public class AccountWizardPresenter extends RootPresenter<AccountWizardView> {
     }
 
     public void initRingAccountCreation(AccountCreationModel accountCreationModel, String defaultAccountName) {
-        Single<Map<String, String>> newAccount = initRingAccountDetails(defaultAccountName)
+        Single<Map<String, String>> newAccount = initAccountDetails(defaultAccountName)
                 .map(accountDetails -> {
                     if (!accountCreationModel.getUsername().isEmpty()) {
                         accountDetails.put(ConfigKey.ACCOUNT_REGISTERED_NAME.key(), accountCreationModel.getUsername());
@@ -107,8 +106,8 @@ public class AccountWizardPresenter extends RootPresenter<AccountWizardView> {
         createAccount(accountCreationModel, newAccount);
     }
 
-    public void initRingAccountLink(AccountCreationModel accountCreationModel, String defaultAccountName) {
-        Single<Map<String, String>> newAccount = initRingAccountDetails(defaultAccountName)
+    public void initAccountLink(AccountCreationModel accountCreationModel, String defaultAccountName) {
+        Single<Map<String, String>> newAccount = initAccountDetails(defaultAccountName)
                 .map(accountDetails -> {
                     Settings settings = mPreferences.getSettings();
                     if (settings != null && settings.isAllowPushNotifications()) {
@@ -177,7 +176,7 @@ public class AccountWizardPresenter extends RootPresenter<AccountWizardView> {
         }
     }
 
-    private Single<HashMap<String, String>> initRingAccountDetails(String defaultAccountName) {
+    private Single<HashMap<String, String>> initAccountDetails(String defaultAccountName) {
         return initAccountDetails().map(accountDetails -> {
             accountDetails.put(ConfigKey.ACCOUNT_ALIAS.key(), mAccountService.getNewAccountName(defaultAccountName));
             accountDetails.put(ConfigKey.ACCOUNT_UPNP_ENABLE.key(), AccountConfig.TRUE_STR);
@@ -283,9 +282,5 @@ public class AccountWizardPresenter extends RootPresenter<AccountWizardView> {
                         getView().finish(true);
                     }
                 }));
-    }
-
-    public void errorDialogClosed() {
-        getView().goToHomeCreation();
     }
 }

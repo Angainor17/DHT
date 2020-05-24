@@ -21,13 +21,28 @@ package cx.ring.account;
 
 import cx.ring.mvp.AccountCreationModel;
 
-public interface JamiLinkAccountView {
+public interface AppAccountCreationView {
 
-    void enableLinkButton(boolean enable);
+    enum UsernameAvailabilityStatus {
+        ERROR_USERNAME_TAKEN,
+        ERROR_USERNAME_INVALID,
+        ERROR,
+        LOADING,
+        AVAILABLE,
+        RESET
+    }
 
-    void showPin(boolean show);
+    void updateUsernameAvailability(UsernameAvailabilityStatus status);
 
-    void createAccount(AccountCreationModel accountCreationModel);
+    void showInvalidPasswordError(boolean display);
+
+    void showNonMatchingPasswordError(boolean display);
+
+    void displayUsernameBox(boolean display);
+
+    void enableNextButton(boolean enabled);
+
+    void goToAccountCreation(AccountCreationModel accountCreationModel);
 
     void cancel();
 }
