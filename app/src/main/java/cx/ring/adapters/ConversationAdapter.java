@@ -23,6 +23,7 @@ package cx.ring.adapters;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -244,10 +245,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
                     if (file.isComplete()) {
                         if (file.isPicture()) {
                             return MessageType.INCOMING_IMAGE.ordinal() + out;
-                        } else if (file.isAudio()) {
-                            return MessageType.INCOMING_AUDIO.ordinal() + out;
-                        } else if (file.isVideo()) {
-                            return MessageType.INCOMING_VIDEO.ordinal() + out;
                         }
                     }
                     return out;
@@ -486,6 +483,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
         }
     }
 
+    @SuppressLint("NewApi")
     private void configureVideo(@NonNull final ConversationViewHolder viewHolder, @NonNull File path) {
         Context context = viewHolder.itemView.getContext();
         if (viewHolder.player != null) {
@@ -1152,12 +1150,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
     public enum MessageType {
         INCOMING_FILE(R.layout.item_conv_file_peer),
         INCOMING_IMAGE(R.layout.item_conv_image_peer),
-        INCOMING_AUDIO(R.layout.item_conv_audio_peer),
-        INCOMING_VIDEO(R.layout.item_conv_video_peer),
         OUTGOING_FILE(R.layout.item_conv_file_me),
         OUTGOING_IMAGE(R.layout.item_conv_image_me),
-        OUTGOING_AUDIO(R.layout.item_conv_audio_me),
-        OUTGOING_VIDEO(R.layout.item_conv_video_me),
         CONTACT_EVENT(R.layout.item_conv_contact),
         CALL_INFORMATION(R.layout.item_conv_call),
         INCOMING_TEXT_MESSAGE(R.layout.item_conv_msg_peer),

@@ -104,42 +104,9 @@ public class ConversationViewHolder extends RecyclerView.ViewHolder {
                     mMsgDetailTxtPerm = v.findViewById(R.id.msg_details_txt_perm);
                     mMsgDetailTxt = v.findViewById(R.id.msg_details_txt);
                     break;
-                case INCOMING_AUDIO:
-                case OUTGOING_AUDIO:
-                    btnAccept = v.findViewById(R.id.play);
-                    btnRefuse = v.findViewById(R.id.replay);
-                    mMsgTxt = v.findViewById(R.id.msg_txt);
-                    mAudioInfoLayout = v.findViewById(R.id.audioInfoLayout);
-                    mMsgDetailTxt = v.findViewById(R.id.file_details_txt);
-                    mMsgDetailTxtPerm = v.findViewById(R.id.msg_details_txt_perm);
-                    break;
-                case INCOMING_VIDEO:
-                case OUTGOING_VIDEO:
-                    mLayout = v.findViewById(R.id.video_frame);
-                    video = v.findViewById(R.id.video);
-                    mAnswerLayout = v.findViewById(R.id.imageLayout);
-                    mMsgDetailTxt = v.findViewById(R.id.msg_details_txt);
-                    mMsgDetailTxtPerm = v.findViewById(R.id.msg_details_txt_perm);
-                    break;
+
                 case COMPOSING_INDICATION:
                     mStatusIcon = v.findViewById(R.id.status_icon);
-            }
-            // msg-direction-specific layout elements
-            switch (type) {
-                case INCOMING_TEXT_MESSAGE:
-                case INCOMING_FILE:
-                case INCOMING_IMAGE:
-                case INCOMING_AUDIO:
-                case INCOMING_VIDEO:
-                    mAvatar = v.findViewById(R.id.photo);
-                    break;
-                case OUTGOING_TEXT_MESSAGE:
-                case OUTGOING_FILE:
-                case OUTGOING_IMAGE:
-                case OUTGOING_AUDIO:
-                case OUTGOING_VIDEO:
-                    mStatusIcon = v.findViewById(R.id.status_icon);
-                    break;
             }
         }
     }
