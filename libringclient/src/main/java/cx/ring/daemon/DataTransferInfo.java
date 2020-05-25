@@ -44,32 +44,12 @@ public class DataTransferInfo {
         return RingserviceJNI.DataTransferInfo_accountId_get(swigCPtr, this);
     }
 
-    public void setLastEvent(long value) {
-        RingserviceJNI.DataTransferInfo_lastEvent_set(swigCPtr, this, value);
-    }
-
-    public long getLastEvent() {
-        return RingserviceJNI.DataTransferInfo_lastEvent_get(swigCPtr, this);
-    }
-
-    public void setFlags(long value) {
-        RingserviceJNI.DataTransferInfo_flags_set(swigCPtr, this, value);
-    }
-
     public long getFlags() {
         return RingserviceJNI.DataTransferInfo_flags_get(swigCPtr, this);
     }
 
-    public void setTotalSize(long value) {
-        RingserviceJNI.DataTransferInfo_totalSize_set(swigCPtr, this, value);
-    }
-
     public long getTotalSize() {
         return RingserviceJNI.DataTransferInfo_totalSize_get(swigCPtr, this);
-    }
-
-    public void setBytesProgress(long value) {
-        RingserviceJNI.DataTransferInfo_bytesProgress_set(swigCPtr, this, value);
     }
 
     public long getBytesProgress() {
@@ -98,14 +78,6 @@ public class DataTransferInfo {
 
     public String getPath() {
         return RingserviceJNI.DataTransferInfo_path_get(swigCPtr, this);
-    }
-
-    public void setMimetype(String value) {
-        RingserviceJNI.DataTransferInfo_mimetype_set(swigCPtr, this, value);
-    }
-
-    public String getMimetype() {
-        return RingserviceJNI.DataTransferInfo_mimetype_get(swigCPtr, this);
     }
 
     public DataTransferInfo() {

@@ -36,21 +36,6 @@ public class PresenceCallback {
         }
     }
 
-    protected void swigDirectorDisconnect() {
-        swigCMemOwn = false;
-        delete();
-    }
-
-    public void swigReleaseOwnership() {
-        swigCMemOwn = false;
-        RingserviceJNI.PresenceCallback_change_ownership(this, swigCPtr, false);
-    }
-
-    public void swigTakeOwnership() {
-        swigCMemOwn = true;
-        RingserviceJNI.PresenceCallback_change_ownership(this, swigCPtr, true);
-    }
-
     public void newServerSubscriptionRequest(String arg0) {
         if (getClass() == PresenceCallback.class)
             RingserviceJNI.PresenceCallback_newServerSubscriptionRequest(swigCPtr, this, arg0);

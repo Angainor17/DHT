@@ -62,7 +62,6 @@ public class StringMap extends java.util.AbstractMap<String, String> {
         return out;
     }
 
-
     public int size() {
         return sizeImpl();
     }

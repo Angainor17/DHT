@@ -63,22 +63,6 @@ public class Blob extends java.util.AbstractList<Byte> implements java.util.Rand
         }
     }
 
-    public Blob(byte[] initialElements) {
-        this();
-        reserve(initialElements.length);
-
-        for (byte element : initialElements) {
-            add(element);
-        }
-    }
-
-    public Blob(Iterable<Byte> initialElements) {
-        this();
-        for (byte element : initialElements) {
-            add(element);
-        }
-    }
-
     public Byte get(int index) {
         return doGet(index);
     }
@@ -116,14 +100,6 @@ public class Blob extends java.util.AbstractList<Byte> implements java.util.Rand
         this(RingserviceJNI.new_Blob__SWIG_0(), true);
     }
 
-    public Blob(Blob other) {
-        this(RingserviceJNI.new_Blob__SWIG_1(Blob.getCPtr(other), other), true);
-    }
-
-    public long capacity() {
-        return RingserviceJNI.Blob_capacity(swigCPtr, this);
-    }
-
     public void reserve(long n) {
         RingserviceJNI.Blob_reserve(swigCPtr, this, n);
     }
@@ -134,10 +110,6 @@ public class Blob extends java.util.AbstractList<Byte> implements java.util.Rand
 
     public void clear() {
         RingserviceJNI.Blob_clear(swigCPtr, this);
-    }
-
-    public Blob(int count, byte value) {
-        this(RingserviceJNI.new_Blob__SWIG_2(count, value), true);
     }
 
     private int doSize() {

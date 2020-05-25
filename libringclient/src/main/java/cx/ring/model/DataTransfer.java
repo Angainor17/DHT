@@ -57,7 +57,6 @@ public class DataTransfer extends Interaction {
         return mExtension;
     }
 
-
     public boolean isPicture() {
         return IMAGE_EXTENSIONS.contains(getExtension());
     }

@@ -44,22 +44,6 @@ public class VectMap extends java.util.AbstractList<StringMap> implements java.u
         return out;
     }
 
-    public VectMap(StringMap[] initialElements) {
-        this();
-        reserve(initialElements.length);
-
-        for (StringMap element : initialElements) {
-            add(element);
-        }
-    }
-
-    public VectMap(Iterable<StringMap> initialElements) {
-        this();
-        for (StringMap element : initialElements) {
-            add(element);
-        }
-    }
-
     public StringMap get(int index) {
         return doGet(index);
     }
@@ -97,28 +81,12 @@ public class VectMap extends java.util.AbstractList<StringMap> implements java.u
         this(RingserviceJNI.new_VectMap__SWIG_0(), true);
     }
 
-    public VectMap(VectMap other) {
-        this(RingserviceJNI.new_VectMap__SWIG_1(VectMap.getCPtr(other), other), true);
-    }
-
-    public long capacity() {
-        return RingserviceJNI.VectMap_capacity(swigCPtr, this);
-    }
-
-    public void reserve(long n) {
-        RingserviceJNI.VectMap_reserve(swigCPtr, this, n);
-    }
-
     public boolean isEmpty() {
         return RingserviceJNI.VectMap_isEmpty(swigCPtr, this);
     }
 
     public void clear() {
         RingserviceJNI.VectMap_clear(swigCPtr, this);
-    }
-
-    public VectMap(int count, StringMap value) {
-        this(RingserviceJNI.new_VectMap__SWIG_2(count, StringMap.getCPtr(value), value), true);
     }
 
     private int doSize() {

@@ -36,22 +36,6 @@ public class IntVect extends java.util.AbstractList<Integer> implements java.uti
         }
     }
 
-    public IntVect(int[] initialElements) {
-        this();
-        reserve(initialElements.length);
-
-        for (int element : initialElements) {
-            add(element);
-        }
-    }
-
-    public IntVect(Iterable<Integer> initialElements) {
-        this();
-        for (int element : initialElements) {
-            add(element);
-        }
-    }
-
     public Integer get(int index) {
         return doGet(index);
     }
@@ -85,32 +69,12 @@ public class IntVect extends java.util.AbstractList<Integer> implements java.uti
         return doSize();
     }
 
-    public IntVect() {
-        this(RingserviceJNI.new_IntVect__SWIG_0(), true);
-    }
-
-    public IntVect(IntVect other) {
-        this(RingserviceJNI.new_IntVect__SWIG_1(IntVect.getCPtr(other), other), true);
-    }
-
-    public long capacity() {
-        return RingserviceJNI.IntVect_capacity(swigCPtr, this);
-    }
-
-    public void reserve(long n) {
-        RingserviceJNI.IntVect_reserve(swigCPtr, this, n);
-    }
-
     public boolean isEmpty() {
         return RingserviceJNI.IntVect_isEmpty(swigCPtr, this);
     }
 
     public void clear() {
         RingserviceJNI.IntVect_clear(swigCPtr, this);
-    }
-
-    public IntVect(int count, int value) {
-        this(RingserviceJNI.new_IntVect__SWIG_2(count, value), true);
     }
 
     private int doSize() {

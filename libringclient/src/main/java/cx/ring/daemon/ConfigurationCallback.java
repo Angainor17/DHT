@@ -36,21 +36,6 @@ public class ConfigurationCallback {
         }
     }
 
-    protected void swigDirectorDisconnect() {
-        swigCMemOwn = false;
-        delete();
-    }
-
-    public void swigReleaseOwnership() {
-        swigCMemOwn = false;
-        RingserviceJNI.ConfigurationCallback_change_ownership(this, swigCPtr, false);
-    }
-
-    public void swigTakeOwnership() {
-        swigCMemOwn = true;
-        RingserviceJNI.ConfigurationCallback_change_ownership(this, swigCPtr, true);
-    }
-
     public void volumeChanged(String device, int value) {
         if (getClass() == ConfigurationCallback.class)
             RingserviceJNI.ConfigurationCallback_volumeChanged(swigCPtr, this, device, value);

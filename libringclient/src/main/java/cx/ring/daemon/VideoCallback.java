@@ -36,21 +36,6 @@ public class VideoCallback {
         }
     }
 
-    protected void swigDirectorDisconnect() {
-        swigCMemOwn = false;
-        delete();
-    }
-
-    public void swigReleaseOwnership() {
-        swigCMemOwn = false;
-        RingserviceJNI.VideoCallback_change_ownership(this, swigCPtr, false);
-    }
-
-    public void swigTakeOwnership() {
-        swigCMemOwn = true;
-        RingserviceJNI.VideoCallback_change_ownership(this, swigCPtr, true);
-    }
-
     public void getCameraInfo(String device, IntVect formats, UintVect sizes, UintVect rates) {
         if (getClass() == VideoCallback.class)
             RingserviceJNI.VideoCallback_getCameraInfo(swigCPtr, this, device, IntVect.getCPtr(formats), formats, UintVect.getCPtr(sizes), sizes, UintVect.getCPtr(rates), rates);

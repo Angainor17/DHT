@@ -44,14 +44,6 @@ public class Message {
         return RingserviceJNI.Message_from_get(swigCPtr, this);
     }
 
-    public void setPayloads(StringMap value) {
-        RingserviceJNI.Message_payloads_set(swigCPtr, this, StringMap.getCPtr(value), value);
-    }
-
-    public StringMap getPayloads() {
-        long cPtr = RingserviceJNI.Message_payloads_get(swigCPtr, this);
-        return (cPtr == 0) ? null : new StringMap(cPtr, false);
-    }
 
     public void setReceived(long value) {
         RingserviceJNI.Message_received_set(swigCPtr, this, value);
@@ -60,9 +52,4 @@ public class Message {
     public long getReceived() {
         return RingserviceJNI.Message_received_get(swigCPtr, this);
     }
-
-    public Message() {
-        this(RingserviceJNI.new_Message(), true);
-    }
-
 }
