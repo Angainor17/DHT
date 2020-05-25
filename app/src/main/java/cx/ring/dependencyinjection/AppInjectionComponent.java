@@ -34,7 +34,6 @@ import cx.ring.services.DataTransferService;
 import cx.ring.services.DeviceRuntimeServiceImpl;
 import cx.ring.services.HardwareService;
 import cx.ring.services.HistoryServiceImpl;
-import cx.ring.services.LocationSharingService;
 import cx.ring.services.NotificationServiceImpl;
 import cx.ring.services.SharedPreferencesServiceImpl;
 import cx.ring.share.ShareFragment;
@@ -113,5 +112,4 @@ public interface AppInjectionComponent {
 
     void inject(ContactDetailsActivity fragment);
 
-    void inject(LocationSharingService service);
 }

@@ -70,7 +70,6 @@ import cx.ring.model.Interaction;
 import cx.ring.model.Phone;
 import cx.ring.model.Uri;
 import cx.ring.mvp.BaseSupportFragment;
-import cx.ring.services.LocationSharingService;
 import cx.ring.utils.AndroidFileUtils;
 import cx.ring.utils.ContentUriHandler;
 import cx.ring.utils.ConversationPath;
@@ -686,9 +685,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
                 @Override
                 public void onServiceConnected(ComponentName name, IBinder service) {
                     Log.w(TAG, "onServiceConnected");
-                    LocationSharingService.LocalBinder binder = (LocationSharingService.LocalBinder) service;
-                    LocationSharingService locationService = binder.getService();
-                    ConversationPath path = new ConversationPath(presenter.getPath());
 
                     try {
                         requireContext().unbindService(locationServiceConnection);
@@ -703,9 +699,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
                     locationServiceConnection = null;
                 }
             };
-
-            Log.w(TAG, "bindService");
-            requireContext().bindService(new Intent(requireContext(), LocationSharingService.class), locationServiceConnection, 0);
         }
     }
 

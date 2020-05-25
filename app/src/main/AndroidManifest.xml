@@ -147,10 +147,6 @@
             android:name=".services.SyncService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
-        <service
-            android:name=".services.LocationSharingService"
-            android:exported="false"
-            android:foregroundServiceType="location" />
 
         <activity
             android:name=".client.ConversationActivity"

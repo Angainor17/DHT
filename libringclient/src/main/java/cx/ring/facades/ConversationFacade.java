@@ -21,7 +21,6 @@ import cx.ring.services.AccountService;
 import cx.ring.services.CallService;
 import cx.ring.services.ContactService;
 import cx.ring.services.DeviceRuntimeService;
-import cx.ring.services.HardwareService;
 import cx.ring.services.HistoryService;
 import cx.ring.services.NotificationService;
 import cx.ring.services.PreferencesService;
@@ -46,9 +45,6 @@ public class ConversationFacade {
     private final CallService mCallService;
     private final ContactService mContactService;
     private final NotificationService mNotificationService;
-
-    @Inject
-    HardwareService mHardwareService;
 
     @Inject
     DeviceRuntimeService mDeviceRuntimeService;
