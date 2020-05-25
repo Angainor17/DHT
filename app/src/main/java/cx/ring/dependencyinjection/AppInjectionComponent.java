@@ -21,10 +21,11 @@ import cx.ring.fragments.SecurityAccountFragment;
 import cx.ring.fragments.ShareWithFragment;
 import cx.ring.fragments.SmartListFragment;
 import cx.ring.history.DatabaseHelper;
+import cx.ring.service.AppJobService;
 import cx.ring.service.BootReceiver;
 import cx.ring.service.DRingService;
-import cx.ring.service.JamiJobService;
 import cx.ring.services.AccountService;
+import cx.ring.services.AppChooserTargetService;
 import cx.ring.services.CallService;
 import cx.ring.services.ConferenceService;
 import cx.ring.services.ContactServiceImpl;
@@ -33,7 +34,6 @@ import cx.ring.services.DataTransferService;
 import cx.ring.services.DeviceRuntimeServiceImpl;
 import cx.ring.services.HardwareService;
 import cx.ring.services.HistoryServiceImpl;
-import cx.ring.services.JamiChooserTargetService;
 import cx.ring.services.LocationSharingService;
 import cx.ring.services.NotificationServiceImpl;
 import cx.ring.services.SharedPreferencesServiceImpl;
@@ -105,9 +105,9 @@ public interface AppInjectionComponent {
 
     void inject(GeneralAccountFragment fragment);
 
-    void inject(JamiChooserTargetService service);
+    void inject(AppChooserTargetService service);
 
-    void inject(JamiJobService service);
+    void inject(AppJobService service);
 
     void inject(ShareWithFragment fragment);
 

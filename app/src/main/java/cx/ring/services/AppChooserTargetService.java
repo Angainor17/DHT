@@ -28,7 +28,7 @@ import cx.ring.model.Conversation;
 import io.reactivex.schedulers.Schedulers;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
-public class JamiChooserTargetService extends ChooserTargetService {
+public class AppChooserTargetService extends ChooserTargetService {
 
     @Inject
     @Singleton

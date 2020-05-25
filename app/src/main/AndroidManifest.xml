@@ -91,27 +91,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.DIAL" />
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.SEARCH" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="sip" />
-                <data android:scheme="tel" />
-                <data
-                    android:host="ring.cx"
-                    android:pathPrefix="/id/"
-                    android:scheme="https" />
-                <data
-                    android:host="ring.cx"
-                    android:pathPrefix="/id/"
-                    android:scheme="http" />
-                <data android:scheme="ring" />
-                <data android:scheme="jami" />
-            </intent-filter>
 
             <meta-data
                 android:name="android.app.searchable"
@@ -134,7 +113,7 @@
 
             <meta-data
                 android:name="android.service.chooser.chooser_target_service"
-                android:value=".services.JamiChooserTargetService" />
+                android:value=".services.AppChooserTargetService" />
         </activity>
 
         <activity
@@ -217,7 +196,7 @@
             android:theme="@style/AppThemeBase.Dark" />
 
         <service
-            android:name=".services.JamiChooserTargetService"
+            android:name=".services.AppChooserTargetService"
             android:icon="@mipmap/ic_launcher"
             android:label="ChooserTargetService"
             android:permission="android.permission.BIND_CHOOSER_TARGET_SERVICE">
@@ -227,7 +206,7 @@
         </service>
 
         <service
-            android:name=".service.JamiJobService"
+            android:name=".service.AppJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity
