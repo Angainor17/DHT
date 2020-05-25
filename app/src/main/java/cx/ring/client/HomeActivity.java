@@ -1,22 +1,3 @@
-/*
- *  Copyright (C) 2004-2019 Savoir-faire Linux Inc.
- *
- *  Author: Adrien Beraud <adrien.beraud@savoirfairelinux.com>
- *          Alexandre Lision <alexandre.lision@savoirfairelinux.com>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cx.ring.client;
 
 import android.content.Intent;
@@ -39,7 +20,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -103,7 +83,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
     private ActivityHomeBinding binding;
 
-    private boolean mIsMigrationDialogAlreadyShowed;
     private String mAccountWithPendingrequests = null;
 
     private final CompositeDisposable mDisposable = new CompositeDisposable();
@@ -221,20 +200,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    private void showMigrationDialog() {
-        if (mIsMigrationDialogAlreadyShowed) {
-            return;
-        }
-        mIsMigrationDialogAlreadyShowed = true;
-        new MaterialAlertDialogBuilder(this)
-                .setTitle(R.string.account_migration_title_dialog)
-                .setMessage(R.string.account_migration_message_dialog)
-                .setIcon(R.drawable.baseline_warning_24)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> selectNavigationItem(R.id.navigation_settings))
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
-    }
-
     public void setToolbarState(int titleRes) {
         setToolbarState(getString(titleRes), null);
     }
@@ -275,12 +240,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 .subscribe(accounts -> {
                     if (accounts.isEmpty()) {
                         startActivity(new Intent(this, AccountWizardActivity.class));
-                    }
-                    for (Account account : accounts) {
-                        if (account.needsMigration()) {
-                            showMigrationDialog();
-                            break;
-                        }
                     }
                 }));
 

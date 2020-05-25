@@ -10,10 +10,9 @@
   <string name="version_section">Версия</string>
   <string name="no_email_app_installed">Не найдено приложение электронной почты. Пожалуйста, установите его для отправки нам отчета.</string>
   <string name="no_browser_app_installed">Приложение для веб-браузера не найдено, установите его для просмотра этой страницы</string>
-  <string name="email_chooser_title">Отправить почту, используя...</string>
+  <string name="email_chooser_title">Отправить почту, используя…</string>
   <string name="website_chooser_title">Просмотр веб-сайта с помощью…</string>
-  <string name="license">Это программное обеспечение предоставляется \"как есть\", без каких-либо гарантий. Дополнительные сведения смотрите <u>GNU General Public License версии 3 или позднее</u></string>
-  <string name="description">Jami — свободная программа для связи, уважающая свободу и конфиденциальность пользователей.</string>
+
   <string name="credits">Авторы</string>
   <string name="call_service_description">Этот сервис необходима для того, чтобы ваши звонки продолжали работать поверх приложений. Это работает только во время звонков.</string>
   <string name="data_transfer_service_description">Этот сервис необходим для отображения уведомлений во время передачи файлов. Это работает только при передаче файлов. </string>
@@ -32,11 +31,7 @@
   <string name="menu_item_account">Учетные записи</string>
   <string name="menu_item_settings">Настройки</string>
   <string name="menu_item_share">Поделиться моей контактной информацией</string>
-  <string name="menu_item_about">О Jami</string>
-  <!--Dialing Fragment-->
-  <string name="dial_number">Набрать номер</string>
-  <!--History Fragment-->
-  <!--DetailsHistory Fragment-->
+
   <!--Home Fragment-->
   <plurals name="home_conferences_title">
     <item quantity="one">%d Беседа</item>
@@ -45,10 +40,9 @@
     <item quantity="other">%d беседы</item>
   </plurals>
   <!--ContactList Fragment-->
-  <string name="searchbar_hint">Поиск по имени или номеру телефона...</string>
+  <string name="searchbar_hint">Поиск по имени или номеру телефона…</string>
   <string name="choose_number">Выбор номера</string>
-  <!--FileExplorerDFragement-->
-  <!--TransferDFragment-->
+
   <!--Notifications-->
   <string name="notif_missed_incoming_call">Пропущенный входящий</string>
   <string name="notif_missed_outgoing_call">Пропущенный исходящий</string>
@@ -76,7 +70,7 @@
   <string name="notif_incoming_file_transfer_title">Входящий файл от %1$s</string>
   <string name="notif_outgoing_file_transfer_title">Отправка файла %1$s</string>
   <string name="notif_incoming_picture">Изображение от %1$s</string>
-  <string name="notif_sync_title">Синхронизация данных...</string>
+  <string name="notif_sync_title">Синхронизация данных…</string>
   <!--Call Fragment-->
   <string name="you_txt_prefix">Вы</string>
   <string name="action_call_hangup">Завершить</string>
@@ -102,7 +96,7 @@
   <string name="ab_action_flipcamera">Перевернуть камеру</string>
   <!--Text messages-->
   <string name="send_message">Отправить сообщение</string>
-  <string name="message_sending">Отправка сообщения...</string>
+  <string name="message_sending">Отправка сообщения…</string>
   <string name="message_failed">Сбой</string>
   <string name="time_just_now">В данный момент</string>
   <string name="send_file">Отправить файл</string>
@@ -176,13 +170,12 @@
   <string name="take_a_photo">Сфотографировать</string>
   <string name="profile_name_hint">Введите ваше имя (необязательно) </string>
   <!--Share fragment-->
-  <string name="share_message">Отсканируйте код с помощью Jami</string>
+  <string name="share_message">Отсканируйте код с помощью вашего приложения</string>
   <string name="share_message_no_account">Выберите контакт, чтобы поделиться</string>
   <string name="share_your_account_information">Поделиться своей контактной информацией</string>
   <string name="share_label">Поделится</string>
-  <string name="generic_error_migration">Ошибка</string>
-  <string name="generic_error_migration_message">Во время миграции произошла ошибка</string>
-  <string name="title_share_with">Поделиться с...</string>
+
+  <string name="title_share_with">Поделиться с…</string>
   <!--Pending contact requests-->
   <string name="accept">Принять</string>
   <string name="refuse">Отказать</string>

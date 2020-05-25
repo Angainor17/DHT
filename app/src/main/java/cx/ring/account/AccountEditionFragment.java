@@ -1,30 +1,7 @@
-/*
- *  Copyright (C) 2004-2019 Savoir-faire Linux Inc.
- *
- *  Author: Alexandre Lision <alexandre.lision@savoirfairelinux.com>
- *          Alexandre Savard <alexandre.savard@savoirfairelinux.com>
- *          Adrien Béraud <adrien.beraud@savoirfairelinux.com>
- *          Loïc Siret <loic.siret@savoirfairelinux.com>
- *          AmirHossein Naghshzan <amirhossein.naghshzan@savoirfairelinux.com>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cx.ring.account;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -119,11 +96,6 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
         } else {
             ((AccountSummaryFragment) existingFragment).setAccount(accountId);
         }
-    }
-
-    @Override
-    public void displaySIPView(String accountId) {
-        toggleView(accountId, false);
     }
 
     @Override
@@ -226,14 +198,6 @@ public class AccountEditionFragment extends BaseSupportFragment<AccountEditionPr
         if (activity != null)
             alertDialog.setOwnerActivity(getActivity());
         return alertDialog;
-    }
-
-    @Override
-    public void goToWizardActivity() {
-        Intent intent = new Intent(getActivity(), AccountWizardActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
 
     @Override

@@ -1,23 +1,3 @@
-/*
- *  Copyright (C) 2004-2019 Savoir-faire Linux Inc.
- *
- *  Author: Alexandre Lision <alexandre.lision@savoirfairelinux.com>
- *  Author: Adrien Béraud <adrien.beraud@savoirfairelinux.com>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
 package cx.ring.account;
 
 import android.app.Activity;
@@ -39,7 +19,6 @@ import java.io.File;
 import cx.ring.R;
 import cx.ring.application.JamiApplication;
 import cx.ring.client.HomeActivity;
-
 import cx.ring.model.Account;
 import cx.ring.model.AccountConfig;
 import cx.ring.mvp.AccountCreationModel;
@@ -213,7 +192,6 @@ public class AccountWizardActivity extends BaseActivity<AccountWizardPresenter> 
         mAlertDialog = new MaterialAlertDialogBuilder(AccountWizardActivity.this)
                 .setPositiveButton(android.R.string.ok, null)
                 .setTitle(R.string.account_cannot_be_found_title)
-                .setMessage(R.string.account_cannot_be_found_message)
                 .setOnDismissListener(dialogInterface -> getSupportFragmentManager().popBackStack())
                 .show();
     }

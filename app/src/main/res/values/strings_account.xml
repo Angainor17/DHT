@@ -1,23 +1,3 @@
-<!--
-Copyright (C) 2004-2016 Savoir-faire Linux Inc.
-
-Author: Alexandre Lision <alexandre.lision@savoirfairelinux.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
- Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
--->
-
 <resources>
 
     <!-- Strings related to account edition screen -->
@@ -45,7 +25,7 @@ along with this program; if not, write to the Free Software
     <string name="dialog_wait_update_details">Please wait while your new account is updated…</string>
 
     <string name="account_type_ip2ip">IP account</string>
-    <string name="help_ring">A Jami account allows you to reach people securely in peer to peer through a fully distributed network.</string>
+    <string name="help_ring">A DHT App account allows you to reach people securely in peer to peer through a fully distributed network.</string>
 
     <!-- Strings related to account deletion -->
     <string name="account_delete_dialog_title">Delete account ?</string>
@@ -54,7 +34,7 @@ along with this program; if not, write to the Free Software
     <!-- AccountManagementFragment -->
     <string name="empty_account_list">No account registered</string>
     <string name="normal_accounts_titles">Accounts</string>
-    <string name="normal_devices_titles">Known devices linked to this Jami account</string>
+    <string name="normal_devices_titles">Known devices linked to this DHT App account</string>
     <string name="account_device_revoke">Revoke device</string>
     <string name="account_device_revocation_success_title">Success</string>
     <string name="account_device_revocation_success">Device is now revoked!</string>
@@ -163,25 +143,22 @@ along with this program; if not, write to the Free Software
     <string name="account_export_end_error_title">Error</string>
     <string name="account_export_end_error_message">Couldn\'t export account. An unknown error occurred.</string>
     <string name="account_enter_password">Enter password</string>
-    <string name="account_share_body">Contact me using \'%1$s\' on the Jami distributed communication platform: %2$s</string>
-    <string name="account_share_body_with_username">Contact me using \'%1$s\' or my public username \'%2$s\' on the Jami distributed communication platform: %3$s</string>
-    <string name="account_contact_me">Contact me on Jami !</string>
+    <string name="account_share_body">Contact me using \'%1$s\' on the DHT App</string>
+
+    <string name="account_contact_me">Contact me on DHT App</string>
     <string name="update_account">Update account</string>
-    <string name="account_migration">Your Jami account can be updated.\nPlease enter your password.</string>
-    <string name="ring_account">Jami account</string>
+
+    <string name="ring_account">DHT account</string>
     <string name="ring_account_identity">Identity</string>
-    <string name="account_migration_title_dialog">Account migration</string>
-    <string name="account_migration_message_dialog">Your accounts need to be updated. Do you want to go the Account management screen to perform this operation ?</string>
+
     <string name="account_update_needed">Update needed</string>
     <string name="account_cannot_be_found_title">Can\'t find account</string>
-    <string name="account_cannot_be_found_message">Account couldn\'t be found on the Jami network.\nMake sure it was exported on Jami from an existing device, and that provided credentials are correct.</string>
-    <string name="account_sip_cannot_be_registered_message">You can continue with the account creation process or edit your information here. Edition is still possible later in the account settings.</string>
     <string name="account_no_network_title">Can\'t connect to the network</string>
-    <string name="account_no_network_message">Could not add account because Jami couldn\'t connect to the distributed network. Check your device connectivity.</string>
+    <string name="account_no_network_message">Could not add account because App couldn\'t connect to the distributed network. Check your device connectivity.</string>
     <string name="account_device_added_title">Account device added</string>
-    <string name="account_device_added_message">You have successfully setup your Jami account on this device.</string>
+    <string name="account_device_added_message">You have successfully setup your DHT account on this device.</string>
     <string name="account_device_updated_title">Account device updated</string>
-    <string name="account_device_updated_message">You have successfully updated your Jami account.</string>
+    <string name="account_device_updated_message">You have successfully updated your DHT App account.</string>
     <string name="account_cannot_be_updated_message">Account device couldn\'t be update. Please check your password.</string>
     <string name="account_sip_success_title">Sip account registered</string>
     <string name="account_sip_success_message">You have successfully registered your Sip account.</string>
@@ -189,15 +166,13 @@ along with this program; if not, write to the Free Software
 
     <string name="account_link_prompt_pin">Enter PIN</string>
 
-    <string name="account_link_export_info">To use this account on other devices, you must first expose it on Jami. This will generate a PIN code that you must enter on the new device to set up the account. The PIN is valid for 10 minutes.</string>
+
     <string name="account_start_export_button">Generate PIN</string>
     <string name="account_end_export_button">close</string>
-    <string name="account_end_export_infos">Your PIN is:\n\n%%\n\nTo complete the process, you need to open Jami on the new device. Create a new account with \"Link this device to an account\". Your PIN is valid for 10 minutes.</string>
-    <string name="account_link_export_info_light">To use this account on other devices, you must first expose it on Jami. This will generate a PIN code that you must enter on the new device to set up the account. The PIN is valid for 10 minutes.</string>
     <string name="account_export_title">Add devices</string>
     <string name="account_connect_server_button">Connect to management server</string>
     <string name="account_connect_button">Connect</string>
-    <string name="prompt_server">Jami management server URL</string>
+    <string name="prompt_server">DHT App management server URL</string>
     <string name="help_credentials_enter">Enter your organisation credentials</string>
     <string name="help_connect_password_enter">Enter your organisation password</string>
     <string name="account_connect_prompt_username">Username</string>
@@ -222,9 +197,8 @@ along with this program; if not, write to the Free Software
     <string name="account_status_error">Error</string>
 
     <!-- Create account -->
-    <string name="account_creation_home">Welcome to Jami</string>
     <string name="account_creation_profile">Create your profile</string>
-    <string name="account_creation_ring">Create your Jami account</string>
+    <string name="account_creation_ring">Create your DHT App account</string>
     <string name="account_link_title">Link this device</string>
     <string name="account_sip_cannot_be_registered">Can\'t register account</string>
 
@@ -239,7 +213,7 @@ along with this program; if not, write to the Free Software
     <string name="revoke_device_wait_title">Please wait…</string>
     <string name="revoke_device_wait_message">Revoking device</string>
     <string name="rename_device_title">Rename this device</string>
-    <string name="rename_device_message">Choose a new name to identify this device in your Jami account</string>
+    <string name="rename_device_message">Choose a new name to identify this device in your DHT App account</string>
     <string name="rename_device_button">Rename device</string>
     <string name="account_rename_device_hint">Choose new device name</string>
     <string name="account_device_name_empty">Device name can\'t be empty</string>

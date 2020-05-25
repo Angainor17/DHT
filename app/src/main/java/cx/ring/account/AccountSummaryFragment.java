@@ -1,23 +1,3 @@
-/*
- *  Copyright (C) 2004-2019 Savoir-faire Linux Inc.
- *
- *  Author: Adrien Béraud <adrien.beraud@savoirfairelinux.com>
- *          Loïc Siret <loic.siret@savoirfairelinux.com>
- *          Alexandre Lision <alexandre.lision@savoirfairelinux.com>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cx.ring.account;
 
 import android.Manifest;
@@ -29,16 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Layout;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.AlignmentSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +31,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -73,7 +45,6 @@ import cx.ring.services.VCardServiceImpl;
 import cx.ring.utils.AndroidFileUtils;
 import cx.ring.utils.BitmapUtils;
 import cx.ring.utils.ContentUriHandler;
-import cx.ring.utils.KeyboardVisibilityManager;
 import cx.ring.views.AvatarDrawable;
 import ezvcard.VCard;
 import ezvcard.property.FormattedName;
@@ -317,31 +288,6 @@ public class AccountSummaryFragment extends BaseSupportFragment<AppAccountSummar
         binding.layoutAccountOptions.setVisibility(mAccountHasManager ? View.GONE : View.VISIBLE);
     }
 
-    @Override
-    public void showNetworkError() {
-        dismissWaitDialog();
-        new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.account_export_end_network_title)
-                .setMessage(R.string.account_export_end_network_message)
-                .setPositiveButton(android.R.string.ok, null)
-                .show();
-    }
-
-    @Override
-    public void showPasswordError() {
-        dismissWaitDialog();
-    }
-
-    @Override
-    public void showGenericError() {
-        dismissWaitDialog();
-        new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.account_export_end_error_title)
-                .setMessage(R.string.account_export_end_error_message)
-                .setPositiveButton(android.R.string.ok, null)
-                .show();
-    }
-
     private void profileContainerClicked() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.dialog_profile, null);
@@ -414,28 +360,6 @@ public class AccountSummaryFragment extends BaseSupportFragment<AppAccountSummar
             mWaitDialog.dismiss();
             mWaitDialog = null;
         }
-    }
-
-
-    @Override
-    public void showPIN(final String pin) {
-        dismissWaitDialog();
-        String pined = getString(R.string.account_end_export_infos).replace("%%", pin);
-        final SpannableString styledResultText = new SpannableString(pined);
-        int pos = pined.lastIndexOf(pin);
-        styledResultText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), pos, (pos + pin.length()), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        styledResultText.setSpan(new StyleSpan(Typeface.BOLD), pos, (pos + pin.length()), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        styledResultText.setSpan(new RelativeSizeSpan(2.8f), pos, (pos + pin.length()), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        KeyboardVisibilityManager.hideKeyboard(getActivity(), 0);
-    }
-
-    @Override
-    public void updateDeviceList(final Map<String, String> devices, final String currentDeviceId) {
-        if (mDeviceAdapter == null) {
-            return;
-        }
-        mDeviceAdapter.setData(devices, currentDeviceId);
     }
 
     @Override
