@@ -53,7 +53,6 @@ import java.util.Map;
 import cx.ring.BuildConfig;
 import cx.ring.R;
 import cx.ring.adapters.ConversationAdapter;
-import cx.ring.adapters.NumberAdapter;
 import cx.ring.application.JamiApplication;
 import cx.ring.client.ContactDetailsActivity;
 import cx.ring.client.ConversationActivity;
@@ -65,7 +64,6 @@ import cx.ring.databinding.FragConversationBinding;
 import cx.ring.interfaces.Colorable;
 import cx.ring.model.Account;
 import cx.ring.model.CallContact;
-import cx.ring.model.Conversation;
 import cx.ring.model.DataTransfer;
 import cx.ring.model.Error;
 import cx.ring.model.Interaction;
@@ -73,11 +71,9 @@ import cx.ring.model.Phone;
 import cx.ring.model.Uri;
 import cx.ring.mvp.BaseSupportFragment;
 import cx.ring.services.LocationSharingService;
-import cx.ring.utils.ActionHelper;
 import cx.ring.utils.AndroidFileUtils;
 import cx.ring.utils.ContentUriHandler;
 import cx.ring.utils.ConversationPath;
-import cx.ring.utils.MediaButtonsHelper;
 import cx.ring.views.AvatarDrawable;
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -87,11 +83,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import static android.app.Activity.RESULT_OK;
 
 public class ConversationFragment extends BaseSupportFragment<ConversationPresenter> implements
-        MediaButtonsHelper.MediaButtonsHelperCallback,
         ConversationView, SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = ConversationFragment.class.getSimpleName();
-
-    public static final int REQ_ADD_CONTACT = 42;
 
     public static final String KEY_CONTACT_RING_ID = BuildConfig.APPLICATION_ID + ".CONTACT_RING_ID";
     public static final String KEY_ACCOUNT_ID = BuildConfig.APPLICATION_ID + ".ACCOUNT_ID";
@@ -214,7 +207,7 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
             return insets;
         });
 
-        binding.ongoingcallPane.setVisibility(View.GONE);
+//        binding.ongoingcallPane.setVisibility(View.GONE);
         binding.msgInputTxt.setMediaListener(contentInfo -> startFileSend(AndroidFileUtils
                 .getCacheFile(requireContext(), contentInfo.getContentUri())
                 .flatMapCompletable(this::sendFile)
@@ -626,10 +619,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
         return false;
     }
 
-    public void onClick() {
-        presenter.clickOnGoingPane();
-    }
-
     @Override
     public void onPause() {
         super.onPause();
@@ -761,24 +750,24 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
                     }
                 }));
     }
-
-    @Override
-    public void displayOnGoingCallPane(final boolean display) {
-        binding.ongoingcallPane.setVisibility(display ? View.VISIBLE : View.GONE);
-    }
-
-    @Override
-    public void displayNumberSpinner(final Conversation conversation, final Uri number) {
-        binding.numberSelector.setVisibility(View.VISIBLE);
-        binding.numberSelector.setAdapter(new NumberAdapter(getActivity(),
-                conversation.getContact(), false));
-        binding.numberSelector.setSelection(getIndex(binding.numberSelector, number));
-    }
-
-    @Override
-    public void hideNumberSpinner() {
-        binding.numberSelector.setVisibility(View.GONE);
-    }
+//
+//    @Override
+//    public void displayOnGoingCallPane(final boolean display) {
+//        binding.ongoingcallPane.setVisibility(display ? View.VISIBLE : View.GONE);
+//    }
+//
+//    @Override
+//    public void displayNumberSpinner(final Conversation conversation, final Uri number) {
+//        binding.numberSelector.setVisibility(View.VISIBLE);
+//        binding.numberSelector.setAdapter(new NumberAdapter(getActivity(),
+//                conversation.getContact(), false));
+//        binding.numberSelector.setSelection(getIndex(binding.numberSelector, number));
+//    }
+//
+//    @Override
+//    public void hideNumberSpinner() {
+//        binding.numberSelector.setVisibility(View.GONE);
+//    }
 
     @Override
     public void clearMsgEdit() {
@@ -792,10 +781,10 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
         }
     }
 
-    @Override
-    public void goToAddContact(CallContact callContact) {
-        startActivityForResult(ActionHelper.getAddNumberIntentForContact(callContact), REQ_ADD_CONTACT);
-    }
+//    @Override
+//    public void goToAddContact(CallContact callContact) {
+//        startActivityForResult(ActionHelper.getAddNumberIntentForContact(callContact), REQ_ADD_CONTACT);
+//    }
 
     @Override
     public void goToContactActivity(String accountId, String contactRingId) {
@@ -909,21 +898,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
         currentBottomView = binding.cvMessageInput;
         requireActivity().invalidateOptionsMenu();
         updateListPadding();
-    }
-
-    @Override
-    public void positiveMediaButtonClicked() {
-        presenter.clickOnGoingPane();
-    }
-
-    @Override
-    public void negativeMediaButtonClicked() {
-        presenter.clickOnGoingPane();
-    }
-
-    @Override
-    public void toggleMediaButtonClicked() {
-        presenter.clickOnGoingPane();
     }
 
     private void setLoading(boolean isLoading) {

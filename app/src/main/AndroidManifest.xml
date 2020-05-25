@@ -63,7 +63,6 @@
 
     <application
         android:allowBackup="false"
-        android:banner="@drawable/jami_banner"
         android:hasFragileUserData="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -139,18 +138,21 @@
         </activity>
 
         <activity
+            android:name=".client.ContactDetailsActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
+            android:label="@string/conversation_details"
+            android:icon="@mipmap/ic_launcher"
+            android:resizeableActivity="true"
+            android:theme="@style/AppTheme.DarkToolbar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".account.AccountWizardActivity"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
             android:icon="@mipmap/ic_launcher"
             android:theme="@style/AppThemeBase.Light" />
 
-        <receiver android:name=".service.OutgoingCallHandler">
-            <intent-filter>
-                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
         <receiver android:name=".service.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -159,18 +161,11 @@
         </receiver>
 
         <service
-            android:name=".service.CallNotificationService"
-            android:description="@string/call_service_description"
-            android:exported="false"
-            android:foregroundServiceType="phoneCall|mediaProjection" />
-        <service
             android:name=".services.DataTransferService"
-            android:description="@string/data_transfer_service_description"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
         <service
             android:name=".services.SyncService"
-            android:description="@string/data_transfer_service_description"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
         <service

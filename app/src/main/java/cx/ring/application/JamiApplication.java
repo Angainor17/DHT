@@ -12,14 +12,12 @@ import android.content.ServiceConnection;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.IBinder;
-import android.system.Os;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
 import com.bumptech.glide.Glide;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -29,7 +27,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import cx.ring.BuildConfig;
-import cx.ring.R;
 import cx.ring.contacts.AvatarFactory;
 import cx.ring.daemon.Ringservice;
 import cx.ring.dependencyinjection.AppInjectionComponent;
@@ -46,10 +43,7 @@ import cx.ring.services.DaemonService;
 import cx.ring.services.DeviceRuntimeService;
 import cx.ring.services.HardwareService;
 import cx.ring.services.PreferencesService;
-import cx.ring.utils.AndroidFileUtils;
-import io.reactivex.Completable;
 import io.reactivex.plugins.RxJavaPlugins;
-import io.reactivex.schedulers.Schedulers;
 
 public abstract class JamiApplication extends Application {
     private static final String TAG = JamiApplication.class.getSimpleName();
@@ -224,20 +218,6 @@ public abstract class JamiApplication extends Application {
         bootstrapDaemon();
 
         mPreferencesService.loadDarkMode();
-
-        Completable.fromAction(() -> {
-            File path = AndroidFileUtils.ringtonesPath(this);
-            File defaultRingtone = new File(path, getString(R.string.ringtone_default_name));
-            File defaultLink = new File(path, "default.opus");
-            if (!defaultRingtone.exists()) {
-                AndroidFileUtils.copyAssetFolder(getAssets(), "ringtones", path);
-            }
-            if (!defaultLink.exists()) {
-                Os.symlink(defaultRingtone.getAbsolutePath(), defaultLink.getAbsolutePath());
-            }
-        })
-                .subscribeOn(Schedulers.io())
-                .subscribe();
     }
 
     public void startDaemon() {

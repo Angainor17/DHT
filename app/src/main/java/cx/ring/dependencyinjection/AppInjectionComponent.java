@@ -21,9 +21,7 @@ import cx.ring.fragments.SecurityAccountFragment;
 import cx.ring.fragments.ShareWithFragment;
 import cx.ring.fragments.SmartListFragment;
 import cx.ring.history.DatabaseHelper;
-import cx.ring.launch.LaunchActivity;
 import cx.ring.service.BootReceiver;
-import cx.ring.service.CallNotificationService;
 import cx.ring.service.DRingService;
 import cx.ring.service.JamiJobService;
 import cx.ring.services.AccountService;
@@ -99,8 +97,6 @@ public interface AppInjectionComponent {
 
     void inject(ConversationFacade service);
 
-    void inject(CallNotificationService service);
-
     void inject(DataTransferService service);
 
     void inject(BootReceiver receiver);
@@ -108,8 +104,6 @@ public interface AppInjectionComponent {
     void inject(AdvancedAccountFragment fragment);
 
     void inject(GeneralAccountFragment fragment);
-
-    void inject(LaunchActivity activity);
 
     void inject(JamiChooserTargetService service);
 

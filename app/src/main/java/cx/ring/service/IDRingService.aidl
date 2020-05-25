@@ -4,14 +4,6 @@ interface IDRingService {
 
     boolean isStarted();
 
-    Map getCallDetails(in String callID);
-    String placeCall(in String account, in String number, in boolean hasVideo);
-    void refuse(in String callID);
-    void accept(in String callID);
-    void hangUp(in String callID);
-    void hold(in String callID);
-    void unhold(in String callID);
-
     void lookupName(in String account, in String nameserver, in String name);
     void lookupAddress(in String account, in String nameserver, in String address);
     void registerName(in String account, in String password, in String name);
@@ -41,13 +33,6 @@ interface IDRingService {
     Map getCertificateDetailsPath(in String certificatePath);
     Map getCertificateDetails(in String certificate);
 
-    /* Recording */
-    void setRecordPath(in String path);
-    String getRecordPath();
-    boolean toggleRecordingCall(in String id);
-    boolean startRecordedFilePlayback(in String filepath);
-    void stopRecordedFilePlayback(in String filepath);
-
     /* Mute */
     void setMuted(boolean mute);
     boolean isCaptureMuted();
@@ -65,14 +50,6 @@ interface IDRingService {
 
     void transfer(in String callID, in String to);
     void attendedTransfer(in String transferID, in String targetID);
-
-    /* Video */
-    void setPreviewSettings();
-    void switchInput(in String call, in boolean front);
-    void videoSurfaceAdded(in String call);
-    void videoSurfaceRemoved(in String call);
-    void videoPreviewSurfaceAdded();
-    void videoPreviewSurfaceRemoved();
 
     /* Conference related methods */
 

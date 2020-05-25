@@ -9,14 +9,12 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import cx.ring.model.Account;
-import cx.ring.model.CallContact;
 import cx.ring.model.Conference;
 import cx.ring.model.Conversation;
 import cx.ring.model.DataTransfer;
 import cx.ring.model.Interaction;
 import cx.ring.model.Interaction.InteractionStatus;
 import cx.ring.model.Interaction.InteractionType;
-import cx.ring.model.SipCall;
 import cx.ring.model.TextMessage;
 import cx.ring.model.Uri;
 import cx.ring.services.AccountService;
@@ -78,9 +76,6 @@ public class ConversationFacade {
         currentAccountSubject = mAccountService
                 .getCurrentAccountSubject()
                 .switchMapSingle(this::loadSmartlist);
-
-        mDisposableBag.add(mCallService.getCallsUpdates()
-                .subscribe(this::onCallStateChange));
 
         mDisposableBag.add(mCallService.getConnectionUpdates()
                 .subscribe(mNotificationService::onConnectionUpdate));
@@ -461,77 +456,6 @@ public class ConversationFacade {
 
     private void onConfStateChange(Conference conference) {
         Log.d(TAG, "onConfStateChange Thread id: " + Thread.currentThread().getId());
-    }
-
-    private void onCallStateChange(SipCall call) {
-        Log.d(TAG, "onCallStateChange Thread id: " + Thread.currentThread().getId());
-        SipCall.CallStatus newState = call.getCallStatus();
-        boolean incomingCall = newState == SipCall.CallStatus.RINGING && call.isIncoming();
-        mHardwareService.updateAudioState(newState, incomingCall, !call.isAudioOnly());
-
-        Account account = mAccountService.getAccount(call.getAccount());
-        CallContact contact = call.getContact();
-        Conversation conversation = (contact == null || account == null) ? null : account.getByUri(contact.getPrimaryUri());
-        Conference conference = null;
-        if (conversation != null) {
-            conference = conversation.getConference(call.getDaemonIdString());
-            if (conference == null) {
-                if (newState == SipCall.CallStatus.OVER)
-                    return;
-                conference = new Conference(call);
-                conversation.addConference(conference);
-                account.updated(conversation);
-            }
-        }
-
-        Log.w(TAG, "CALL_STATE_CHANGED : updating call state to " + newState);
-        if ((call.isRinging() || newState == SipCall.CallStatus.CURRENT) && call.getTimestamp() == 0) {
-            call.setTimestamp(System.currentTimeMillis());
-        }
-
-        if (incomingCall) {
-            mNotificationService.handleCallNotification(conference, false);
-            mHardwareService.setPreviewSettings();
-        } else if ((newState == SipCall.CallStatus.CURRENT && call.isIncoming())
-                || newState == SipCall.CallStatus.RINGING && !call.isIncoming()) {
-            mNotificationService.handleCallNotification(conference, false);
-            mAccountService.sendProfile(call.getDaemonIdString(), call.getAccount());
-        } else if (newState == SipCall.CallStatus.HUNGUP
-                || newState == SipCall.CallStatus.BUSY
-                || newState == SipCall.CallStatus.FAILURE
-                || newState == SipCall.CallStatus.OVER) {
-            mNotificationService.handleCallNotification(conference, true);
-            mHardwareService.closeAudioState();
-            long now = System.currentTimeMillis();
-            if (call.getTimestamp() == 0) {
-                call.setTimestamp(now);
-            }
-            if (newState == SipCall.CallStatus.HUNGUP || call.getTimestampEnd() == 0) {
-                call.setTimestampEnd(now);
-            }
-            if (conversation != null && conference.removeParticipant(call)) {
-                mHistoryService.insertInteraction(account.getAccountID(), conversation, call).subscribe();
-                conversation.addCall(call);
-                if (call.isIncoming() && call.isMissed()) {
-                    mNotificationService.showMissedCallNotification(call);
-                }
-                account.updated(conversation);
-            }
-            mCallService.removeCallForId(call.getDaemonIdString());
-            if (conversation != null && conference.getParticipants().isEmpty()) {
-                conversation.removeConference(conference);
-            }
-        }
-    }
-
-    public Single<SipCall> placeCall(String accountId, String number, boolean video) {
-        String rawId = new Uri(number).getRawRingId();
-        return getAccountSubject(accountId).flatMap(account -> {
-            CallContact contact = account.getContact(rawId);
-            if (contact == null)
-                mAccountService.addContact(accountId, rawId);
-            return mCallService.placeCall(rawId, number, video);
-        });
     }
 
     public void cancelFileTransfer(long id) {

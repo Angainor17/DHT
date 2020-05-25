@@ -13,9 +13,6 @@
   <string name="email_chooser_title">Отправить почту, используя…</string>
   <string name="website_chooser_title">Просмотр веб-сайта с помощью…</string>
 
-  <string name="credits">Авторы</string>
-  <string name="call_service_description">Этот сервис необходима для того, чтобы ваши звонки продолжали работать поверх приложений. Это работает только во время звонков.</string>
-  <string name="data_transfer_service_description">Этот сервис необходим для отображения уведомлений во время передачи файлов. Это работает только при передаче файлов. </string>
   <!--About dialog-->
   <string name="developed_by">Разработчики</string>
   <string name="designed_by">Дизайнер </string>
@@ -107,17 +104,10 @@
   <!--MediaPreferenceFragment-->
   <string name="permission_dialog_camera_title">Разрешение на использование камеры</string>
   <string name="permission_dialog_camera_message">Необходимо доступ к камере для работы с видеозвонками. Пожалуйста, предоставьте их.</string>
-  <!--Ringtone activity-->
-  <string name="ringtone_error_title">Ошибка</string>
-  <string name="ringtone_error_format_not_supported">Этот формат не поддерживается.</string>
-  <string name="ringtone_error_size_too_big">Этот файл очень большой. Максимальный размар %1$dКб</string>
-  <string name="ringtone_custom_prompt">Установить свой рингтон</string>
-  <string name="ringtone_custom_label">Своё</string>
-  <string name="ringtone_jami_tones">Рингтоны Jami</string>
+
   <!--Read contacts permission-->
   <string name="permission_dialog_read_contacts_message">Чтобы включить эту функцию Jami необходимо получить доступ к \"Чтению контактов\". </string>
-  <!--Write call log permission-->
-  <string name="permission_dialog_write_call_log_message">Для включения этой функции Jami необходимо разрешение \"запись журнала вызовов\". Пожалуйста, предоставьте это разрешение.</string>
+
   <!--QRCode Scan-->
   <string name="scan_qr_account_message">Сканировать QR код аккаунта, который хотите добавить</string>
   <string name="title_activity_qrcode">Поделиться своей контактной информацией</string>
@@ -236,8 +226,5 @@
   <string name="navigation_item_conversation">Разговоры</string>
   <string name="navigation_item_contact_request">Запросы в контакты</string>
   <string name="navigation_item_account">Учётная запись</string>
-  <!--TV-->
-  <string name="tv_audio_play">Воспроизвести</string>
-  <string name="tv_audio_pause">Пауза</string>
-  <string name="tv_dialog_send">Отправть</string>
+
 </resources>

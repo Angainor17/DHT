@@ -80,9 +80,9 @@ public class Conversation extends ConversationHistory {
         return clearedSubject;
     }
 
-    public Observable<List<Conference>> getCalls() {
-        return callsSubject;
-    }
+//    public Observable<List<Conference>> getCalls() {
+//        return callsSubject;
+//    }
 
     public Observable<Account.ComposingStatus> getComposingStatus() {
         return composingStatusSubject;

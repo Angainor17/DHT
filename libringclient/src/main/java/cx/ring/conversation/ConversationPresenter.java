@@ -14,7 +14,6 @@ import cx.ring.model.Conversation;
 import cx.ring.model.DataTransfer;
 import cx.ring.model.Error;
 import cx.ring.model.Interaction;
-import cx.ring.model.SipCall;
 import cx.ring.model.TrustRequest;
 import cx.ring.model.Uri;
 import cx.ring.mvp.RootPresenter;
@@ -134,7 +133,7 @@ public class ConversationPresenter extends RootPresenter<ConversationView> {
                 .firstOrError()
                 .subscribe(conversation -> {
                     conversation.setVisible(true);
-                    updateOngoingCallView(conversation);
+//                    updateOngoingCallView(conversation);
                     mConversationFacade.readMessages(mAccountService.getAccount(mAccountId), conversation);
                 }, e -> Log.e(TAG, "Error loading conversation", e)));
     }
@@ -171,7 +170,6 @@ public class ConversationPresenter extends RootPresenter<ConversationView> {
             mCompositeDisposable.add(mConversationDisposable);
         }
         mConversationDisposable.clear();
-        view.hideNumberSpinner();
 
         Account account = mAccountService.getAccount(mAccountId);
 
@@ -205,9 +203,9 @@ public class ConversationPresenter extends RootPresenter<ConversationView> {
         mConversationDisposable.add(c.getLastDisplayed()
                 .observeOn(mUiScheduler)
                 .subscribe(view::setLastDisplayed));
-        mConversationDisposable.add(c.getCalls()
-                .observeOn(mUiScheduler)
-                .subscribe(calls -> updateOngoingCallView(mConversation), e -> Log.e(TAG, "Can't update call view", e)));
+//        mConversationDisposable.add(c.getCalls()
+//                .observeOn(mUiScheduler)
+//                .subscribe(calls -> updateOngoingCallView(mConversation), e -> Log.e(TAG, "Can't update call view", e)));
         mConversationDisposable.add(c.getColor()
                 .observeOn(mUiScheduler)
                 .subscribe(view::setConversationColor, e -> Log.e(TAG, "Can't update conversation color", e)));
@@ -297,21 +295,21 @@ public class ConversationPresenter extends RootPresenter<ConversationView> {
                 });
     }
 
-    public void clickOnGoingPane() {
-        Conference conf = mConversation.getCurrentCall();
-        if (conf == null) {
-            getView().displayOnGoingCallPane(false);
-        }
-    }
-
-    private void updateOngoingCallView(Conversation conversation) {
-        Conference conf = conversation == null ? null : conversation.getCurrentCall();
-        if (conf != null && (conf.getState() == SipCall.CallStatus.CURRENT || conf.getState() == SipCall.CallStatus.HOLD || conf.getState() == SipCall.CallStatus.RINGING)) {
-            getView().displayOnGoingCallPane(true);
-        } else {
-            getView().displayOnGoingCallPane(false);
-        }
-    }
+//    public void clickOnGoingPane() {
+//        Conference conf = mConversation.getCurrentCall();
+//        if (conf == null) {
+//            getView().displayOnGoingCallPane(false);
+//        }
+//    }
+//
+//    private void updateOngoingCallView(Conversation conversation) {
+//        Conference conf = conversation == null ? null : conversation.getCurrentCall();
+//        if (conf != null && (conf.getState() == SipCall.CallStatus.CURRENT || conf.getState() == SipCall.CallStatus.HOLD || conf.getState() == SipCall.CallStatus.RINGING)) {
+//            getView().displayOnGoingCallPane(true);
+//        } else {
+//            getView().displayOnGoingCallPane(false);
+//        }
+//    }
 
     public void onRefuseIncomingContactRequest() {
         String accountId = mAccountId == null ? mAccountService.getCurrentAccount().getAccountID() : mAccountId;

@@ -49,11 +49,6 @@ public class ConversationViewHolder extends RecyclerView.ViewHolder {
         if (type == ConversationAdapter.MessageType.CONTACT_EVENT) {
             mMsgTxt = v.findViewById(R.id.contact_event_txt);
             mMsgDetailTxt = v.findViewById(R.id.contact_event_details_txt);
-        } else if (type == ConversationAdapter.MessageType.CALL_INFORMATION) {
-            mHistTxt = v.findViewById(R.id.call_hist_txt);
-            mHistDetailTxt = v.findViewById(R.id.call_details_txt);
-            mIcon = v.findViewById(R.id.call_icon);
-            mCallInfoLayout = v.findViewById(R.id.callInfoLayout);
         } else {
             switch (type) {
                 // common layout elements

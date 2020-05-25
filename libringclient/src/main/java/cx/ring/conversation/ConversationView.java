@@ -5,11 +5,9 @@ import java.util.List;
 
 import cx.ring.model.Account;
 import cx.ring.model.CallContact;
-import cx.ring.model.Conversation;
 import cx.ring.model.DataTransfer;
 import cx.ring.model.Error;
 import cx.ring.model.Interaction;
-import cx.ring.model.Uri;
 import cx.ring.mvp.BaseView;
 
 public interface ConversationView extends BaseView {
@@ -20,19 +18,11 @@ public interface ConversationView extends BaseView {
 
     void displayContact(CallContact contact);
 
-    void displayOnGoingCallPane(boolean display);
-
-    void displayNumberSpinner(Conversation conversation, Uri number);
-
     void displayErrorToast(Error error);
-
-    void hideNumberSpinner();
 
     void clearMsgEdit();
 
     void goToHome();
-
-    void goToAddContact(CallContact callContact);
 
     void goToContactActivity(String accountId, String contactRingId);
 

@@ -61,7 +61,6 @@ import cx.ring.model.DataTransfer;
 import cx.ring.model.Interaction;
 import cx.ring.model.Interaction.InteractionStatus;
 import cx.ring.model.Interaction.InteractionType;
-import cx.ring.model.SipCall;
 import cx.ring.model.TextMessage;
 import cx.ring.service.DRingService;
 import cx.ring.utils.AndroidFileUtils;
@@ -210,8 +209,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
             switch (interaction.getType()) {
                 case CONTACT:
                     return MessageType.CONTACT_EVENT.ordinal();
-                case CALL:
-                    return MessageType.CALL_INFORMATION.ordinal();
                 case TEXT:
                     if (interaction.isIncoming()) {
                         return MessageType.INCOMING_TEXT_MESSAGE.ordinal();
@@ -229,7 +226,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
                     return out;
             }
         }
-        return MessageType.CALL_INFORMATION.ordinal();
+        return 0;//FIXME
     }
 
     @NonNull
@@ -888,11 +885,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
      */
     private void configureForCallInfo(@NonNull final ConversationViewHolder convViewHolder,
                                       @NonNull final Interaction interaction) {
-        int pictureResID;
-        String historyTxt;
-        convViewHolder.mIcon.setScaleY(1);
-        Context context = convViewHolder.itemView.getContext();
 
+        convViewHolder.mIcon.setScaleY(1);
 
         View longPressView = convViewHolder.mCallInfoLayout;
         longPressView.getBackground().setTintList(null);
@@ -908,42 +902,12 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
             menu.removeItem(R.id.conv_action_copy_text);
         });
 
-
         longPressView.setOnLongClickListener((View v) -> {
             longPressView.getBackground().setTint(conversationFragment.getResources().getColor(R.color.grey_500));
             conversationFragment.updatePosition(convViewHolder.getAdapterPosition());
             mCurrentLongItem = new RecyclerViewContextMenuInfo(convViewHolder.getAdapterPosition(), v.getId());
             return false;
         });
-
-
-        SipCall call = (SipCall) interaction;
-
-        if (call.isMissed()) {
-            if (call.isIncoming()) {
-                pictureResID = R.drawable.baseline_call_missed_24;
-            } else {
-                pictureResID = R.drawable.baseline_call_missed_outgoing_24;
-                // Flip the photo upside down to show a "missed outgoing call"
-                convViewHolder.mIcon.setScaleY(-1);
-            }
-            historyTxt = call.isIncoming() ?
-                    context.getString(R.string.notif_missed_incoming_call) :
-                    context.getString(R.string.notif_missed_outgoing_call);
-        } else {
-            pictureResID = (call.isIncoming()) ?
-                    R.drawable.baseline_call_received_24 :
-                    R.drawable.baseline_call_made_24;
-            historyTxt = call.isIncoming() ?
-                    context.getString(R.string.notif_incoming_call) :
-                    context.getString(R.string.notif_outgoing_call);
-        }
-
-        convViewHolder.mCid = call.getConversation().getParticipant();
-        convViewHolder.mIcon.setImageResource(pictureResID);
-        convViewHolder.mHistTxt.setText(historyTxt);
-        convViewHolder.mHistDetailTxt.setText(DateFormat.getDateTimeInstance()
-                .format(call.getTimestamp())); // start date
     }
 
     /**
@@ -1136,7 +1100,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
         OUTGOING_FILE(R.layout.item_conv_file_me),
         OUTGOING_IMAGE(R.layout.item_conv_image_me),
         CONTACT_EVENT(R.layout.item_conv_contact),
-        CALL_INFORMATION(R.layout.item_conv_call),
         INCOMING_TEXT_MESSAGE(R.layout.item_conv_msg_peer),
         OUTGOING_TEXT_MESSAGE(R.layout.item_conv_msg_me),
         COMPOSING_INDICATION(R.layout.item_conv_composing);

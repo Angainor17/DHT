@@ -56,7 +56,6 @@ public class DaemonService {
     }
 
     public interface SystemInfoCallbacks {
-        void getHardwareAudioFormat(IntVect ret);
 
         void getAppDataPath(String name, StringVect ret);
 
@@ -150,7 +149,7 @@ public class DaemonService {
 
         @Override
         public void getHardwareAudioFormat(IntVect ret) {
-            mSystemInfoCallbacks.getHardwareAudioFormat(ret);
+
         }
 
         @Override

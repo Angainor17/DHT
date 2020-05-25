@@ -1,23 +1,15 @@
 package cx.ring.utils;
 
 import android.content.ActivityNotFoundException;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.ContactsContract;
 
-import androidx.appcompat.app.AlertDialog;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import java.util.ArrayList;
-
 import cx.ring.R;
-import cx.ring.adapters.NumberAdapter;
 import cx.ring.model.CallContact;
 import cx.ring.model.Conversation;
-import cx.ring.model.Phone;
-import cx.ring.model.Uri;
 
 public class ActionHelper {
 
@@ -105,45 +97,7 @@ public class ActionHelper {
         if (callContact.getPhones().size() == 1 && callback != null) {
             String number = callContact.getPhones().get(0).getNumber().toString();
             callback.copyContactNumberToClipboard(number);
-        } else {
-            final NumberAdapter adapter = new NumberAdapter(context, callContact, true);
-            AlertDialog alertDialog = new MaterialAlertDialogBuilder(context)
-                    .setTitle(R.string.conversation_action_select_peer_number)
-                    .setAdapter(adapter, (dialog, which) -> {
-                        if (callback != null) {
-                            Phone selectedPhone = (Phone) adapter.getItem(which);
-                            callback.copyContactNumberToClipboard(selectedPhone.getNumber().toString());
-                        }
-                    })
-                    .create();
-            final int listViewSidePadding = (int) context
-                    .getResources()
-                    .getDimension(R.dimen.alert_dialog_side_padding_list_view);
-            alertDialog.getListView().setPadding(listViewSidePadding, 0, listViewSidePadding, 0);
-            alertDialog.show();
         }
-    }
-
-    public static Intent getAddNumberIntentForContact(CallContact contact) {
-        final Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
-        intent.setType(ContactsContract.Contacts.CONTENT_ITEM_TYPE);
-
-        ArrayList<ContentValues> data = new ArrayList<>();
-        ContentValues values = new ContentValues();
-
-        Uri number = contact.getPhones().get(0).getNumber();
-        if (number.isRingId()) {
-            values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE);
-            values.put(ContactsContract.CommonDataKinds.Im.DATA, number.getRawUriString());
-            values.put(ContactsContract.CommonDataKinds.Im.PROTOCOL, ContactsContract.CommonDataKinds.Im.PROTOCOL_CUSTOM);
-            values.put(ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL, "Ring");
-        } else {
-            values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.SipAddress.CONTENT_ITEM_TYPE);
-            values.put(ContactsContract.CommonDataKinds.SipAddress.SIP_ADDRESS, number.getRawUriString());
-        }
-        data.add(values);
-        intent.putParcelableArrayListExtra(ContactsContract.Intents.Insert.DATA, data);
-        return intent;
     }
 
     public static void displayContact(Context context, CallContact contact) {

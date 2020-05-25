@@ -18,9 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import cx.ring.application.JamiApplication;
-import cx.ring.daemon.IntVect;
 import cx.ring.daemon.StringVect;
-import cx.ring.service.OpenSlParams;
 import cx.ring.utils.AndroidFileUtils;
 import cx.ring.utils.Log;
 import cx.ring.utils.NetworkUtils;
@@ -163,14 +161,6 @@ public class DeviceRuntimeServiceImpl extends DeviceRuntimeService {
     }
 
     @Override
-    public void getHardwareAudioFormat(IntVect ret) {
-        OpenSlParams audioParams = OpenSlParams.createInstance(mContext);
-        ret.add(audioParams.getSampleRate());
-        ret.add(audioParams.getBufferSize());
-        Log.d(TAG, "getHardwareAudioFormat: " + audioParams.getSampleRate() + " " + audioParams.getBufferSize());
-    }
-
-    @Override
     public void getAppDataPath(String name, StringVect ret) {
         if (name == null || ret == null) {
             return;
@@ -199,5 +189,4 @@ public class DeviceRuntimeServiceImpl extends DeviceRuntimeService {
             ret.add(StringUtils.capitalize(manufacturer) + " " + model);
         }
     }
-
 }

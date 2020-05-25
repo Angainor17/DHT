@@ -55,10 +55,8 @@ import cx.ring.model.Conversation;
 import cx.ring.model.DataTransfer;
 import cx.ring.model.Interaction;
 import cx.ring.model.Interaction.InteractionStatus;
-import cx.ring.model.SipCall;
 import cx.ring.model.TextMessage;
 import cx.ring.model.Uri;
-import cx.ring.service.CallNotificationService;
 import cx.ring.service.DRingService;
 import cx.ring.utils.ConversationPath;
 import cx.ring.utils.ResourceMapper;
@@ -203,94 +201,6 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public Object showCallNotification(int callId) {
-        Conference mConference = currentCalls.get(callId);
-        if (mConference == null || mConference.getParticipants().isEmpty()) {
-            return null;
-        }
-
-        SipCall call = mConference.getParticipants().get(0);
-
-        notificationManager.cancel(NOTIF_CALL_ID);
-
-        PendingIntent gotoIntent = PendingIntent.getService(mContext,
-                random.nextInt(),
-                new Intent(DRingService.ACTION_CALL_VIEW)
-                        .setClass(mContext, DRingService.class)
-                        .putExtra(KEY_CALL_ID, call.getDaemonIdString()), 0);
-
-        CallContact contact = call.getContact();
-        NotificationCompat.Builder messageNotificationBuilder;
-        if (mConference.isOnGoing()) {
-            messageNotificationBuilder = new NotificationCompat.Builder(mContext, NOTIF_CHANNEL_CALL_IN_PROGRESS);
-            messageNotificationBuilder.setContentTitle(mContext.getString(R.string.notif_current_call_title, contact.getDisplayName()))
-                    .setContentText(mContext.getText(R.string.notif_current_call))
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setContentIntent(gotoIntent)
-                    .setSound(null)
-                    .setVibrate(null)
-                    .setColorized(true)
-                    .setColor(mContext.getResources().getColor(R.color.color_primary_light))
-                    .addAction(R.drawable.baseline_call_end_24, mContext.getText(R.string.action_call_hangup),
-                            PendingIntent.getService(mContext, random.nextInt(),
-                                    new Intent(DRingService.ACTION_CALL_END)
-                                            .setClass(mContext, DRingService.class)
-                                            .putExtra(KEY_CALL_ID, call.getDaemonIdString()),
-                                    PendingIntent.FLAG_ONE_SHOT));
-        } else if (mConference.isRinging()) {
-            if (mConference.isIncoming()) {
-                messageNotificationBuilder = new NotificationCompat.Builder(mContext, NOTIF_CHANNEL_INCOMING_CALL);
-                messageNotificationBuilder.setContentTitle(mContext.getString(R.string.notif_incoming_call_title, contact.getDisplayName()))
-                        .setPriority(NotificationCompat.PRIORITY_MAX)
-                        .setContentText(mContext.getText(R.string.notif_incoming_call))
-                        .setContentIntent(gotoIntent)
-                        .setSound(null)
-                        .setVibrate(null)
-                        .setFullScreenIntent(gotoIntent, true)
-                        .addAction(R.drawable.baseline_call_end_24, mContext.getText(R.string.action_call_decline),
-                                PendingIntent.getService(mContext, random.nextInt(),
-                                        new Intent(DRingService.ACTION_CALL_REFUSE)
-                                                .setClass(mContext, DRingService.class)
-                                                .putExtra(KEY_CALL_ID, call.getDaemonIdString()),
-                                        PendingIntent.FLAG_ONE_SHOT))
-                        .addAction(R.drawable.baseline_call_24, mContext.getText(R.string.action_call_accept),
-                                PendingIntent.getService(mContext, random.nextInt(),
-                                        new Intent(DRingService.ACTION_CALL_ACCEPT)
-                                                .setClass(mContext, DRingService.class)
-                                                .putExtra(KEY_CALL_ID, call.getDaemonIdString()),
-                                        PendingIntent.FLAG_ONE_SHOT));
-            } else {
-                messageNotificationBuilder = new NotificationCompat.Builder(mContext, NOTIF_CHANNEL_CALL_IN_PROGRESS);
-                messageNotificationBuilder.setContentTitle(mContext.getString(R.string.notif_outgoing_call_title, contact.getDisplayName()))
-                        .setContentText(mContext.getText(R.string.notif_outgoing_call))
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setContentIntent(gotoIntent)
-                        .setSound(null)
-                        .setVibrate(null)
-                        .setColorized(true)
-                        .setColor(mContext.getResources().getColor(R.color.color_primary_light))
-                        .addAction(R.drawable.baseline_call_end_24, mContext.getText(R.string.action_call_hangup),
-                                PendingIntent.getService(mContext, random.nextInt(),
-                                        new Intent(DRingService.ACTION_CALL_END)
-                                                .setClass(mContext, DRingService.class)
-                                                .putExtra(KEY_CALL_ID, call.getDaemonIdString()),
-                                        PendingIntent.FLAG_ONE_SHOT));
-            }
-        } else {
-            handleCallNotification(mConference, true);
-            return null;
-        }
-
-        messageNotificationBuilder.setOngoing(true)
-                .setCategory(NotificationCompat.CATEGORY_CALL)
-                .setSmallIcon(R.drawable.ic_ring_logo_white);
-
-        setContactPicture(contact, messageNotificationBuilder);
-
-        return messageNotificationBuilder.build();
-    }
-
-    @Override
     public void showLocationNotification(Account first, CallContact contact) {
         android.net.Uri path = ConversationPath.toUri(first.getAccountID(), contact.getPrimaryUri());
 
@@ -336,30 +246,6 @@ public class NotificationServiceImpl implements NotificationService {
     private void startForegroundService(int id, Class serviceClass) {
         ContextCompat.startForegroundService(mContext, new Intent(mContext, serviceClass)
                 .putExtra(KEY_NOTIFICATION_ID, id));
-    }
-
-    /**
-     * Handles the creation and destruction of services associated with calls as well as displaying notifications.
-     *
-     * @param conference the conference object for the notification
-     * @param remove     true if it should be removed from current calls
-     */
-    @Override
-    public void handleCallNotification(Conference conference, boolean remove) {
-        int id = conference.getId().hashCode();
-        currentCalls.remove(id);
-        if (!remove) {
-            currentCalls.put(id, conference);
-            startForegroundService(id, CallNotificationService.class);
-        } else if (currentCalls.isEmpty()) {
-            mContext.stopService(new Intent(mContext, CallNotificationService.class));
-        } else {
-            // this is a temporary solution until we have direct support for concurrent calls and the call state will exclusively update notifications
-            int key = -1;
-            for (Integer integer : currentCalls.keySet())
-                key = integer;
-            updateNotification(showCallNotification(key), NOTIF_CALL_ID);
-        }
     }
 
     @Override
@@ -605,14 +491,7 @@ public class NotificationServiceImpl implements NotificationService {
                                         new Intent(DRingService.ACTION_TRUST_REQUEST_REFUSE)
                                                 .setClass(mContext, DRingService.class)
                                                 .putExtras(info),
-                                        PendingIntent.FLAG_ONE_SHOT))
-                        .addAction(R.drawable.baseline_block_24, mContext.getText(R.string.block),
-                                PendingIntent.getService(mContext, random.nextInt(),
-                                        new Intent(DRingService.ACTION_TRUST_REQUEST_BLOCK)
-                                                .setClass(mContext, DRingService.class)
-                                                .putExtras(info),
                                         PendingIntent.FLAG_ONE_SHOT));
-
                 setContactPicture(c, builder);
                 notificationManager.notify(notificationId, builder.build());
             }, e -> Log.w(TAG, "error showing notification", e));
@@ -635,6 +514,7 @@ public class NotificationServiceImpl implements NotificationService {
         }
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void showFileTransferNotification(DataTransfer info, CallContact contact) {
         if (info == null) {
@@ -725,63 +605,7 @@ public class NotificationServiceImpl implements NotificationService {
             messageNotificationBuilder.setDefaults(NotificationCompat.DEFAULT_LIGHTS);
         }
         messageNotificationBuilder.mActions.clear();
-        if (event == Interaction.InteractionStatus.TRANSFER_AWAITING_HOST) {
-            messageNotificationBuilder
-                    .addAction(R.drawable.baseline_call_received_24, mContext.getText(R.string.accept),
-                            PendingIntent.getService(mContext, random.nextInt(),
-                                    new Intent(DRingService.ACTION_FILE_ACCEPT)
-                                            .setClass(mContext, DRingService.class)
-                                            .putExtra(DRingService.KEY_TRANSFER_ID, dataTransferId),
-                                    PendingIntent.FLAG_ONE_SHOT))
-                    .addAction(R.drawable.baseline_cancel_24, mContext.getText(R.string.refuse),
-                            PendingIntent.getService(mContext, random.nextInt(),
-                                    new Intent(DRingService.ACTION_FILE_CANCEL)
-                                            .setClass(mContext, DRingService.class)
-                                            .putExtra(DRingService.KEY_TRANSFER_ID, dataTransferId),
-                                    PendingIntent.FLAG_ONE_SHOT));
-            mNotificationBuilders.put(notificationId, messageNotificationBuilder);
-            updateNotification(messageNotificationBuilder.build(), notificationId);
-            return;
-        } else if (!event.isOver()) {
-            messageNotificationBuilder
-                    .addAction(R.drawable.baseline_cancel_24, mContext.getText(android.R.string.cancel),
-                            PendingIntent.getService(mContext, random.nextInt(),
-                                    new Intent(DRingService.ACTION_FILE_CANCEL)
-                                            .setClass(mContext, DRingService.class)
-                                            .putExtra(DRingService.KEY_TRANSFER_ID, dataTransferId),
-                                    PendingIntent.FLAG_ONE_SHOT));
-        }
-        mNotificationBuilders.put(notificationId, messageNotificationBuilder);
-        dataTransferNotifications.remove(notificationId);
-        dataTransferNotifications.put(notificationId, messageNotificationBuilder.build());
-        startForegroundService(notificationId, DataTransferService.class);
-    }
 
-    @Override
-    public void showMissedCallNotification(SipCall call) {
-        final int notificationId = call.getDaemonIdString().hashCode();
-        NotificationCompat.Builder messageNotificationBuilder = mNotificationBuilders.get(notificationId);
-        if (messageNotificationBuilder == null) {
-            messageNotificationBuilder = new NotificationCompat.Builder(mContext, NOTIF_CHANNEL_MISSED_CALL);
-        }
-
-        android.net.Uri path = ConversationPath.toUri(call);
-
-        Intent intentConversation = new Intent(DRingService.ACTION_CONV_ACCEPT, path, mContext, DRingService.class);
-
-        messageNotificationBuilder.setContentTitle(mContext.getText(R.string.notif_missed_incoming_call))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setSmallIcon(R.drawable.baseline_call_missed_24)
-                .setCategory(NotificationCompat.CATEGORY_CALL)
-                .setOnlyAlertOnce(true)
-                .setAutoCancel(true)
-                .setContentText(call.getContact().getDisplayName())
-                .setContentIntent(PendingIntent.getService(mContext, random.nextInt(), intentConversation, 0))
-                .setColor(ResourcesCompat.getColor(mContext.getResources(), R.color.color_primary_dark, null));
-
-        setContactPicture(call.getContact(), messageNotificationBuilder);
-        notificationManager.notify(notificationId, messageNotificationBuilder.build());
     }
 
     @Override
@@ -828,12 +652,6 @@ public class NotificationServiceImpl implements NotificationService {
         notificationManager.cancel(notificationId);
     }
 
-    @Override
-    public void cancelCallNotification() {
-        notificationManager.cancel(NOTIF_CALL_ID);
-        mNotificationBuilders.remove(NOTIF_CALL_ID);
-    }
-
     /**
      * \
      * Cancels a notification
@@ -846,12 +664,6 @@ public class NotificationServiceImpl implements NotificationService {
         notificationManager.cancel(notificationId);
         if (!isMigratingToService)
             mNotificationBuilders.remove(notificationId);
-    }
-
-    @Override
-    public void cancelAll() {
-        notificationManager.cancelAll();
-        mNotificationBuilders.clear();
     }
 
     private int getIncomingTrustNotificationId(String accountId) {

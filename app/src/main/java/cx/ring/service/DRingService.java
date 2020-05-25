@@ -114,36 +114,6 @@ public class DRingService extends Service {
 
     protected final IDRingService.Stub mBinder = new IDRingService.Stub() {
 
-        @Override
-        public String placeCall(final String account, final String number, final boolean video) {
-            return mConversationFacade.placeCall(account, number, video).blockingGet().getDaemonIdString();
-        }
-
-        @Override
-        public void refuse(final String callID) {
-            mCallService.refuse(callID);
-        }
-
-        @Override
-        public void accept(final String callID) {
-            mCallService.accept(callID);
-        }
-
-        @Override
-        public void hangUp(final String callID) {
-            mCallService.hangUp(callID);
-        }
-
-        @Override
-        public void hold(final String callID) {
-            mCallService.hold(callID);
-        }
-
-        @Override
-        public void unhold(final String callID) {
-            mCallService.unhold(callID);
-        }
-
         public void sendProfile(final String callId, final String accountId) {
             mAccountService.sendProfile(callId, accountId);
         }
@@ -151,11 +121,6 @@ public class DRingService extends Service {
         @Override
         public boolean isStarted() throws RemoteException {
             return mDaemonService.isStarted();
-        }
-
-        @Override
-        public Map<String, String> getCallDetails(final String callID) throws RemoteException {
-            return mCallService.getCallDetails(callID);
         }
 
         @Override
@@ -321,31 +286,6 @@ public class DRingService extends Service {
         }
 
         @Override
-        public String getRecordPath() throws RemoteException {
-            return mCallService.getRecordPath();
-        }
-
-        @Override
-        public void setRecordPath(final String path) throws RemoteException {
-            mCallService.setRecordPath(path);
-        }
-
-        @Override
-        public boolean toggleRecordingCall(final String id) throws RemoteException {
-            return mCallService.toggleRecordingCall(id);
-        }
-
-        @Override
-        public boolean startRecordedFilePlayback(final String filepath) throws RemoteException {
-            return mCallService.startRecordedFilePlayback(filepath);
-        }
-
-        @Override
-        public void stopRecordedFilePlayback(final String filepath) throws RemoteException {
-            mCallService.stopRecordedFilePlayback();
-        }
-
-        @Override
         public void sendTextMessage(final String callID, final String msg) throws RemoteException {
             mCallService.sendTextMessage(callID, msg);
         }
@@ -423,41 +363,6 @@ public class DRingService extends Service {
         @Override
         public void registerAllAccounts() throws RemoteException {
             mAccountService.registerAllAccounts();
-        }
-
-        @Override
-        @Deprecated
-        public void videoSurfaceAdded(String id) {
-
-        }
-
-        @Override
-        @Deprecated
-        public void videoSurfaceRemoved(String id) {
-
-        }
-
-        @Override
-        @Deprecated
-        public void videoPreviewSurfaceAdded() {
-
-        }
-
-        @Override
-        @Deprecated
-        public void videoPreviewSurfaceRemoved() {
-
-        }
-
-        @Override
-        @Deprecated
-        public void switchInput(final String id, final boolean front) {
-        }
-
-        @Override
-        @Deprecated
-        public void setPreviewSettings() {
-
         }
 
         @Override

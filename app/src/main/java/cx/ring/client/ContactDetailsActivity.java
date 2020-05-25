@@ -65,7 +65,7 @@ public class ContactDetailsActivity extends AppCompatActivity {
         void onAction();
     }
 
-    class ContactAction {
+    static class ContactAction {
         final int icon;
         int iconTint;
         CharSequence title;
@@ -94,7 +94,7 @@ public class ContactDetailsActivity extends AppCompatActivity {
         }
     }
 
-    class ContactActionView extends RecyclerView.ViewHolder {
+    static class ContactActionView extends RecyclerView.ViewHolder {
         final ItemContactActionBinding binding;
         IContactAction callback;
 

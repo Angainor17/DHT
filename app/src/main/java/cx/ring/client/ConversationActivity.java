@@ -5,7 +5,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
@@ -26,7 +25,6 @@ import cx.ring.databinding.ActivityConversationBinding;
 import cx.ring.fragments.ConversationFragment;
 import cx.ring.interfaces.Colorable;
 import cx.ring.utils.ConversationPath;
-import cx.ring.utils.MediaButtonsHelper;
 
 public class ConversationActivity extends AppCompatActivity implements Colorable {
 
@@ -118,12 +116,6 @@ public class ConversationActivity extends AppCompatActivity implements Colorable
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return MediaButtonsHelper.handleMediaKeyCode(keyCode, mConversationFragment)
-                || super.onKeyDown(keyCode, event);
-    }
-
     public void setColor(@ColorInt int color) {
         colouriseToolbar(binding.mainToolbar, color);
         //mToolbar.setBackground(new ColorDrawable(color));
@@ -163,5 +155,4 @@ public class ConversationActivity extends AppCompatActivity implements Colorable
             toolbar.setOverflowIcon(overflowIcon);
         }
     }
-
 }
