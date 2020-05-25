@@ -235,13 +235,6 @@ public class CallService {
         Ringservice.muteRingtone(mute);
     }
 
-    public void restartAudioLayer() {
-        mExecutor.execute(() -> {
-            Log.i(TAG, "restartAudioLayer() running...");
-            Ringservice.setAudioPlugin(Ringservice.getCurrentAudioOutputPlugin());
-        });
-    }
-
     public void setAudioPlugin(final String audioPlugin) {
         mExecutor.execute(() -> {
             Log.i(TAG, "setAudioPlugin() running...");
@@ -259,13 +252,6 @@ public class CallService {
             Log.e(TAG, "Error running getCallDetails()", e);
         }
         return null;
-    }
-
-    public void playDtmf(final String key) {
-        mExecutor.execute(() -> {
-            Log.i(TAG, "playDTMF() running...");
-            Ringservice.playDTMF(key);
-        });
     }
 
     public void setMuted(final boolean mute) {
@@ -301,33 +287,6 @@ public class CallService {
         });
     }
 
-    public String getRecordPath() {
-        try {
-            return mExecutor.submit(Ringservice::getRecordPath).get();
-        } catch (Exception e) {
-            Log.e(TAG, "Error running isCaptureMuted()", e);
-        }
-        return null;
-    }
-
-    public boolean toggleRecordingCall(final String id) {
-        mExecutor.execute(() -> Ringservice.toggleRecording(id));
-        return false;
-    }
-
-    public boolean startRecordedFilePlayback(final String filepath) {
-        mExecutor.execute(() -> Ringservice.startRecordedFilePlayback(filepath));
-        return false;
-    }
-
-    public void stopRecordedFilePlayback() {
-        mExecutor.execute(Ringservice::stopRecordedFilePlayback);
-    }
-
-    public void setRecordPath(final String path) {
-        mExecutor.execute(() -> Ringservice.setRecordPath(path));
-    }
-
     public void sendTextMessage(final String callId, final String msg) {
         mExecutor.execute(() -> {
             Log.i(TAG, "sendTextMessage() thread running...");
@@ -357,20 +316,6 @@ public class CallService {
 
     private SipCall getCurrentCallForId(String callId) {
         return currentCalls.get(callId);
-    }
-
-    public SipCall getCurrentCallForContactId(String contactId) {
-        for (SipCall call : currentCalls.values()) {
-            if (contactId.contains(call.getContact().getPhones().get(0).getNumber().toString())) {
-                return call;
-            }
-        }
-        return null;
-    }
-
-    public void removeCallForId(String callId) {
-        currentCalls.remove(callId);
-        currentConferences.remove(callId);
     }
 
     private SipCall addCall(String accountId, String callId, String from, SipCall.Direction direction) {
@@ -610,10 +555,6 @@ public class CallService {
             Log.e(TAG, "Error running getParticipantList()", e);
         }
         return null;
-    }
-
-    public Conference getConference(final String id) {
-        return currentConferences.get(id);
     }
 
     public Map<String, String> getConferenceDetails(final String id) {
