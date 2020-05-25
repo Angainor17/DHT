@@ -1,2 +1,0 @@
-* Fix crash on Android 4.4 (KitKat)
-* Fix push notifications/dht proxy issues

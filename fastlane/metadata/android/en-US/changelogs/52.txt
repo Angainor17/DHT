@@ -1,4 +1,0 @@
-- Improve UI in call connection screen
-- Improve notifications management
-- Update translations
-- Improve stability

@@ -1,2 +1,0 @@
-* Only show relevant contacts
-* Bug fixes

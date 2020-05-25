@@ -1,2 +1,0 @@
-- fix back button behavior in call screen
-- fix multiple notifications in case of an incoming text message

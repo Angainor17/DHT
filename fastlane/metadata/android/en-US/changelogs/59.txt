@@ -1,3 +1,0 @@
-- bug fix
-- multiple enhancements for landscape tablet mode
-- display username instead of ringID whenever it is relevant
