@@ -883,10 +883,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
         }
     }
 
-    public void blockContactRequest() {
-        presenter.onBlockIncomingContactRequest();
-    }
-
     public void refuseContactRequest() {
         presenter.onRefuseIncomingContactRequest();
     }
@@ -897,16 +893,6 @@ public class ConversationFragment extends BaseSupportFragment<ConversationPresen
 
     public void addContact() {
         presenter.onAddContact();
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        boolean visible = binding.cvMessageInput.getVisibility() == View.VISIBLE;
-//        if (mAudioCallBtn != null)
-//            mAudioCallBtn.setVisible(visible);
-//        if (mVideoCallBtn != null)
-//            mVideoCallBtn.setVisible(visible);
     }
 
     @Override

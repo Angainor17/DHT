@@ -333,14 +333,6 @@ public class ConversationPresenter extends RootPresenter<ConversationView> {
         }
     }
 
-    public void onBlockIncomingContactRequest() {
-        String accountId = mAccountId == null ? mAccountService.getCurrentAccount().getAccountID() : mAccountId;
-        mConversationFacade.discardRequest(accountId, mContactUri);
-        mAccountService.removeContact(accountId, mContactUri.getHost(), true);
-
-        getView().goToHome();
-    }
-
     public void onRefuseIncomingContactRequest() {
         String accountId = mAccountId == null ? mAccountService.getCurrentAccount().getAccountID() : mAccountId;
 

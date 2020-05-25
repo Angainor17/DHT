@@ -51,7 +51,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -282,14 +281,18 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
             conversationViewHolder.itemView.startAnimation(animation);
         }
 
-        if (interaction.getType() == (InteractionType.TEXT)) {
-            configureForTextMessage(conversationViewHolder, interaction, position);
-        } else if (interaction.getType() == (InteractionType.CALL)) {
-            configureForCallInfo(conversationViewHolder, interaction);
-        } else if (interaction.getType() == (InteractionType.CONTACT)) {
-            configureForContactEvent(conversationViewHolder, interaction);
-        } else if (interaction.getType() == (InteractionType.DATA_TRANSFER)) {
-            configureForFileInfo(conversationViewHolder, interaction, position);
+        try {
+            if (interaction.getType() == (InteractionType.TEXT)) {
+                configureForTextMessage(conversationViewHolder, interaction, position);
+            } else if (interaction.getType() == (InteractionType.CALL)) {
+                configureForCallInfo(conversationViewHolder, interaction);
+            } else if (interaction.getType() == (InteractionType.CONTACT)) {
+                configureForContactEvent(conversationViewHolder, interaction);
+            } else if (interaction.getType() == (InteractionType.DATA_TRANSFER)) {
+                configureForFileInfo(conversationViewHolder, interaction, position);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
