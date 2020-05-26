@@ -3,7 +3,7 @@
 
   <!--RingActivity-->
   <string name="error_no_network">Отсутствует сетевое подключение</string>
-  <string name="error_mobile_network_available_but_disabled">Пожалуйста, разрешите доступ к мобильной сети в настройках</string>
+
   <!--AB menus-->
   <string name="ab_action_chat">Тестовое сообщение</string>
   <!--Sections-->
@@ -25,25 +25,13 @@
   <string name="choose_number">Выбор номера</string>
 
   <!--Notifications-->
-  <string name="notif_missed_incoming_call">Пропущенный входящий</string>
-  <string name="notif_missed_outgoing_call">Пропущенный исходящий</string>
-  <string name="notif_incoming_call_title">Входящий вызов от %1$s</string>
-  <string name="notif_incoming_call">Входящий вызов</string>
-  <string name="notif_outgoing_call_title">Исходящий вызов на %1$s</string>
-  <string name="notif_outgoing_call">Исходящий вызов</string>
-  <string name="notif_current_call_title">Текущий вызов с %1$s</string>
-  <string name="notif_current_call">Текущий вызов</string>
-  <string name="notif_channel_call_in_progress">Идёт вызов</string>
-  <string name="notif_channel_calls">Звонки</string>
-  <string name="notif_channel_missed_calls">Пропущенные звонки</string>
-  <string name="notif_channel_incoming_calls">Входящие звонки</string>
+
   <string name="notif_channel_messages">Сообщения</string>
   <string name="notif_channel_requests">Запросы</string>
   <string name="notif_channel_file_transfer">Передача файлов</string>
   <string name="notif_channel_sync">Синхронизация данных</string>
   <string name="notif_channel_background_service">Работа в фоновом режиме</string>
-  <string name="notif_channel_background_service_descr">Принимать звонки в любое время</string>
-  <string name="notif_group_calls">Звонки</string>
+
   <string name="notif_background_service">Jami в настоящее время работает в фоновом режиме</string>
   <string name="notif_mark_as_read">Пометить как прочитанное</string>
   <string name="notif_dismiss">Сбросить</string>
@@ -52,29 +40,14 @@
   <string name="notif_outgoing_file_transfer_title">Отправка файла %1$s</string>
   <string name="notif_incoming_picture">Изображение от %1$s</string>
   <string name="notif_sync_title">Синхронизация данных…</string>
-  <!--Call Fragment-->
-  <string name="you_txt_prefix">Вы</string>
-  <string name="action_call_hangup">Завершить</string>
-  <string name="ongoing_call">Текущий вызов</string>
-  <string name="hist_in_call">Входящий вызов от %1$s</string>
-  <string name="hist_out_call">Исходящий вызов от %1$s</string>
-  <string name="start_error_title">Не удаётся запустить Jami !</string>
-  <string name="start_error_mic_required">Для Jami необходимо разрешить доступ к микрофону.</string>
-  <string name="action_call_accept">Совершить звонок</string>
-  <string name="action_call_decline">Отказаться</string>
-  <string name="action_call_mic_mute">Отключить микрофон</string>
-  <string name="ab_action_speakerphone">Включить звук</string>
+  <string name="scan_qr">Сканировать QR-код</string>
+  <string name="write_a_message">Написать сообщение</string>
   <string name="ab_action_contact_add">Добавить контакт</string>
-  <string name="ab_action_contact_add_question">Добавить в контакты? </string>
+  <string name="you_txt_prefix">Вы</string>
   <string name="hist_contact_added">Контакт добавлен</string>
   <string name="hist_invitation_received">Получено приглашение</string>
-  <string name="ab_action_audio_call">Аудиовызов</string>
-  <string name="ab_action_video_call">Видеозвонок</string>
-  <string name="ab_action_change_screen_orientation">Изменить ориентацию экрана</string>
   <string name="share_via">Поделится</string>
-  <string name="write_a_message">Написать сообщение</string>
-  <string name="scan_qr">Сканировать QR-код</string>
-  <string name="ab_action_flipcamera">Перевернуть камеру</string>
+
   <!--Text messages-->
   <string name="send_message">Отправить сообщение</string>
   <string name="message_sending">Отправка сообщения…</string>
@@ -117,14 +90,12 @@
   <string name="conversation_action_copied_peer_number_clipboard">%1$s скопировано в буфер обмена</string>
   <string name="conversation_action_select_peer_number">Выберите номер</string>
   <string name="conversation_action_block_this">Заблокировать контакт</string>
-  <string name="conversation_action_go_to_call">Вернуться к текущему вызову</string>
   <string name="conversation_open_file_error">Нет приложение. которое способно открыть файл с таким типом. </string>
   <string name="clip_contact_uri">Контактный адрес</string>
   <string name="block_contact_dialog_title">Заблокировать %1$s?</string>
   <string name="block_contact_dialog_message">%1$sне сможет связаться с вами, пока вы его не разблокируете. </string>
   <string name="block_contact_completed">%1$sбыл заблокирован. </string>
   <!--Contacts-->
-  <string name="add_call_contact_number_to_contacts">Добавить %1$s?</string>
   <string name="prompt_new_password">Новый пароль</string>
   <string name="prompt_new_password_optional">Новый пароль (необязательно)</string>
   <string name="prompt_new_password_repeat">Повторите новый пароль</string>

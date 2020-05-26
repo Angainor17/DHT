@@ -239,7 +239,6 @@ public class Interaction {
     public enum InteractionType {
         INVALID,
         TEXT,
-        CALL,
         CONTACT,
         DATA_TRANSFER;
 

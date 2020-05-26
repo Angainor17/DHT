@@ -52,7 +52,7 @@ public class SipCall extends Interaction {
         mConversation = conversation;
         mIsIncoming = direction == Direction.INCOMING;
         mTimestamp = System.currentTimeMillis();
-        mType = InteractionType.CALL.toString();
+        mType = InteractionType.TEXT.toString();
         mContact = contact;
         mIsRead = 1;
     }
@@ -63,7 +63,7 @@ public class SipCall extends Interaction {
         mConversation = interaction.getConversation();
         mIsIncoming = mAuthor != null;
         mTimestamp = interaction.getTimestamp();
-        mType = InteractionType.CALL.toString();
+        mType = InteractionType.TEXT.toString();
         mStatus = interaction.getStatus().toString();
         mDaemonId = interaction.getDaemonId();
         mIsRead = interaction.isRead() ? 1 : 0;
@@ -81,7 +81,7 @@ public class SipCall extends Interaction {
         mAuthor = direction == Direction.INCOMING ? contactNumber : null;
         mContactNumber = contactNumber;
         mTimestamp = System.currentTimeMillis();
-        mType = InteractionType.CALL.toString();
+        mType = InteractionType.TEXT.toString();
         mIsRead = 1;
     }
 

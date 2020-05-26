@@ -261,8 +261,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationViewHo
         try {
             if (interaction.getType() == (InteractionType.TEXT)) {
                 configureForTextMessage(conversationViewHolder, interaction, position);
-            } else if (interaction.getType() == (InteractionType.CALL)) {
-                configureForCallInfo(conversationViewHolder, interaction);
             } else if (interaction.getType() == (InteractionType.CONTACT)) {
                 configureForContactEvent(conversationViewHolder, interaction);
             } else if (interaction.getType() == (InteractionType.DATA_TRANSFER)) {

@@ -1,7 +1,6 @@
 package cx.ring.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -131,15 +130,6 @@ public class Conversation extends ConversationHistory {
         return mContact;
     }
 
-    public void addCall(SipCall call) {
-        if (getCallHistory().contains(call)) {
-            return;
-        }
-        mDirty = true;
-        mAggregateHistory.add(call);
-        updatedElementSubject.onNext(new Tuple<>(call, ElementStatus.ADD));
-    }
-
     public void addTextMessage(TextMessage txt) {
         if (mVisible) {
             txt.read();
@@ -241,20 +231,6 @@ public class Conversation extends ConversationHistory {
         return mCurrentCalls.get(0);
     }
 
-    public ArrayList<Conference> getCurrentCalls() {
-        return mCurrentCalls;
-    }
-
-    public Collection<SipCall> getCallHistory() {
-        List<SipCall> result = new ArrayList<>();
-        for (Interaction interaction : mAggregateHistory) {
-            if (interaction.getType() == InteractionType.CALL) {
-                result.add((SipCall) interaction);
-            }
-        }
-        return result;
-    }
-
     public TreeMap<Long, TextMessage> getUnreadTextMessages() {
         TreeMap<Long, TextMessage> texts = new TreeMap<>();
         for (Map.Entry<Long, Interaction> entry : mHistory.descendingMap().entrySet()) {
@@ -317,8 +293,6 @@ public class Conversation extends ConversationHistory {
         switch (interaction.getType()) {
             case TEXT:
                 return new TextMessage(interaction);
-            case CALL:
-                return new SipCall(interaction);
             case CONTACT:
                 return new ContactEvent(interaction);
             case DATA_TRANSFER:
@@ -352,9 +326,6 @@ public class Conversation extends ConversationHistory {
         if (interaction.getType() == InteractionType.TEXT) {
             TextMessage msg = new TextMessage(interaction);
             addTextMessage(msg);
-        } else if (interaction.getType() == InteractionType.CALL) {
-            SipCall call = new SipCall(interaction);
-            addCall(call);
         } else if (interaction.getType() == InteractionType.CONTACT) {
             ContactEvent event = new ContactEvent(interaction);
             addContactEvent(event);

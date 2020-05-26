@@ -3,7 +3,6 @@
 
     <!-- RingActivity -->
     <string name="error_no_network">No network connectivity</string>
-    <string name="error_mobile_network_available_but_disabled">Please grant access to cellular network in the settings screen.</string>
 
     <!-- AB menus -->
     <string name="ab_action_chat">Text messaging</string>
@@ -28,25 +27,11 @@
     <string name="choose_number">Choose a number</string>
 
     <!-- Notifications -->
-    <string name="notif_missed_incoming_call">Missed incoming call</string>
-    <string name="notif_missed_outgoing_call">Missed outgoing call</string>
-    <string name="notif_incoming_call_title">Incoming call from %1$s</string>
-    <string name="notif_incoming_call">Incoming call</string>
-    <string name="notif_outgoing_call_title">Outgoing call to %1$s</string>
-    <string name="notif_outgoing_call">Outgoing call</string>
-    <string name="notif_current_call_title">Ongoing call with %1$s</string>
-    <string name="notif_current_call">Ongoing call</string>
-    <string name="notif_channel_call_in_progress">Call in Progress</string>
-    <string name="notif_channel_calls">Calls</string>
-    <string name="notif_channel_missed_calls">Missed calls</string>
-    <string name="notif_channel_incoming_calls">Incoming calls</string>
     <string name="notif_channel_messages">Messages</string>
     <string name="notif_channel_requests">Requests</string>
     <string name="notif_channel_file_transfer">File transfer</string>
     <string name="notif_channel_sync">Data sync</string>
     <string name="notif_channel_background_service">Background service</string>
-    <string name="notif_channel_background_service_descr">Allows receiving calls and messages anytime.</string>
-    <string name="notif_group_calls">Calls</string>
     <string name="notif_background_service">Jami is currently running in background</string>
     <string name="notif_mark_as_read">Mark as read</string>
     <string name="notif_dismiss">Dismiss</string>
@@ -62,31 +47,13 @@
     <string name="notif_location_action_stop">"Stop sharing location"</string>
     <string name="location_share_action_start">"Start sharing"</string>
     <string name="location_share_action_stop">"Stop sharing"</string>
-
-    <!-- Call Fragment -->
-    <string name="you_txt_prefix">You:</string>
-    <string name="action_call_hangup">Hang up</string>
-    <string name="ongoing_call">Ongoing call</string>
-    <string name="hist_in_call">Incoming call of %1$s</string>
-    <string name="hist_out_call">Outgoing call of %1$s</string>
-    <string name="start_error_title">Can\'t start Jami !</string>
-    <string name="start_error_mic_required">Jami requires the microphone permission to work.</string>
-    <string name="action_call_accept">Take call</string>
-    <string name="action_call_decline">Decline</string>
-    <string name="action_call_mic_mute">Mute microphone</string>
-    <string name="ab_action_speakerphone">Enable speaker</string>
+    <string name="scan_qr">Scan QR Code</string>
+    <string name="write_a_message">Write a message</string>
     <string name="ab_action_contact_add">Add to contacts</string>
-    <string name="ab_action_contact_add_question">Add to contacts?</string>
+    <string name="you_txt_prefix">You:</string>
     <string name="hist_contact_added">Contact added</string>
     <string name="hist_invitation_received">Invitation received</string>
-    <string name="ab_action_audio_call">Audio call</string>
-    <string name="ab_action_video_call">Video call</string>
-    <string name="ab_action_change_screen_orientation">Change screen orientation</string>
     <string name="share_via">Share via</string>
-    <string name="write_a_message">Write a message</string>
-    <string name="scan_qr">Scan QR Code</string>
-    <string name="ab_action_flipcamera">Flip camera</string>
-    <string name="ab_action_hidepreview">Hide preview</string>
 
     <!-- Text messages -->
     <string name="send_message">Send message</string>
@@ -134,7 +101,7 @@
     <string name="conversation_action_copied_peer_number_clipboard">%1$s copied to clipboard</string>
     <string name="conversation_action_select_peer_number">Select a number</string>
     <string name="conversation_action_block_this">Block contact</string>
-    <string name="conversation_action_go_to_call">Return to ongoing call</string>
+
     <string name="conversation_default_emoji" translatable="false">👍</string>
     <string name="conversation_open_file_error">There is no installed application capable of opening this file type.</string>
     <string name="clip_contact_uri">Contact address</string>
@@ -144,7 +111,6 @@
     <string name="conversation_contact_is_typing">Contact is typing…</string>
 
     <!-- Contacts -->
-    <string name="add_call_contact_number_to_contacts">Add %1$s?</string>
     <string name="prompt_new_password">New password</string>
     <string name="prompt_new_password_optional">New password (optional)</string>
     <string name="prompt_new_password_repeat">Repeat new password</string>

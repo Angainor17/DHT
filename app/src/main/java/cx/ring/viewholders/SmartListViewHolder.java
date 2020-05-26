@@ -17,7 +17,6 @@ import cx.ring.databinding.ItemSmartlistBinding;
 import cx.ring.model.CallContact;
 import cx.ring.model.ContactEvent;
 import cx.ring.model.Interaction;
-import cx.ring.model.SipCall;
 import cx.ring.smartlist.SmartListViewModel;
 import cx.ring.views.AvatarDrawable;
 import io.reactivex.disposables.CompositeDisposable;
@@ -49,12 +48,12 @@ public class SmartListViewHolder extends RecyclerView.ViewHolder {
                 "" : DateUtils.getRelativeTimeSpanString(lastInteraction, System.currentTimeMillis(), 0L, DateUtils.FORMAT_ABBREV_ALL).toString();
 
         binding.convLastTime.setText(lastInteractionStr);
-        if (smartListViewModel.hasOngoingCall()) {
-            binding.convLastItem.setText(itemView.getContext().getString(R.string.ongoing_call));
-        } else if (smartListViewModel.getLastEvent() != null) {
-            binding.convLastItem.setText(getLastEventSummary(smartListViewModel.getLastEvent(), itemView.getContext()));
-        } else {
-            binding.convLastItem.setVisibility(View.GONE);
+        if (!smartListViewModel.hasOngoingCall()) {
+            if (smartListViewModel.getLastEvent() != null) {
+                binding.convLastItem.setText(getLastEventSummary(smartListViewModel.getLastEvent(), itemView.getContext()));
+            } else {
+                binding.convLastItem.setVisibility(View.GONE);
+            }
         }
 
         if (smartListViewModel.hasUnreadTextMessage()) {
@@ -85,16 +84,6 @@ public class SmartListViewHolder extends RecyclerView.ViewHolder {
             } else {
                 return context.getText(R.string.you_txt_prefix) + " " + e.getBody();
             }
-        } else if (e.getType() == (Interaction.InteractionType.CALL)) {
-            SipCall call = (SipCall) e;
-            if (call.isMissed())
-                return call.isIncoming() ?
-                        context.getString(R.string.notif_missed_incoming_call) :
-                        context.getString(R.string.notif_missed_outgoing_call);
-            else
-                return call.isIncoming() ?
-                        String.format(context.getString(R.string.hist_in_call), call.getDurationString()) :
-                        String.format(context.getString(R.string.hist_out_call), call.getDurationString());
         } else if (e.getType() == (Interaction.InteractionType.CONTACT)) {
             ContactEvent contactEvent = (ContactEvent) e;
             if (contactEvent.event == ContactEvent.Event.ADDED) {
