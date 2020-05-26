@@ -1,22 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <!--About-->
-  <string name="feedback_section">Обратная связь</string>
-  <string name="report">Отправьте нам email</string>
-  <string name="section_license">Лицензия</string>
-  <string name="sponsor_section">Jami это бесплатное программное обеспечение, разработанное и поддерживаемое </string>
-  <string name="copyright_section">Авторские права</string>
-  <string name="contribute_section">Помочь проекту</string>
-  <string name="version_section">Версия</string>
-  <string name="no_email_app_installed">Не найдено приложение электронной почты. Пожалуйста, установите его для отправки нам отчета.</string>
-  <string name="no_browser_app_installed">Приложение для веб-браузера не найдено, установите его для просмотра этой страницы</string>
-  <string name="email_chooser_title">Отправить почту, используя…</string>
-  <string name="website_chooser_title">Просмотр веб-сайта с помощью…</string>
 
-  <!--About dialog-->
-  <string name="developed_by">Разработчики</string>
-  <string name="designed_by">Дизайнер </string>
-  <string name="ringtones_by">Рингтоны от </string>
   <!--RingActivity-->
   <string name="error_no_network">Отсутствует сетевое подключение</string>
   <string name="error_mobile_network_available_but_disabled">Пожалуйста, разрешите доступ к мобильной сети в настройках</string>

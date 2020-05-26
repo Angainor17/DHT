@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- About -->
-    <string name="app_name" translatable="false">DHT</string>
-
-    <string name="copyright" translatable="false">2004&#8211;2019 Savoir-faire Linux Inc.</string>
-    <string name="feedback_section">Feedback</string>
-    <string name="report"><u>Send us an email</u></string>
-    <string name="section_license">License</string>
-    <string name="sponsor_section">Jami is a free software developed and supported by</string>
-    <string name="copyright_section">Copyright</string>
-    <string name="contribute_section">Contribute</string>
-    <string name="version_section">Version</string>
-    <string name="no_email_app_installed">No email app found, install one to send us a report</string>
-    <string name="no_browser_app_installed">No web browser app found, install one to view this page</string>
-    <string name="email_chooser_title">Send mail using…</string>
-    <string name="website_chooser_title">View website using…</string>
-    <string name="license">This software is provided \"as is\", without warranty of any kind. For details, see <u>GNU General Public License version 3 or later</u></string>
-    <string name="description">Jami is free software for universal communication which respects the freedoms and privacy of its users.</string>
-    <string name="credits">Credits</string>
-
-    <!-- About dialog -->
-    <string name="developed_by">Developed by</string>
-    <string name="designed_by">Designed by</string>
-    <string name="ringtones_by">Ringtones by</string>
-    <string name="credits_developer" translatable="false">Adrien Béraud\nAlexandr Sergheev\nAlexandre Lision\nAlexandre Viau\nAline Bonnet\nAmirHossein Naghshzan\nAndreas Traczyk\nAnthony Léonard\nCyrille Béraud\nEdric Milaret\nÉloi Bail\nEmmanuel Lepage-Vallée\nFrédéric Guimont\nGuillaume Roguez\nHadrien De Sousa\nJulien Grossholtz\nKateryna Kostiuk\nLoïc Siret\nMarianne Forget\nMichel Schmit\nNicolas Jäger\nNicolas Reynaud\nOlivier Gregoire\nOlivier Soldano\nPatrick Keroulas\nPierre Duchemin\nPhilippe Gorley\nRomain Bertozzi\nSaher Azer\nSébastien Blin\nSeva Ivanov\nSilbino Gonçalves Matado\nSimon Désaulniers\nStepan Salenikovich\nSimon Zeni\nThibault Wittemberg</string>
-    <string name="credits_ringtones" translatable="false">Loïc Bogino</string>
-
     <!-- RingActivity -->
     <string name="error_no_network">No network connectivity</string>
     <string name="error_mobile_network_available_but_disabled">Please grant access to cellular network in the settings screen.</string>
