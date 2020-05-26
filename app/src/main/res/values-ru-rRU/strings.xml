@@ -104,7 +104,6 @@
   <string name="help_password_choose">Выберите надежный пароль, который вы запомните, чтобы защитить свою учетную запись Jami.</string>
   <string name="help_password_enter">Введите ваш основной пароль учётной записи Jami </string>
   <string name="help_server_enter">Введите URL-адрес управляющего сервера</string>
-  <string name="help_pin_enter">Введите PIN-код из другой учетной записи Jami. Используйте функцию \"экспорт учетной записи Jami\" для получения PIN-кода.</string>
   <string name="wizard_next">Далее</string>
   <string name="wizard_back">Назад</string>
   <string name="wizard_skip">Пропустить</string>

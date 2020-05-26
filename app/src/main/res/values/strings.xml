@@ -119,7 +119,6 @@
     <string name="help_password_choose">Choose a strong password you will remember to protect your Jami account.</string>
     <string name="help_password_enter">Enter your main Jami account password</string>
     <string name="help_server_enter">Enter URL of management server</string>
-    <string name="help_pin_enter">Enter the PIN from another configured Jami account. Use the \"export Jami account\" feature to obtain a PIN.</string>
     <string name="wizard_next">Next</string>
     <string name="wizard_back">Back</string>
     <string name="wizard_skip">Skip</string>
