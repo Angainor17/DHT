@@ -103,7 +103,8 @@ public class ToolbarSpinnerAdapter extends ArrayAdapter<Account> {
         if (type == TYPE_ACCOUNT) {
             Account account = getItem(position);
 
-            holder.title.setText(getAccountAlias(account));
+            holder.title.setText(getUri(account, mContext.getString(R.string.account_type_ip2ip)));
+//            holder.title.setText(getAccountAlias(account));
         }
 
         return rowView;
@@ -131,7 +132,7 @@ public class ToolbarSpinnerAdapter extends ArrayAdapter<Account> {
         if (type == TYPE_ACCOUNT) {
             Account account = getItem(position);
 
-            holder.title.setText(getAccountAlias(account));
+            holder.title.setText("My account");
             holder.subTitle.setText(getUri(account, mContext.getString(R.string.account_type_ip2ip)));
 
             mDisposable.add(AvatarDrawable.load(mContext, account)

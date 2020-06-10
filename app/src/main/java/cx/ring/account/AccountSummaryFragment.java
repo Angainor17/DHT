@@ -162,8 +162,7 @@ public class AccountSummaryFragment extends BaseSupportFragment<AppAccountSummar
                 .map(avatar -> new Pair<>(account, avatar))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(d -> {
-                    binding.username.setText(getAccountAlias(d.first));
-                    binding.subtitle.setText(getUri(d.first, getString(R.string.account_type_ip2ip)));
+                    binding.username.setText(getUri(d.first, getString(R.string.account_type_ip2ip)));
                     binding.userPhoto.setImageDrawable(d.second);
                 }, e -> Log.e(TAG, "Error loading avatar", e)));
     }
