@@ -236,7 +236,7 @@ public class AccountSummaryFragment extends BaseSupportFragment<AppAccountSummar
 
         binding.accountSwitch.setChecked(account.isEnabled());
         binding.accountAliasTxt.setText(getString(R.string.profile));
-        binding.accountIdTxt.setText(account.getUsername());
+        binding.accountIdTxt.setText(account.getUsername().replace("ring", "OpenDHT"));
         mAccountId = account.getAccountID();
         mBestName = account.getRegisteredName();
         if (mBestName.isEmpty()) {
