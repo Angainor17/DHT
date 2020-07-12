@@ -116,8 +116,8 @@
     <string name="prompt_new_password_repeat">Repeat new password</string>
 
     <string name="prompt_new_username">Enter new username</string>
-    <string name="help_password_choose">Choose a strong password you will remember to protect your Jami account.</string>
-    <string name="help_password_enter">Enter your main Jami account password</string>
+    <string name="help_password_choose">Choose a strong password you will remember to protect your account.</string>
+    <string name="help_password_enter">Enter your main account password</string>
     <string name="help_server_enter">Enter URL of management server</string>
     <string name="wizard_next">Next</string>
     <string name="wizard_back">Back</string>
